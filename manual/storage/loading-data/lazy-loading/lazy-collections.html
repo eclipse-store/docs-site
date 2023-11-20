@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Storage Files and Directories :: EclipseStore Reference Manual</title>
-    <link rel="canonical" href="https://docs.eclipsestore.io/manual/storage/configuration/storage-files-and-directories.html">
-    <link rel="prev" href="properties.html">
-    <link rel="next" href="using-channels.html">
+    <title>Lazy collections :: EclipseStore Reference Manual</title>
+    <link rel="canonical" href="https://docs.eclipsestore.io/manual/storage/loading-data/lazy-loading/lazy-collections.html">
+    <link rel="prev" href="index.html">
+    <link rel="next" href="touched-timestamp-null-safe-variant.html">
     <meta name="generator" content="Antora 3.1.4">
-    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../../_/css/site.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-16x16.png">
-  <link rel="stylesheet" href="../../../_/css/site-extra.css">
+  <link rel="stylesheet" href="../../../../_/css/site-extra.css">
   </head>
   <body class="article">
 <header class="header">
@@ -192,87 +192,87 @@
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
     <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all"></button>
-    <h3 class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></h3>
+    <h3 class="title"><a href="../../../intro/welcome.html">EclipseStore Reference Manual</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../intro/welcome.html">Welcome</a>
+    <a class="nav-link" href="../../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
+    <a class="nav-link" href="../../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../intro/changelog.html">Changelog</a>
+    <a class="nav-link" href="../../../intro/changelog.html">Changelog</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../intro/installation.html">Installation</a>
+    <a class="nav-link" href="../../../intro/installation.html">Installation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../index.html">Storage</a>
+    <a class="nav-link" href="../../index.html">Storage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../getting-started.html">Getting Started</a>
+    <a class="nav-link" href="../../getting-started.html">Getting Started</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../root-instances.html">Root Instances</a>
+    <a class="nav-link" href="../../root-instances.html">Root Instances</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Configuration</a>
+    <a class="nav-link" href="../../configuration/index.html">Configuration</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="properties.html">Properties</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="storage-files-and-directories.html">Storage Files and Directories</a>
+    <a class="nav-link" href="../../configuration/properties.html">Properties</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="using-channels.html">Using Channels</a>
+    <a class="nav-link" href="../../configuration/storage-files-and-directories.html">Storage Files and Directories</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="housekeeping.html">Houskeeping</a>
+    <a class="nav-link" href="../../configuration/using-channels.html">Using Channels</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../configuration/housekeeping.html">Houskeeping</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Backup</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="backup/continuous-backup.html">Continous Backup</a>
+    <a class="nav-link" href="../../configuration/backup/continuous-backup.html">Continous Backup</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="backup/full-backup.html">Full Backup</a>
+    <a class="nav-link" href="../../configuration/backup/full-backup.html">Full Backup</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="lock-file.html">Lock File</a>
+    <a class="nav-link" href="../../configuration/lock-file.html">Lock File</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../storage-targets/index.html">Storage Targets</a>
+    <a class="nav-link" href="../../storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../../storage-targets/local-file-system.html">Local File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">SQL Databases</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/sql-databases/mariadb.html">MariaDB</a>
+    <a class="nav-link" href="../../storage-targets/sql-databases/mariadb.html">MariaDB</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/sql-databases/oracle.html">Oracle</a>
+    <a class="nav-link" href="../../storage-targets/sql-databases/oracle.html">Oracle</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/sql-databases/postgresql.html">Postgres</a>
+    <a class="nav-link" href="../../storage-targets/sql-databases/postgresql.html">Postgres</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/sql-databases/sqlite.html">Sqlite</a>
+    <a class="nav-link" href="../../storage-targets/sql-databases/sqlite.html">Sqlite</a>
   </li>
 </ul>
   </li>
@@ -285,27 +285,27 @@
     <span class="nav-text">AWS</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="../storage-targets/blob-stores/aws-dynamodb.html">DynamoDB</a>
+    <a class="nav-link" href="../../storage-targets/blob-stores/aws-dynamodb.html">DynamoDB</a>
   </li>
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="../storage-targets/blob-stores/aws-s3.html">S3</a>
+    <a class="nav-link" href="../../storage-targets/blob-stores/aws-s3.html">S3</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/blob-stores/azure-storage.html">Azure Storage</a>
+    <a class="nav-link" href="../../storage-targets/blob-stores/azure-storage.html">Azure Storage</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/blob-stores/google-cloud-firestore.html">Google Cloud Firestore</a>
+    <a class="nav-link" href="../../storage-targets/blob-stores/google-cloud-firestore.html">Google Cloud Firestore</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/blob-stores/kafka.html">Kafka</a>
+    <a class="nav-link" href="../../storage-targets/blob-stores/kafka.html">Kafka</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/blob-stores/oracle-cloud-object-storage.html">Oracle Cloud Object Storage</a>
+    <a class="nav-link" href="../../storage-targets/blob-stores/oracle-cloud-object-storage.html">Oracle Cloud Object Storage</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/blob-stores/redis.html">Redis</a>
+    <a class="nav-link" href="../../storage-targets/blob-stores/redis.html">Redis</a>
   </li>
 </ul>
   </li>
@@ -313,100 +313,100 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../storing-data/index.html">Storing Data</a>
+    <a class="nav-link" href="../../storing-data/index.html">Storing Data</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/transactions.html">Convenience Methods and Explicit Storing (Transactions)</a>
+    <a class="nav-link" href="../../storing-data/transactions.html">Convenience Methods and Explicit Storing (Transactions)</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/lazy-eager-full.html">Lazy and Eager Storing</a>
+    <a class="nav-link" href="../../storing-data/lazy-eager-full.html">Lazy and Eager Storing</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/transient-fields.html">Transient Fields</a>
+    <a class="nav-link" href="../../storing-data/transient-fields.html">Transient Fields</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/best-practice.html">Best Practice</a>
+    <a class="nav-link" href="../../storing-data/best-practice.html">Best Practice</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/deep-copy.html">Deep Copy Utility</a>
+    <a class="nav-link" href="../../storing-data/deep-copy.html">Deep Copy Utility</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../loading-data/index.html">Loading Data</a>
+    <a class="nav-link" href="../index.html">Loading Data</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../loading-data/lazy-loading/index.html">Lazy Loading</a>
+    <a class="nav-link" href="index.html">Lazy Loading</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="lazy-collections.html">Lazy Collections</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../loading-data/lazy-loading/lazy-collections.html">Lazy Collections</a>
+    <a class="nav-link" href="touched-timestamp-null-safe-variant.html">Touched Timestamp, Null-Safe Variant</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../loading-data/lazy-loading/touched-timestamp-null-safe-variant.html">Touched Timestamp, Null-Safe Variant</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../loading-data/lazy-loading/clearing-lazy-references.html">Clearing Lazy References</a>
+    <a class="nav-link" href="clearing-lazy-references.html">Clearing Lazy References</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../deleting-data.html">Deleting Data</a>
+    <a class="nav-link" href="../../deleting-data.html">Deleting Data</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../queries.html">Queries</a>
+    <a class="nav-link" href="../../queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../application-life-cycle.html">Application Life-Cycle</a>
+    <a class="nav-link" href="../../application-life-cycle.html">Application Life-Cycle</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../legacy-type-mapping/index.html">Legacy Type Mapping</a>
+    <a class="nav-link" href="../../legacy-type-mapping/index.html">Legacy Type Mapping</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../legacy-type-mapping/user-interaction.html">User Interaction</a>
+    <a class="nav-link" href="../../legacy-type-mapping/user-interaction.html">User Interaction</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../import-export.html">Import / Export</a>
+    <a class="nav-link" href="../../import-export.html">Import / Export</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../housekeeping.html">Housekeeping</a>
+    <a class="nav-link" href="../../housekeeping.html">Housekeeping</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Customizing</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../customizing/custom-type-handler.html">Custom Type Handler</a>
+    <a class="nav-link" href="../../customizing/custom-type-handler.html">Custom Type Handler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../customizing/custom-legacy-type-handler.html">Custom Legacy Type Handler</a>
+    <a class="nav-link" href="../../customizing/custom-legacy-type-handler.html">Custom Legacy Type Handler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../customizing/custom-class-loader.html">Custom Class Loader</a>
+    <a class="nav-link" href="../../customizing/custom-class-loader.html">Custom Class Loader</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../customizing/custom-storing-behavior.html">Custom Storing Behavior</a>
+    <a class="nav-link" href="../../customizing/custom-storing-behavior.html">Custom Storing Behavior</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../customizing/optional-storage-manager-reference-in-entities.html">Optional Storage Manager Reference in Entities</a>
+    <a class="nav-link" href="../../customizing/optional-storage-manager-reference-in-entities.html">Optional Storage Manager Reference in Entities</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../rest-interface/index.html">REST Interface</a>
+    <a class="nav-link" href="../../rest-interface/index.html">REST Interface</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rest-interface/setup.html">Setup</a>
+    <a class="nav-link" href="../../rest-interface/setup.html">Setup</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rest-interface/rest-api.html">REST API</a>
+    <a class="nav-link" href="../../rest-interface/rest-api.html">REST API</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rest-interface/client-gui.html">Client GUI</a>
+    <a class="nav-link" href="../../rest-interface/client-gui.html">Client GUI</a>
   </li>
 </ul>
   </li>
@@ -415,19 +415,19 @@
     <span class="nav-text">FAQ</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../faq/data-model.html">Data Model</a>
+    <a class="nav-link" href="../../faq/data-model.html">Data Model</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../faq/data-management.html">Data Management</a>
+    <a class="nav-link" href="../../faq/data-management.html">Data Management</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../faq/file-storage.html">File Storage</a>
+    <a class="nav-link" href="../../faq/file-storage.html">File Storage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../faq/java-features.html">Java Features</a>
+    <a class="nav-link" href="../../faq/java-features.html">Java Features</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../faq/miscellaneous.html">Miscellaneous</a>
+    <a class="nav-link" href="../../faq/miscellaneous.html">Miscellaneous</a>
   </li>
 </ul>
   </li>
@@ -436,27 +436,27 @@
     <span class="nav-text">Addendum</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../addendum/supported-java-features.html">Supported Java Features</a>
+    <a class="nav-link" href="../../addendum/supported-java-features.html">Supported Java Features</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
+    <a class="nav-link" href="../../addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../addendum/examples-and-demo-projects.html">Examples and Demo Projects</a>
+    <a class="nav-link" href="../../addendum/examples-and-demo-projects.html">Examples and Demo Projects</a>
   </li>
 </ul>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../serializer/index.html">Serializer</a>
+    <a class="nav-link" href="../../../serializer/index.html">Serializer</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Miscellaneous</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../misc/logging/index.html">Logging</a>
+    <a class="nav-link" href="../../../misc/logging/index.html">Logging</a>
   </li>
 </ul>
   </li>
@@ -472,10 +472,10 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <a class="title" href="../../intro/welcome.html">EclipseStore Reference Manual</a>
+      <a class="title" href="../../../intro/welcome.html">EclipseStore Reference Manual</a>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../../intro/welcome.html">1.0</a>
+          <a href="../../../intro/welcome.html">1.0</a>
         </li>
       </ul>
     </li>
@@ -489,102 +489,93 @@
 <button class="nav-toggle"></button>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></li>
-    <li><a href="../index.html">Storage</a></li>
-    <li><a href="index.html">Configuration</a></li>
-    <li><a href="storage-files-and-directories.html">Storage Files and Directories</a></li>
+    <li><a href="../../../intro/welcome.html">EclipseStore Reference Manual</a></li>
+    <li><a href="../../index.html">Storage</a></li>
+    <li><a href="../index.html">Loading Data</a></li>
+    <li><a href="lazy-collections.html">Lazy Collections</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/release/1x/docs/modules/storage/pages/configuration/storage-files-and-directories.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/release/1x/docs/modules/storage/pages/loading-data/lazy-loading/lazy-collections.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Storage Files and Directories</h1>
+<h1 class="page">Lazy collections</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>Using a Storage Live File Provider (<code>org.eclipse.store.storage.types.StorageLiveFileProvider</code>) allows to specify the location and naming rules for all storage related files.</p>
+<p>New functionality since MicroStream v8.0</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="background"><a class="anchor" href="#background"></a>Background</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A List, Map, or Set is a single entity within MicroStream. So this means that all data are loaded at once into memory.  This can be an issue if you have a very large collection, like a list with several millions of <em>Customer</em>s.</p>
 </div>
 <div class="paragraph">
-<p>Available properties are:</p>
+<p>That is why we recommend splitting up large lists using an indexing strategy like a <code>HashMap</code> that contains a <code>Lazy</code> list of data as <em>value</em>.  Or when more advanced functionality is required, you can make use of an Apache Lucene index that efficiently determines which data needs to be loaded.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">storage-directory</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The EclipseStore storages location base directory. Contains channel directories and type dictionary file.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">deletion-directory</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If configured, the storage will not delete files. Instead of deleting a file it will be moved to this directory.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">truncation-directory</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If configured, files that will get truncated are copied into this directory.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">channel-directory-prefix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Channel directory prefix string</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">storage-file-prefix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Storage file prefix string</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">storage-file-suffix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">storage file extension</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transactions-file-prefix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transactions file prefix</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transactions-file-suffix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transaction file extension</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">type-dictionary-file-name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">filename of the type dictionary</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>The Lazy collections that are added to the library can help you to maintain a larger block of data in a more memory-efficient way. The implementation might need to load and unload data (when there is not enough memory) so access time to the data might be slightly increased.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="config"><a class="anchor" href="#config"></a>Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>No additional configuration is required to make use of these Lazy Collections. The Binary Handlers to correctly write and read the Lazy Collections to and from the data storage are already configured by default.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use"><a class="anchor" href="#use"></a>Using</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you need to instantiate an instance, you can just call the default constructor. The instance you receive implements the standard Java collection interface that you expect based on the name of the class.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">StorageFileNameProvider fileNameProvider = StorageFileNameProvider.Builder()
-	.setChannelDirectoryPrefix("canal_")
-	.setDataFilePrefix        ("canal_")
-	.setDataFileSuffix        (".bin")
-	.setTransactionsFilePrefix("events_")
-	.setTransactionsFileSuffix(".bin")
-	.setTypeDictionaryFileName("typeDictionary.txt")
-	.createFileNameProvider   ()
-;
-
-NioFileSystem           fileSystem   = NioFileSystem.New();
-StorageLiveFileProvider fileProvider = Storage
-	.FileProviderBuilder   (fileSystem)
-	.setDirectory          (fileSystem.ensureDirectoryPath(WORKINGDIR))
-	.setDeletionDirectory  (fileSystem.ensureDirectoryPath(DELETIONDIR))
-	.setTruncationDirectory(fileSystem.ensureDirectoryPath(TRUNCATIONDIR))
-	.setFileNameProvider   (fileNameProvider)
-	.createFileProvider    ()
-;</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">    new LazyArrayList();
+    new LazyHashSet();
+    new LazyHashMap();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The default constructor takes a value of 1000 items in each segment. This is not a hard limit since various factors, like the hash collision with a Map, can result in the fact that more elements are maintained in a segment.</p>
+</div>
+<div class="paragraph">
+<p>You can specify the number of items that should be maintained by specifying this value as a constructor parameter. Note that small values, like smaller than 100, or large values like 1_000_000 and more might negatively impact the performance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_internals"><a class="anchor" href="#_internals"></a>Internals</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As mentioned, the implementation stores the data in different <em>segments</em> which are lazily operated.  Initially, at the startup of the <em>StorageManager</em>, the data is not yet loaded into memory and your object graph.</p>
+</div>
+<div class="paragraph">
+<p>When accessing the values, it loads the required <em>segments</em> to fulfill your request.  Depending on how you access the data, it might be that all segments need to be loaded. Since they behave like Lazy objects, they can be unloaded by the Garbage collector if needed when the memory consumption of your Java application is high.</p>
+</div>
+<div class="paragraph">
+<p>Some aspects of the implementations</p>
+</div>
+<div class="paragraph">
+<p>The <em>size</em> property is cached, so calling for the amount of data in the collection doesn&#8217;t need to load the segments.</p>
+</div>
+<div class="paragraph">
+<p>Accessing the <code>LazyHashMap</code> by a key value will load at maximum log2(n) segments when the implementation uses n segments since the search is implemented as btree.</p>
+</div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="properties.html">Properties</a></span>
-  <span class="next"><a href="using-channels.html">Using Channels</a></span>
+  <span class="prev"><a href="index.html">Lazy Loading</a></span>
+  <span class="next"><a href="touched-timestamp-null-safe-variant.html">Touched Timestamp, Null-Safe Variant</a></span>
 </nav>
 </article>
   </div>
@@ -593,10 +584,10 @@ StorageLiveFileProvider fileProvider = Storage
 <footer class="footer">
 © 2023 Eclipse Foundation. All rights reserved.
 </footer>
-<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
-<script async src="../../../_/js/vendor/highlight.js"></script>
-<script src="../../../_/js/vendor/lunr.js"></script>
-<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
+<script async src="../../../../_/js/vendor/highlight.js"></script>
+<script src="../../../../_/js/vendor/lunr.js"></script>
+<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
+<script async src="../../../../search-index.js"></script>
   </body>
 </html>
