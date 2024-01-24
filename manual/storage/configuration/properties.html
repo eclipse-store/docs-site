@@ -191,7 +191,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all"></button>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -233,6 +233,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="housekeeping.html">Houskeeping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="readonly.html">Read-only Manager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -453,10 +456,100 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../cache/index.html">Cache</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cache/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../cache/configuration/index.html">Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../cache/configuration/properties.html">Properties</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../cache/configuration/storage.html">Storage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Use Cases</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../cache/use-cases/hibernate-second-level-cache.html">Hibernate Second Level Cache</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../cache/use-cases/spring-cache.html">Spring Cache</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../communication/index.html">Communication</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Miscellaneous</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../misc/logging/index.html">Logging</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../misc/monitoring/index.html">Monitoring</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../misc/integrations/index.html">Integrations</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/integrations/spring-boot.html">Spring-Boot</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/integrations/micronaut.html">Micronaut</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../misc/layered-entities/index.html">Layered Entities</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/defining-entities.html">Defining Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/creating-entities.html">Creating Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/updating-entities.html">Updating Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/versioning.html">Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/logging.html">Logging</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/multiple-layers.html">Multiple Layers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../misc/wrapping/index.html">Wrapping</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/wrapping/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/wrapping/usage.html">Usage</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -468,14 +561,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">1.0</span>
+    <span class="version">V1</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <a class="title" href="../../intro/welcome.html">EclipseStore Reference Manual</a>
+      <div class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../../intro/welcome.html">1.0</a>
+          <a href="../../intro/welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -512,110 +605,222 @@ They can be found as constants in <code>EmbeddedStorageConfigurationPropertyName
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
+<col style="width: 28.5714%;">
+<col style="width: 57.1428%;">
+<col style="width: 14.2858%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Property</th>
 <th class="tableblock halign-left valign-top">Short Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">storage-directory</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The base directory of the storage in the file system. Default is <code>"storage"</code> in the working directory.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">storage-filesystem</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The live file system configuration. See <a href="../storage-targets/index.html" class="xref page">storage targets</a> configuration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-complex">Complex</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">deletion-directory</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If configured, the storage will not delete files. Instead of deleting a file it will be moved to this directory.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">truncation-directory</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If configured, files that will get truncated are copied into this directory.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">backup-directory</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The backup directory.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">backup-filesystem</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The backup file system configuration. See storage targets configuration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The backup file system configuration. See <a href="../storage-targets/index.html" class="xref page">storage targets</a> configuration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-complex">Complex</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#channel-count">channel-count</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The number of threads and number of directories used by the storage engine. Every thread has exclusive access to its directory. Default is <code>1</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-integer">Integer</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">channel-directory-prefix</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Name prefix of the subdirectories used by the channel threads. Default is <code>"channel_"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">data-file-prefix</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Name prefix of the storage files. Default is <code>"channel_"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">data-file-suffix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name suffix of the storage files. Default is <code>".dat"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name suffix of the storage files. Default is <code>"dat"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">transaction-file-prefix</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Name prefix of the storage transaction file. Default is <code>"transactions_"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">transaction-file-suffix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name suffix of the storage transaction file. Default is <code>".sft"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name suffix of the storage transaction file. Default is <code>"sft"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">type-dictionary-file-name</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The name of the dictionary file. Default is <code>"PersistenceTypeDictionary.ptd"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">rescued-file-suffix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name suffix of the storage rescue files. Default is <code>".bak"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name suffix of the storage rescue files. Default is <code>"bak"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">lock-file-name</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Name of the lock file. Default is <code>"used.lock"</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-string">String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#housekeeping-interval">housekeeping-interval</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Interval for the housekeeping. This is work like garbage collection or cache checking. In combination with houseKeepingNanoTimeBudget the maximum processor time for housekeeping work can be set. Default is 1 second.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-duration">Duration</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#housekeeping-time-budget">housekeeping-time-budget</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number of nanoseconds used for each housekeeping cycle. Default is 10 milliseconds = 0.01 seconds.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-duration">Duration</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">housekeeping-adaptive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usage of an adaptive housekeeping controller, which will increase the time budgets on demand, if the garbage collector needs more time to reach the sweeping phase.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-boolean">Boolean</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">housekeeping-increase-threshold</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The threshold of the adaption cycle to calculate new budgets for the housekeeping process. Default is 5 seconds.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-duration">Duration</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">housekeeping-increase-amount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The amount the housekeeping budgets will be increased each cycle. Default is 50 ms.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-duration">Duration</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">housekeeping-maximum-time-budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The upper limit of the housekeeping time budgets. Default is 0.5 seconds.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-duration">Duration</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">entity-cache-threshold</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Abstract threshold value for the lifetime of entities in the cache. Default is <code>1000000000</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-long">Long</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">entity-cache-timeout</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Timeout in milliseconds for the entity cache evaluator. If an entity wasn&#8217;t accessed in this timespan it will be removed from the cache. Default is 1 day.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-duration">Duration</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#data-file-minimum-size">data-file-minimum-size</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Minimum file size for a data file to avoid cleaning it up. Default is 1024^2 = 1 MiB.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-bytes">Bytes</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#data-file-maximum-size">data-file-maximum-size</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum file size for a data file to avoid cleaning it up. Default is 1024^2*8 = 8 MiB.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-bytes">Bytes</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#data-file-minimum-use-ratio">data-file-minimum-use-ratio</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The ratio (value in ]0.0;1.0]) of non-gap data contained in a storage file to prevent the file from being dissolved. Default is <code>0.75</code> (75%).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-double">Double</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">data-file-cleanup-head-file</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A flag defining whether the current head file (the only file actively written to) shall be subjected to file cleanups as well.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-boolean">Boolean</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#transaction-file-maximum-size">transaction-file-maximum-size</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum file size for each channels transactions log file. If this limit is exceeded the file wile be cleaned up during housekeeping. Default is 100 MiB. Maximum value is 1 GiB.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#type-bytes">Bytes</a></p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_property_types"><a class="anchor" href="#_property_types"></a>Property Types</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="type-complex"><a class="anchor" href="#type-complex"></a>Complex</h3>
+<div class="paragraph">
+<p>Parent property with multiple possible children.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="type-string"><a class="anchor" href="#type-string"></a>String</h3>
+<div class="paragraph">
+<p>Simple string literal.</p>
+</div>
+<div class="paragraph">
+<p>Special case for directories: Prefix <code>~</code> can be used for user home, e.g. <code>~/my-app/storage</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="type-integer"><a class="anchor" href="#type-integer"></a>Integer</h3>
+<div class="paragraph">
+<p>Signed integer, same as Java&#8217;s <code>int</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="type-long"><a class="anchor" href="#type-long"></a>Long</h3>
+<div class="paragraph">
+<p>Signed long, same as Java&#8217;s <code>long</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="type-double"><a class="anchor" href="#type-double"></a>Double</h3>
+<div class="paragraph">
+<p>Signed double, same as Java&#8217;s <code>double</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="type-boolean"><a class="anchor" href="#type-boolean"></a>Boolean</h3>
+<div class="paragraph">
+<p><code>true</code> or <code>false</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="type-duration"><a class="anchor" href="#type-duration"></a>Duration</h3>
+<div class="paragraph">
+<p>Time interval, either in ISO format <code>PnDTnHnMn.nS</code>, or simple amount and unit <code>amount[ns|ms|s|m|h|d]</code>, e.g. <code>30 M</code></p>
+</div>
+<div class="paragraph">
+<p>More details in <a href="https://github.com/eclipse-serializer/serializer/blob/main/configuration/configuration/src/main/java/org/eclipse/serializer/configuration/types/DurationParser.java">DurationParser</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="type-bytes"><a class="anchor" href="#type-bytes"></a>Bytes</h3>
+<div class="paragraph">
+<p>Amount of bytes: <code>amount[b|kb|kib|mb|mib|gb|big|tb|tib|pb|pib]</code>, e.g. <code>1.5 GB</code></p>
+</div>
+<div class="paragraph">
+<p>More details in <a href="https://github.com/eclipse-serializer/serializer/blob/main/configuration/configuration/src/main/java/org/eclipse/serializer/configuration/types/ByteSizeParser.java">ByteSizeParser</a> and <a href="https://github.com/eclipse-serializer/serializer/blob/main/configuration/configuration/src/main/java/org/eclipse/serializer/configuration/types/ByteUnit.java">ByteUnit</a>.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -679,9 +884,9 @@ If nothing has to be done, no time is wasted.</p>
 However, no matter how low the number is, one item of work will always be completed.
 But if there is nothing to clean up, no processor time will be wasted.
 Default is <code>10000000</code> (10 million nanoseconds = 10 milliseconds = 0.01 seconds).
-+ However, no matter how small the time is, one item is done at least.
+However, no matter how small the time is, one item is done at least.
 This is to avoid no-ops, if a too small time window is configured.
-+ This time budget is a "best effort" threshold, meaning when at 1ns left, a huge file has to be cleaned or the references of a huge collection have to be marked for GC, then this budget can be exceeded considerably.</p>
+This time budget is a "best effort" threshold, meaning when at 1ns left, a huge file has to be cleaned or the references of a huge collection have to be marked for GC, then this budget can be exceeded considerably.</p>
 </div>
 <div class="paragraph">
 <p>For further information see <a href="housekeeping.html" class="xref page">Housekeeping</a>.</p>
@@ -691,14 +896,14 @@ This is to avoid no-ops, if a too small time window is configured.
 <h3 id="data-file-minimum-size"><a class="anchor" href="#data-file-minimum-size"></a>data-file-minimum-size</h3>
 <div class="paragraph">
 <p>Minimum file size in bytes of a storage file to avoid merging with other files during housekeeping.
-+ Must be greater than 1, maximum is 2GB.</p>
+Must be greater than 1, maximum is 2GB.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="data-file-maximum-size"><a class="anchor" href="#data-file-maximum-size"></a>data-file-maximum-size</h3>
 <div class="paragraph">
 <p>Maximum file size in bytes of a storage file to avoid splitting in more files during housekeeping.
-+ Must be greater than 1, maximum is 2GB.</p>
+Must be greater than 1, maximum is 2GB.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -719,6 +924,22 @@ Due to internal implementation details files larger than 2GB are not supported!
 <p>The ratio (value in ]0.0;1.0]) of non-gap data contained in a storage file to prevent the file from being dissolved.
 "Gap" data is anything that is not the latest version of an entity&#8217;s data, including older versions of an entity and "comment" bytes (a sequence of bytes beginning with its length as a negative value length header).
 The closer this value is to 1.0 (100%), the less disk space is occupied by storage files, but the more file dissolving (data transfers to new files) is required and vice versa.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="transaction-file-maximum-size"><a class="anchor" href="#transaction-file-maximum-size"></a>transaction-file-maximum-size</h3>
+<div class="paragraph">
+<p>Maximum file size for each channels transactions log file. If this limit is exceeded the file wile be cleaned up during housekeeping.</p>
+</div>
+<div class="paragraph">
+<p>To shrink the file size all store, transfer, and truncation entries are combined into one single store entry
+for each storage files. FileCreation entries are kept, FileDeletion entries are kept
+if the storage data file still exists on the file system. Otherwise all entries related
+to deleted files are removed if the storage data file does no more exist.</p>
+</div>
+<div class="paragraph">
+<p>Default is 100 MB.
+Maximum value is 1 GB.</p>
 </div>
 </div>
 </div>
@@ -831,6 +1052,10 @@ The closer this value is to 1.0 (100%), the less disk space is occupied by stora
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">data-file-cleanup-head-file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>StorageDataFileEvaluator</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">transaction-file-maximum-size</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>StorageDataFileEvaluator</code></p></td>
 </tr>
 </tbody>

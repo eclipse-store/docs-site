@@ -191,7 +191,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all"></button>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="../../../intro/welcome.html">EclipseStore Reference Manual</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -233,6 +233,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../configuration/housekeeping.html">Houskeeping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../configuration/readonly.html">Read-only Manager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -453,10 +456,100 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../../cache/index.html">Cache</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cache/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../../cache/configuration/index.html">Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../cache/configuration/properties.html">Properties</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../cache/configuration/storage.html">Storage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Use Cases</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../cache/use-cases/hibernate-second-level-cache.html">Hibernate Second Level Cache</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../cache/use-cases/spring-cache.html">Spring Cache</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../communication/index.html">Communication</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Miscellaneous</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../../misc/logging/index.html">Logging</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../misc/monitoring/index.html">Monitoring</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../../misc/integrations/index.html">Integrations</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/integrations/spring-boot.html">Spring-Boot</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/integrations/micronaut.html">Micronaut</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../../misc/layered-entities/index.html">Layered Entities</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/layered-entities/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/layered-entities/defining-entities.html">Defining Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/layered-entities/creating-entities.html">Creating Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/layered-entities/updating-entities.html">Updating Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/layered-entities/versioning.html">Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/layered-entities/logging.html">Logging</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/layered-entities/multiple-layers.html">Multiple Layers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../../misc/wrapping/index.html">Wrapping</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/wrapping/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/wrapping/usage.html">Usage</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -468,14 +561,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">1.0</span>
+    <span class="version">V1</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <a class="title" href="../../../intro/welcome.html">EclipseStore Reference Manual</a>
+      <div class="title"><a href="../../../intro/welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../../../intro/welcome.html">1.0</a>
+          <a href="../../../intro/welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -503,24 +596,17 @@
 </aside>
 <article class="doc">
 <h1 class="page">Lazy collections</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>New functionality since MicroStream v8.0</p>
-</div>
-</div>
-</div>
 <div class="sect1">
 <h2 id="background"><a class="anchor" href="#background"></a>Background</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A List, Map, or Set is a single entity within MicroStream. So this means that all data are loaded at once into memory.  This can be an issue if you have a very large collection, like a list with several millions of <em>Customer</em>s.</p>
+<p>A List, Map, or Set is a single entity within $EclipseStore. So this means that all data are loaded at once into memory.  This can be an issue if you have a very large collection, like a list with several millions of <em>Customer</em>s.</p>
 </div>
 <div class="paragraph">
-<p>That is why we recommend splitting up large lists using an indexing strategy like a <code>HashMap</code> that contains a <code>Lazy</code> list of data as <em>value</em>.  Or when more advanced functionality is required, you can make use of an Apache Lucene index that efficiently determines which data needs to be loaded.</p>
+<p>That is why we recommend splitting up large lists using an indexing strategy like a <code>HashMap</code> that contains a <code>Lazy</code> list of data as <em>value</em>.  Or, when more advanced functionality is required, you can make use of an Apache Lucene index that efficiently determines which data needs to be loaded.</p>
 </div>
 <div class="paragraph">
-<p>The Lazy collections that are added to the library can help you to maintain a larger block of data in a more memory-efficient way. The implementation might need to load and unload data (when there is not enough memory) so access time to the data might be slightly increased.</p>
+<p>The Lazy collections that are added to the library can help you to maintain a larger block of data in a more memory-efficient way. The implementation might need to load and unload data (when there is not enough memory), so access time to the data might be slightly increased.</p>
 </div>
 </div>
 </div>
@@ -549,7 +635,7 @@
 <p>The default constructor takes a value of 1000 items in each segment. This is not a hard limit since various factors, like the hash collision with a Map, can result in the fact that more elements are maintained in a segment.</p>
 </div>
 <div class="paragraph">
-<p>You can specify the number of items that should be maintained by specifying this value as a constructor parameter. Note that small values, like smaller than 100, or large values like 1_000_000 and more might negatively impact the performance.</p>
+<p>You can specify the number of items that should be maintained by specifying this value as a constructor parameter. Note that small values, like smaller than 100, or large values, like 1_000_000 and more, might negatively impact the performance.</p>
 </div>
 </div>
 </div>
@@ -560,7 +646,7 @@
 <p>As mentioned, the implementation stores the data in different <em>segments</em> which are lazily operated.  Initially, at the startup of the <em>StorageManager</em>, the data is not yet loaded into memory and your object graph.</p>
 </div>
 <div class="paragraph">
-<p>When accessing the values, it loads the required <em>segments</em> to fulfill your request.  Depending on how you access the data, it might be that all segments need to be loaded. Since they behave like Lazy objects, they can be unloaded by the Garbage collector if needed when the memory consumption of your Java application is high.</p>
+<p>When accessing the values, it loads the required <em>segments</em> to fulfil your request.  Depending on how you access the data, it might be that all segments need to be loaded. Since they behave like Lazy objects, they can be unloaded by the Garbage collector if needed when the memory consumption of your Java application is high.</p>
 </div>
 <div class="paragraph">
 <p>Some aspects of the implementations</p>

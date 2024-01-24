@@ -190,7 +190,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all"></button>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="welcome.html">EclipseStore Reference Manual</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -232,6 +232,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/configuration/housekeeping.html">Houskeeping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/configuration/readonly.html">Read-only Manager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -452,10 +455,100 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../cache/index.html">Cache</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../cache/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../cache/configuration/index.html">Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../cache/configuration/properties.html">Properties</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../cache/configuration/storage.html">Storage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Use Cases</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../cache/use-cases/hibernate-second-level-cache.html">Hibernate Second Level Cache</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../cache/use-cases/spring-cache.html">Spring Cache</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../communication/index.html">Communication</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Miscellaneous</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/logging/index.html">Logging</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/monitoring/index.html">Monitoring</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../misc/integrations/index.html">Integrations</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/integrations/spring-boot.html">Spring-Boot</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/integrations/micronaut.html">Micronaut</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../misc/layered-entities/index.html">Layered Entities</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/defining-entities.html">Defining Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/creating-entities.html">Creating Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/updating-entities.html">Updating Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/versioning.html">Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/logging.html">Logging</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/multiple-layers.html">Multiple Layers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../misc/wrapping/index.html">Wrapping</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/wrapping/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/wrapping/usage.html">Usage</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -467,14 +560,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">1.0</span>
+    <span class="version">V1</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <a class="title" href="welcome.html">EclipseStore Reference Manual</a>
+      <div class="title"><a href="welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="welcome.html">1.0</a>
+          <a href="welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -504,7 +597,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Welcome to the EclipseStore Reference Manual.
-This manual includes concepts, instructions and examples to guide you on how to use EclipseStore, version 1.0.</p>
+This manual includes concepts, instructions and examples to guide you on how to use EclipseStore, version 1.1.</p>
 </div>
 <div class="paragraph">
 <p>You should be familiar with the Java programming language and you should have installed your preferred Integrated Development Environment (IDE).
@@ -513,7 +606,7 @@ But since you are here we guess you got that covered ;)</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_whats_new_in_1_0"><a class="anchor" href="#_whats_new_in_1_0"></a>What&#8217;s new in 1.0</h2>
+<h2 id="_whats_new_in_1_1"><a class="anchor" href="#_whats_new_in_1_1"></a>What&#8217;s new in 1.1</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>See <a href="changelog.html" class="xref page">Changelog</a>.</p>

@@ -191,7 +191,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all"></button>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -233,6 +233,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../configuration/housekeeping.html">Houskeeping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../configuration/readonly.html">Read-only Manager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -453,10 +456,100 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../cache/index.html">Cache</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cache/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../cache/configuration/index.html">Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../cache/configuration/properties.html">Properties</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../cache/configuration/storage.html">Storage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Use Cases</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../cache/use-cases/hibernate-second-level-cache.html">Hibernate Second Level Cache</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../cache/use-cases/spring-cache.html">Spring Cache</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../communication/index.html">Communication</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Miscellaneous</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../misc/logging/index.html">Logging</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../misc/monitoring/index.html">Monitoring</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../misc/integrations/index.html">Integrations</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/integrations/spring-boot.html">Spring-Boot</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/integrations/micronaut.html">Micronaut</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../misc/layered-entities/index.html">Layered Entities</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/defining-entities.html">Defining Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/creating-entities.html">Creating Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/updating-entities.html">Updating Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/versioning.html">Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/logging.html">Logging</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/layered-entities/multiple-layers.html">Multiple Layers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../misc/wrapping/index.html">Wrapping</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/wrapping/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../misc/wrapping/usage.html">Usage</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -468,14 +561,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">1.0</span>
+    <span class="version">V1</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <a class="title" href="../../intro/welcome.html">EclipseStore Reference Manual</a>
+      <div class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../../intro/welcome.html">1.0</a>
+          <a href="../../intro/welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -509,6 +602,20 @@
 <div class="paragraph">
 <p>It is a runnable jar which starts a simple web server which then can be accessed by a browser of your choice.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Since EclipseStore version 1.1.0 The Client GUI requires java 17!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>To download it use the following Maven command to download it into the current directory.</p>
 </div>
@@ -522,7 +629,7 @@
 <p>or this direct link:</p>
 </div>
 <div class="paragraph">
-<p><a href="https://repo1.maven.org/maven2/org/eclipse/store/storage-restclient-app/1.0.0/storage-restclient-app-1.0.0.jar" class="bare">https://repo1.maven.org/maven2/org/eclipse/store/storage-restclient-app/1.0.0/storage-restclient-app-1.0.0.jar</a></p>
+<p><a href="https://repo1.maven.org/maven2/org/eclipse/store/storage-restclient-app/1.1.0/storage-restclient-app-1.1.0.jar" class="bare">https://repo1.maven.org/maven2/org/eclipse/store/storage-restclient-app/1.1.0/storage-restclient-app-1.1.0.jar</a></p>
 </div>
 <div class="paragraph">
 <p>Start the client.
@@ -530,7 +637,7 @@ The port parameter is optional, default port is 8080.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">java -jar storage-restclient-app-1.0.0.jar --server.port=8888</code></pre>
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">java -jar storage-restclient-app-1.1.0.jar --server.port=8888</code></pre>
 </div>
 </div>
 <div class="paragraph">

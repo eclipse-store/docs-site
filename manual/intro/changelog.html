@@ -191,7 +191,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all"></button>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="welcome.html">EclipseStore Reference Manual</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -233,6 +233,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/configuration/housekeeping.html">Houskeeping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/configuration/readonly.html">Read-only Manager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -453,10 +456,100 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../cache/index.html">Cache</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../cache/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../cache/configuration/index.html">Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../cache/configuration/properties.html">Properties</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../cache/configuration/storage.html">Storage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Use Cases</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../cache/use-cases/hibernate-second-level-cache.html">Hibernate Second Level Cache</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../cache/use-cases/spring-cache.html">Spring Cache</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../communication/index.html">Communication</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Miscellaneous</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/logging/index.html">Logging</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/monitoring/index.html">Monitoring</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../misc/integrations/index.html">Integrations</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/integrations/spring-boot.html">Spring-Boot</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/integrations/micronaut.html">Micronaut</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../misc/layered-entities/index.html">Layered Entities</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/defining-entities.html">Defining Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/creating-entities.html">Creating Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/updating-entities.html">Updating Entities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/versioning.html">Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/logging.html">Logging</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/layered-entities/multiple-layers.html">Multiple Layers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../misc/wrapping/index.html">Wrapping</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/wrapping/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../misc/wrapping/usage.html">Usage</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -468,14 +561,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">1.0</span>
+    <span class="version">V1</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <a class="title" href="welcome.html">EclipseStore Reference Manual</a>
+      <div class="title"><a href="welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="welcome.html">1.0</a>
+          <a href="welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -501,6 +594,52 @@
 </aside>
 <article class="doc">
 <h1 class="page">Changelog</h1>
+<div class="sect1">
+<h2 id="_1_1_0"><a class="anchor" href="#_1_1_0"></a>1.1.0</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_features"><a class="anchor" href="#_features"></a>Features</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../misc/monitoring/index.html" class="xref page">Monitoring</a></p>
+</li>
+<li>
+<p><a href="../communication/index.html" class="xref page">Communication layer</a></p>
+</li>
+<li>
+<p>JSR-107 compatible <a href="../cache/index.html" class="xref page">JCache provider</a> with additional <a href="../cache/use-cases/hibernate-second-level-cache.html" class="xref page">Hibernate cache region factory</a></p>
+</li>
+<li>
+<p><a href="../misc/integrations/spring-boot.html" class="xref page">Spring Boot integration</a></p>
+</li>
+<li>
+<p><a href="../storage/configuration/housekeeping.html" class="xref page">Adaptive housekeeping</a></p>
+</li>
+<li>
+<p><a href="../storage/configuration/housekeeping.html#transaction-file-maximum-size" class="xref page">Transaction file housekeeping</a></p>
+</li>
+<li>
+<p>Update rest client UI to Vaadin 24 <a href="https://github.com/eclipse-store/store/pull/94">[94</a>]</p>
+</li>
+<li>
+<p>Serialization support for Throwable <a href="https://github.com/eclipse-serializer/serializer/pull/86">[86</a>]</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bugfixes"><a class="anchor" href="#_bugfixes"></a>Bugfixes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>DynamoDB connector fix <a href="https://github.com/eclipse-store/store/pull/118">[118</a>]</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_1_0_0"><a class="anchor" href="#_1_0_0"></a>1.0.0</h2>
 <div class="sectionbody">
