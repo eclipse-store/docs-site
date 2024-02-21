@@ -614,7 +614,7 @@ It is available within this artifact:</p>
    &lt;dependency&gt;
       &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
       &lt;artifactId&gt;integrations-spring-boot3&lt;/artifactId&gt;
-      &lt;version&gt;1.1.0&lt;/version&gt;
+      &lt;version&gt;1.2.0&lt;/version&gt;
    &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
@@ -694,7 +694,7 @@ public class JokesStorageImpl implements JokesStorage
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">    @Bean
-    EmbeddedStorageManager injectStorageTest(@Autowired EclipseStoreProperties myConfiguration)
+    EmbeddedStorageManager injectStorageTest(@Autowired EclipseStoreProperties myConfiguration, @Autowired EclipseStoreProvider provider)
     {
         // Modify the configuration
         myConfiguration.setStorageDirectory(temp.getDir().getAbsolutePath());
