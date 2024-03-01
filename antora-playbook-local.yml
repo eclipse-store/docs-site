@@ -1,10 +1,10 @@
 site:
-  title: MicroStream Reference Manual
-  url: https://docs.microstream.one/
+  title: EclipseStore Reference Manual
+  url: https://docs.eclipsestore.io/
   robots: allow
 content:
   sources:
-  - url: ./microstream
+  - url: ./eclipse-store
     start_path: docs
 asciidoc:
   attributes:
