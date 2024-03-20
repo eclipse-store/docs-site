@@ -510,6 +510,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="micronaut.html">Micronaut</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="cdi.html">CDI</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -614,7 +617,7 @@ It is available within this artifact:</p>
    &lt;dependency&gt;
       &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
       &lt;artifactId&gt;integrations-spring-boot3&lt;/artifactId&gt;
-      &lt;version&gt;1.2.0&lt;/version&gt;
+      &lt;version&gt;1.3.1&lt;/version&gt;
    &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
@@ -643,7 +646,9 @@ org.eclipse.store.channel-count=2</code></pre>
 <p>The list of all EclipseStore configuration properties and their meaning are listed on our <a href="../../storage/configuration/properties.html" class="xref page">documentation page</a>.</p>
 </div>
 <div class="paragraph">
-<p>The configuration values are handled using the <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config.typesafe-configuration-properties">typesafe configuration</a> approach, and you can read these values by accessing the <code>EclipseStoreProperties</code> Spring bean.</p>
+<p>The configuration values are handled using the <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config.typesafe-configuration-properties">typesafe configuration</a> approach, and you can read these values by accessing the <code>EclipseStoreProperties</code> Spring bean.
+The Spring Boot integration provides a set of Bean Factories which read the configuration and initialize the relevant EclipseStore facilities for you,
+including <code>EmbeddedStorageManager</code>.</p>
 </div>
 </div>
 </div>
@@ -651,14 +656,13 @@ org.eclipse.store.channel-count=2</code></pre>
 <h2 id="_storagemanager_injection"><a class="anchor" href="#_storagemanager_injection"></a>StorageManager injection</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The simplest way to use this integration is when you can externalize all the configuration using Spring configuration files. Subsequently, you just create a Spring Boot application and add a dependency on the integration. Then, in the Bean where you need access to the StorageManager, you add the @Autowired annotation and a StorageManager is created for you. All configuration values are loaded from the external configuration and the StorageManager is already initialized and ready to use.</p>
+<p>The simplest way to use this integration is when you can externalize all the configuration using Spring configuration files. Subsequently, you just create a Spring Boot application and add a dependency on the integration. Then, in the Bean where you need access to the StorageManager, you add the <code>@Autowired</code> annotation and a StorageManager is created for you. All configuration values are loaded from the external configuration and the StorageManager is already initialized and ready to use.</p>
 </div>
 <div class="sect2">
 <h3 id="_example"><a class="anchor" href="#_example"></a>Example:</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
-@Import(EclipseStoreSpringBoot.class)
 public class SomeSpringApplication
 {
     public static void main(String... args)
@@ -689,23 +693,29 @@ public class JokesStorageImpl implements JokesStorage
 <h2 id="_configuration_injection"><a class="anchor" href="#_configuration_injection"></a>Configuration Injection</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In case you need to modify the configuration in some way in the program, change something, add and the like, you can have the <code>EclipseStoreProperties</code> Spring bean injected into your class. This class contains all the configuration values that are used to create a <code>StorageManager</code>. You can modify these values and then use the <code>EclipseStoreProvider</code> Bean to create a new StorageManager or <code>EmbeddedStorageFoundation</code>.</p>
+<p>In case you need to modify the configuration in some way in the program, change something, add and the like, you can have the <code>EclipseStoreProperties</code> Spring bean injected into your class.
+This class contains all the configuration values that are used to create a <code>StorageManager</code>.
+You can modify these values and then use the <code>EmbeddedStorageManagerFactory</code> Bean to create
+a new <code>EmbeddedStorageManager</code> or <code>EmbeddedStorageFoundationFactory</code> to create a new  <code>EmbeddedStorageFoundation</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">    @Bean
-    EmbeddedStorageManager injectStorageTest(@Autowired EclipseStoreProperties myConfiguration, @Autowired EclipseStoreProvider provider)
-    {
+    EmbeddedStorageManager injectStorageTest(
+        @Autowired EclipseStoreProperties myConfiguration,
+        @Autowired EmbeddedStorageManagerFactory managerFactory,
+        @Autowired EmbeddedStorageFoundationFactory foundationFactory
+   ) {
         // Modify the configuration
         myConfiguration.setStorageDirectory(temp.getDir().getAbsolutePath());
         // Create a new StorageFoundation
-        EmbeddedStorageFoundation&lt;?&gt; storageFoundation = provider.createStorageFoundation(myConfiguration);
+        EmbeddedStorageFoundation&lt;?&gt; storageFoundation = foundationFactory.createStorageFoundation(myConfiguration);
 
         // Modify the storageFoundation
         //storageFoundation.onConnectionFoundation(f -&gt; f.someOperation);
 
         // Create a new StorageManager
-        return storageFoundation.createEmbeddedStorageManager();
+        return managerFactory.createEmbeddedStorageManager(storageFoundation, true);
     }</code></pre>
 </div>
 </div>
@@ -742,7 +752,9 @@ public class TwoBeanConfiguration
 {
 
     @Autowired
-    private EclipseStoreProvider provider;
+    private EmbeddedStorageFoundationFactory foundationFactory;
+    @Autowired
+    private EmbeddedStorageManagerFactory managerFactory;
 
     @Bean("first_config")
     @ConfigurationProperties("org.eclipse.store.first")
@@ -759,19 +771,21 @@ public class TwoBeanConfiguration
     }
 
     @Bean
-    @Lazy
     @Qualifier("first_storage")
-    EmbeddedStorageManager createFirstStorage(@Qualifier("first_config") EclipseStoreProperties firstStoreProperties)
-    {
-        return provider.createStorage(firstStoreProperties);
+    EmbeddedStorageManager createFirstStorage(@Qualifier("first_config") final EclipseStoreProperties firstStoreProperties) {
+      return managerFactory.createStorage(
+          foundationFactory.createStorageFoundation(firstStoreProperties),
+          firstStoreProperties.isAutoStart()
+      );
     }
 
     @Bean
-    @Lazy
     @Qualifier("second_storage")
-    EmbeddedStorageManager createSecondStorage(@Qualifier("second_config") EclipseStoreProperties secondStoreProperties)
-    {
-        return provider.createStorage(secondStoreProperties);
+    EmbeddedStorageManager createSecondStorage(@Qualifier("second_config") final EclipseStoreProperties secondStoreProperties) {
+      return managerFactory.createStorage(
+          foundationFactory.createStorageFoundation(secondStoreProperties),
+          secondStoreProperties.isAutoStart()
+      );
     }
 
 }</code></pre>
@@ -865,6 +879,55 @@ If you need to register JDK 8 handlers, you can do it by adding the following co
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">org.eclipse.store.register-jdk8-handlers=true</code></pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_activating_rest_service_springboot"><a class="anchor" href="#_activating_rest_service_springboot"></a>Activating REST Service SpringBoot</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are interested in using the EclipseStore REST service in your application, consider to include the SpringBoot REST Service.
+Detailed documentation can be found at <a href="../../storage/rest-interface/setup.html" class="xref page">Setup of Spring Boot REST Service</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_activating_client_gui"><a class="anchor" href="#_activating_client_gui"></a>Activating Client GUI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can include the Client GUI application to be directly as a module served by your application. For this purpose, include
+the SpringBoot Console to your application classpath. We assume that you are starting Spring MVC in your application already.</p>
+</div>
+<div class="paragraph">
+<p>Please add the following dependency to Maven pom.xml of your SpringBoot application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
+    &lt;artifactId&gt;integrations-spring-boot3-console&lt;/artifactId&gt;
+    &lt;version&gt;{maven-version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to operate properly, Client GUI requires a working SpringBoot REST Service. This is already prepackaged in the
+console module and needs to be activated. In addition, the path to the Client GUI needs to be configured.</p>
+</div>
+<div class="paragraph">
+<p>Please set the following properties in your configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">org.eclipse.store.rest.enabled=true
+vaadin.url-mapping=/store-console/*</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Client GUI will start with your application and will be available at the specified URL. So if your SpringBoot application
+starts a web server on port <code>8080</code> the Client GUI will be available at: <a href="http://localhost:8080/store-console/" class="bare">http://localhost:8080/store-console/</a>. Open this URL
+in your browser, select from the dropdown list the endpoint of the Spring REST Service (<a href="http://localhost:8080/store-data/" class="bare">http://localhost:8080/store-data/</a>)
+and click connect.</p>
 </div>
 </div>
 </div>

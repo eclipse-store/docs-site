@@ -510,6 +510,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../../misc/integrations/micronaut.html">Micronaut</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../misc/integrations/cdi.html">CDI</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -643,7 +646,7 @@ The backup is identical to the primary EclipseStore storage.</p>
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">NioFileSystem      fileSystem  = NioFileSystem.New();
 
 StorageBackupSetup backupSetup = StorageBackupSetup.New(
-	Sorage.BackupFileProviderBuilder(fileSystem)
+	Storage.BackupFileProviderBuilder(fileSystem)
 		.setDirectory(fileSystem.ensureDirectoryPath(BACKUPDIR))
 		.setTruncationDirectory(fileSystem.ensureDirectoryPath(TRUNCATIONDIR))
 		.setDeletionDirectory(fileSystem.ensureDirectoryPath(DELETIONDIR))
@@ -680,7 +683,7 @@ SqlFileSystem fileSystem = SqlFileSystem.New(
 );
 
 StorageBackupSetup backupSetup = StorageBackupSetup.New(
-	Sorage.BackupFileProviderBuilder(fileSystem)
+	Storage.BackupFileProviderBuilder(fileSystem)
 		.setDirectory(fileSystem.ensureDirectoryPath(BACKUPDIR))
 		.setTruncationDirectory(fileSystem.ensureDirectoryPath(TRUNCATIONDIR))
 		.setDeletionDirectory(fileSystem.ensureDirectoryPath(DELETIONDIR))

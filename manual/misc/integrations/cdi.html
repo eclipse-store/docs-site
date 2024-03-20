@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Google Cloud Firestore :: EclipseStore Reference Manual</title>
-    <link rel="canonical" href="https://docs.eclipsestore.io/manual/storage/storage-targets/blob-stores/google-cloud-firestore.html">
-    <link rel="prev" href="azure-storage.html">
-    <link rel="next" href="kafka.html">
+    <title>CDI Extension :: EclipseStore Reference Manual</title>
+    <link rel="canonical" href="https://docs.eclipsestore.io/manual/misc/integrations/cdi.html">
+    <link rel="prev" href="micronaut.html">
+    <link rel="next" href="../layered-entities/index.html">
     <meta name="generator" content="Antora 3.1.4">
-    <link rel="stylesheet" href="../../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/site.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-16x16.png">
-  <link rel="stylesheet" href="../../../../_/css/site-extra.css">
+  <link rel="stylesheet" href="../../../_/css/site-extra.css">
   </head>
   <body class="article">
 <header class="header">
@@ -192,90 +192,90 @@
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
     <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
-    <h3 class="title"><a href="../../../intro/welcome.html">EclipseStore Reference Manual</a></h3>
+    <h3 class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../../intro/welcome.html">Welcome</a>
+    <a class="nav-link" href="../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../../intro/system-requirements.html">System Requirements</a>
+    <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../../intro/changelog.html">Changelog</a>
+    <a class="nav-link" href="../../intro/changelog.html">Changelog</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../../intro/installation.html">Installation</a>
+    <a class="nav-link" href="../../intro/installation.html">Installation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../index.html">Storage</a>
+    <a class="nav-link" href="../../storage/index.html">Storage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../getting-started.html">Getting Started</a>
+    <a class="nav-link" href="../../storage/getting-started.html">Getting Started</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../root-instances.html">Root Instances</a>
+    <a class="nav-link" href="../../storage/root-instances.html">Root Instances</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../configuration/index.html">Configuration</a>
+    <a class="nav-link" href="../../storage/configuration/index.html">Configuration</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../configuration/properties.html">Properties</a>
+    <a class="nav-link" href="../../storage/configuration/properties.html">Properties</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../configuration/storage-files-and-directories.html">Storage Files and Directories</a>
+    <a class="nav-link" href="../../storage/configuration/storage-files-and-directories.html">Storage Files and Directories</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../configuration/using-channels.html">Using Channels</a>
+    <a class="nav-link" href="../../storage/configuration/using-channels.html">Using Channels</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../configuration/housekeeping.html">Houskeeping</a>
+    <a class="nav-link" href="../../storage/configuration/housekeeping.html">Houskeeping</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../configuration/readonly.html">Read-only Manager</a>
+    <a class="nav-link" href="../../storage/configuration/readonly.html">Read-only Manager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Backup</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../configuration/backup/continuous-backup.html">Continous Backup</a>
+    <a class="nav-link" href="../../storage/configuration/backup/continuous-backup.html">Continous Backup</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../configuration/backup/full-backup.html">Full Backup</a>
+    <a class="nav-link" href="../../storage/configuration/backup/full-backup.html">Full Backup</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../configuration/lock-file.html">Lock File</a>
+    <a class="nav-link" href="../../storage/configuration/lock-file.html">Lock File</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../index.html">Storage Targets</a>
+    <a class="nav-link" href="../../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../../storage/storage-targets/local-file-system.html">Local File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">SQL Databases</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../sql-databases/mariadb.html">MariaDB</a>
+    <a class="nav-link" href="../../storage/storage-targets/sql-databases/mariadb.html">MariaDB</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../sql-databases/oracle.html">Oracle</a>
+    <a class="nav-link" href="../../storage/storage-targets/sql-databases/oracle.html">Oracle</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../sql-databases/postgresql.html">Postgres</a>
+    <a class="nav-link" href="../../storage/storage-targets/sql-databases/postgresql.html">Postgres</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../sql-databases/sqlite.html">Sqlite</a>
+    <a class="nav-link" href="../../storage/storage-targets/sql-databases/sqlite.html">Sqlite</a>
   </li>
 </ul>
   </li>
@@ -288,27 +288,27 @@
     <span class="nav-text">AWS</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="aws-dynamodb.html">DynamoDB</a>
+    <a class="nav-link" href="../../storage/storage-targets/blob-stores/aws-dynamodb.html">DynamoDB</a>
   </li>
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="aws-s3.html">S3</a>
+    <a class="nav-link" href="../../storage/storage-targets/blob-stores/aws-s3.html">S3</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="azure-storage.html">Azure Storage</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="4">
-    <a class="nav-link" href="google-cloud-firestore.html">Google Cloud Firestore</a>
+    <a class="nav-link" href="../../storage/storage-targets/blob-stores/azure-storage.html">Azure Storage</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="kafka.html">Kafka</a>
+    <a class="nav-link" href="../../storage/storage-targets/blob-stores/google-cloud-firestore.html">Google Cloud Firestore</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="oracle-cloud-object-storage.html">Oracle Cloud Object Storage</a>
+    <a class="nav-link" href="../../storage/storage-targets/blob-stores/kafka.html">Kafka</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="redis.html">Redis</a>
+    <a class="nav-link" href="../../storage/storage-targets/blob-stores/oracle-cloud-object-storage.html">Oracle Cloud Object Storage</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../storage/storage-targets/blob-stores/redis.html">Redis</a>
   </li>
 </ul>
   </li>
@@ -316,100 +316,100 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../storing-data/index.html">Storing Data</a>
+    <a class="nav-link" href="../../storage/storing-data/index.html">Storing Data</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../storing-data/transactions.html">Convenience Methods and Explicit Storing (Transactions)</a>
+    <a class="nav-link" href="../../storage/storing-data/transactions.html">Convenience Methods and Explicit Storing (Transactions)</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../storing-data/lazy-eager-full.html">Lazy and Eager Storing</a>
+    <a class="nav-link" href="../../storage/storing-data/lazy-eager-full.html">Lazy and Eager Storing</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../storing-data/transient-fields.html">Transient Fields</a>
+    <a class="nav-link" href="../../storage/storing-data/transient-fields.html">Transient Fields</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../storing-data/best-practice.html">Best Practice</a>
+    <a class="nav-link" href="../../storage/storing-data/best-practice.html">Best Practice</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../storing-data/deep-copy.html">Deep Copy Utility</a>
+    <a class="nav-link" href="../../storage/storing-data/deep-copy.html">Deep Copy Utility</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../loading-data/index.html">Loading Data</a>
+    <a class="nav-link" href="../../storage/loading-data/index.html">Loading Data</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../loading-data/lazy-loading/index.html">Lazy Loading</a>
+    <a class="nav-link" href="../../storage/loading-data/lazy-loading/index.html">Lazy Loading</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../loading-data/lazy-loading/lazy-collections.html">Lazy Collections</a>
+    <a class="nav-link" href="../../storage/loading-data/lazy-loading/lazy-collections.html">Lazy Collections</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../loading-data/lazy-loading/touched-timestamp-null-safe-variant.html">Touched Timestamp, Null-Safe Variant</a>
+    <a class="nav-link" href="../../storage/loading-data/lazy-loading/touched-timestamp-null-safe-variant.html">Touched Timestamp, Null-Safe Variant</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../loading-data/lazy-loading/clearing-lazy-references.html">Clearing Lazy References</a>
+    <a class="nav-link" href="../../storage/loading-data/lazy-loading/clearing-lazy-references.html">Clearing Lazy References</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../deleting-data.html">Deleting Data</a>
+    <a class="nav-link" href="../../storage/deleting-data.html">Deleting Data</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../queries.html">Queries</a>
+    <a class="nav-link" href="../../storage/queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../application-life-cycle.html">Application Life-Cycle</a>
+    <a class="nav-link" href="../../storage/application-life-cycle.html">Application Life-Cycle</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../legacy-type-mapping/index.html">Legacy Type Mapping</a>
+    <a class="nav-link" href="../../storage/legacy-type-mapping/index.html">Legacy Type Mapping</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../legacy-type-mapping/user-interaction.html">User Interaction</a>
+    <a class="nav-link" href="../../storage/legacy-type-mapping/user-interaction.html">User Interaction</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../import-export.html">Import / Export</a>
+    <a class="nav-link" href="../../storage/import-export.html">Import / Export</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../housekeeping.html">Housekeeping</a>
+    <a class="nav-link" href="../../storage/housekeeping.html">Housekeeping</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Customizing</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../customizing/custom-type-handler.html">Custom Type Handler</a>
+    <a class="nav-link" href="../../storage/customizing/custom-type-handler.html">Custom Type Handler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../customizing/custom-legacy-type-handler.html">Custom Legacy Type Handler</a>
+    <a class="nav-link" href="../../storage/customizing/custom-legacy-type-handler.html">Custom Legacy Type Handler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../customizing/custom-class-loader.html">Custom Class Loader</a>
+    <a class="nav-link" href="../../storage/customizing/custom-class-loader.html">Custom Class Loader</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../customizing/custom-storing-behavior.html">Custom Storing Behavior</a>
+    <a class="nav-link" href="../../storage/customizing/custom-storing-behavior.html">Custom Storing Behavior</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../customizing/optional-storage-manager-reference-in-entities.html">Optional Storage Manager Reference in Entities</a>
+    <a class="nav-link" href="../../storage/customizing/optional-storage-manager-reference-in-entities.html">Optional Storage Manager Reference in Entities</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../rest-interface/index.html">REST Interface</a>
+    <a class="nav-link" href="../../storage/rest-interface/index.html">REST Interface</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../rest-interface/setup.html">Setup</a>
+    <a class="nav-link" href="../../storage/rest-interface/setup.html">Setup</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../rest-interface/rest-api.html">REST API</a>
+    <a class="nav-link" href="../../storage/rest-interface/rest-api.html">REST API</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../rest-interface/client-gui.html">Client GUI</a>
+    <a class="nav-link" href="../../storage/rest-interface/client-gui.html">Client GUI</a>
   </li>
 </ul>
   </li>
@@ -418,19 +418,19 @@
     <span class="nav-text">FAQ</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../faq/data-model.html">Data Model</a>
+    <a class="nav-link" href="../../storage/faq/data-model.html">Data Model</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../faq/data-management.html">Data Management</a>
+    <a class="nav-link" href="../../storage/faq/data-management.html">Data Management</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../faq/file-storage.html">File Storage</a>
+    <a class="nav-link" href="../../storage/faq/file-storage.html">File Storage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../faq/java-features.html">Java Features</a>
+    <a class="nav-link" href="../../storage/faq/java-features.html">Java Features</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../faq/miscellaneous.html">Miscellaneous</a>
+    <a class="nav-link" href="../../storage/faq/miscellaneous.html">Miscellaneous</a>
   </li>
 </ul>
   </li>
@@ -439,37 +439,37 @@
     <span class="nav-text">Addendum</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../addendum/supported-java-features.html">Supported Java Features</a>
+    <a class="nav-link" href="../../storage/addendum/supported-java-features.html">Supported Java Features</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
+    <a class="nav-link" href="../../storage/addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../addendum/examples-and-demo-projects.html">Examples and Demo Projects</a>
+    <a class="nav-link" href="../../storage/addendum/examples-and-demo-projects.html">Examples and Demo Projects</a>
   </li>
 </ul>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../../serializer/index.html">Serializer</a>
+    <a class="nav-link" href="../../serializer/index.html">Serializer</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../../cache/index.html">Cache</a>
+    <a class="nav-link" href="../../cache/index.html">Cache</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../../cache/getting-started.html">Getting Started</a>
+    <a class="nav-link" href="../../cache/getting-started.html">Getting Started</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../../cache/configuration/index.html">Configuration</a>
+    <a class="nav-link" href="../../cache/configuration/index.html">Configuration</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../cache/configuration/properties.html">Properties</a>
+    <a class="nav-link" href="../../cache/configuration/properties.html">Properties</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../cache/configuration/storage.html">Storage</a>
+    <a class="nav-link" href="../../cache/configuration/storage.html">Storage</a>
   </li>
 </ul>
   </li>
@@ -478,79 +478,79 @@
     <span class="nav-text">Use Cases</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../cache/use-cases/hibernate-second-level-cache.html">Hibernate Second Level Cache</a>
+    <a class="nav-link" href="../../cache/use-cases/hibernate-second-level-cache.html">Hibernate Second Level Cache</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../cache/use-cases/spring-cache.html">Spring Cache</a>
+    <a class="nav-link" href="../../cache/use-cases/spring-cache.html">Spring Cache</a>
   </li>
 </ul>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../../communication/index.html">Communication</a>
+    <a class="nav-link" href="../../communication/index.html">Communication</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Miscellaneous</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../../misc/logging/index.html">Logging</a>
+    <a class="nav-link" href="../logging/index.html">Logging</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../../misc/monitoring/index.html">Monitoring</a>
+    <a class="nav-link" href="../monitoring/index.html">Monitoring</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../../misc/integrations/index.html">Integrations</a>
+    <a class="nav-link" href="index.html">Integrations</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/integrations/spring-boot.html">Spring-Boot</a>
+    <a class="nav-link" href="spring-boot.html">Spring-Boot</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/integrations/micronaut.html">Micronaut</a>
+    <a class="nav-link" href="micronaut.html">Micronaut</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/integrations/cdi.html">CDI</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="cdi.html">CDI</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../../misc/layered-entities/index.html">Layered Entities</a>
+    <a class="nav-link" href="../layered-entities/index.html">Layered Entities</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/layered-entities/configuration.html">Configuration</a>
+    <a class="nav-link" href="../layered-entities/configuration.html">Configuration</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/layered-entities/defining-entities.html">Defining Entities</a>
+    <a class="nav-link" href="../layered-entities/defining-entities.html">Defining Entities</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/layered-entities/creating-entities.html">Creating Entities</a>
+    <a class="nav-link" href="../layered-entities/creating-entities.html">Creating Entities</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/layered-entities/updating-entities.html">Updating Entities</a>
+    <a class="nav-link" href="../layered-entities/updating-entities.html">Updating Entities</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/layered-entities/versioning.html">Versioning</a>
+    <a class="nav-link" href="../layered-entities/versioning.html">Versioning</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/layered-entities/logging.html">Logging</a>
+    <a class="nav-link" href="../layered-entities/logging.html">Logging</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/layered-entities/multiple-layers.html">Multiple Layers</a>
+    <a class="nav-link" href="../layered-entities/multiple-layers.html">Multiple Layers</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../../misc/wrapping/index.html">Wrapping</a>
+    <a class="nav-link" href="../wrapping/index.html">Wrapping</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/wrapping/configuration.html">Configuration</a>
+    <a class="nav-link" href="../wrapping/configuration.html">Configuration</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../misc/wrapping/usage.html">Usage</a>
+    <a class="nav-link" href="../wrapping/usage.html">Usage</a>
   </li>
 </ul>
   </li>
@@ -568,10 +568,10 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../../intro/welcome.html">EclipseStore Reference Manual</a></div>
+      <div class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../../../intro/welcome.html">V1</a>
+          <a href="../../intro/welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -585,45 +585,46 @@
 <button class="nav-toggle"></button>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../../../intro/welcome.html">EclipseStore Reference Manual</a></li>
-    <li><a href="../../index.html">Storage</a></li>
-    <li><a href="../index.html">Storage Targets</a></li>
-    <li>Blob Stores</li>
-    <li><a href="google-cloud-firestore.html">Google Cloud Firestore</a></li>
+    <li><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></li>
+    <li>Miscellaneous</li>
+    <li><a href="index.html">Integrations</a></li>
+    <li><a href="cdi.html">CDI</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/release/1x/docs/modules/storage/pages/storage-targets/blob-stores/google-cloud-firestore.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/release/1x/docs/modules/misc/pages/integrations/cdi.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Google Cloud Firestore</h1>
+<h1 class="page">CDI Extension</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
-	&lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
-	&lt;artifactId&gt;afs-googlecloud-firestore&lt;/artifactId&gt;
-	&lt;version&gt;1.3.1&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-	&lt;groupId&gt;com.google.cloud&lt;/groupId&gt;
-	&lt;artifactId&gt;google-cloud-firestore&lt;/artifactId&gt;
-	&lt;version&gt;3.0.17&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
+<div class="paragraph">
+<p>EclipseStore comes with a CDI extension, which allows accessing the functionality of EclipseStore through the usage of a few annotations.</p>
 </div>
+<div class="paragraph">
+<p>It is available within this artifact:</p>
 </div>
 <div class="listingblock">
+<div class="title">pom.xml</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Firestore firestore = ...
-BlobStoreFileSystem fileSystem = BlobStoreFileSystem.New(
-	GoogleCloudFirestoreConnector.Caching(client)
-);
-EmbeddedStorage.start(fileSystem.ensureDirectoryPath("storage"));</code></pre>
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
+   &lt;dependency&gt;
+      &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
+      &lt;artifactId&gt;eclipse-store-integrations-cdi4&lt;/artifactId&gt;
+      &lt;version&gt;1.3.1&lt;/version&gt;
+   &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The integration requires the <em>javax</em> namespace and requires a <a href="https://jakarta.ee/specifications/cdi/">CDI</a> 4.0 implementation
+and an <a href="https://github.com/eclipse/microprofile-config">Eclipse MicroProfile Config</a> 2.0 implementation.</p>
+</div>
+<div class="paragraph">
+<p>This CDI extension makes use of the <code>Extension</code> interface and the <code>BeanManager</code> functionality, so it might not work in a strict Jakarta EE 10 Core Profile product that only supports the CDI Lite functionality.</p>
 </div>
 </div>
 </div>
@@ -631,133 +632,140 @@ EmbeddedStorage.start(fileSystem.ensureDirectoryPath("storage"));</code></pre>
 <h2 id="_configuration"><a class="anchor" href="#_configuration"></a>Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When using <a href="../../configuration/index.html#external-configuration" class="xref page">external configuration</a> Google Cloud Firestore can be set as follows.</p>
+<p>The configuration of the <em>StorageManager</em> can be done using key/value pairs that are provided by MicroProfile Config.  The configuration keys must be prefixed by <code>org.clipse.store</code></p>
 </div>
 <div class="listingblock">
-<div class="title">eclipsestore.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">storage-filesystem.googlecloud.firestore.credentials.type=default
-storage-filesystem.googlecloud.firestore.database-id=my-database-id
-storage-filesystem.googlecloud.firestore.project-id=my-project-id</code></pre>
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">org.eclipse.store.storage-directory=/opt/data/eclipsestore
+org.eclipse.store.channel-count=2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since the <code>-</code> character is not supported in some sources (like the environment variables), you can also define the configuration keys using the <code>.</code> character.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">org.eclipse.store.storage.directory=/opt/data/eclipsestore
+org.eclipse.store.channel.count=2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Besides that, the regular MicroProfile Config rules about keys are applied (since we are using MicroProfile Config directly, see <a href="https://github.com/eclipse/microprofile-config/blob/master/spec/src/main/asciidoc/configsources.asciidoc#environment-variables-mapping-rules">specification</a>).</p>
+</div>
+<div class="paragraph">
+<p>The configured and started <em>StorageManager</em> is a CDI bean and thus can be injected or retrieved programmatically.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Inject
+private StorageManager storageManager;
+
+public void someMethod() {
+    StorageManager storageManager = CDI.current().select(StorageManager.class).get();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <em>StorageManager</em> configuration can be customized by CDI beans that implement the interface <code>org.eclipse.store.integrations.cdi.types.config.EmbeddedStorageFoundationCustomizer</code>.
+The <code>customize</code> method is called with an <code>EmbeddedStorageFoundation</code> which allows you to fully customize the <em>StorageManager</em> that will be created. You can for example, add the specific Type Handlers for JDK 8 as described on the <a href="https://docs.eclipsestore.io/manual/storage/addendum/specialized-type-handlers.html">documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>After the <em>StorageManager</em> is created, the CDI beans that implement <code>org.eclipse.store.integrations.cdi.types.config.StorageManagerInitializer</code> are called.
+You have the opportunity to perform actions on the <em>StorageManager</em> or root object.  Following rules apply to the <em>StorageManager</em> that is passed to the <code>initialize</code> method of the interface.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <em>StorageManager</em> is already started unless you specified the configuration value <code>org.eclipse.store.autoStart=false</code>.</p>
+</li>
+<li>
+<p>If you have used the <code>@Storage</code> annotation on a class, the <em>StorageManager</em> is already associated with an instance of that class as the Root object.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There is a <strong>second option</strong> to configure and retrieve the <em>StorageManager</em>, and it makes use of the EclipseStore functionality to read the configuration from any file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Inject
+@ConfigProperty(name = "org.eclipse.store.ini")
+private StorageManager storageManager;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above construct makes use of the MicroProfile Config functionality that you <em>convert</em> the value of the key <code>org.eclipse.store.ini</code> and convert it into a <em>StorageManager</em>.  The value of the key is expected to point to an existing file. The formats XML, INI, and properties are supported.</p>
+</div>
+<div class="paragraph">
+<p>The <em>StorageManager</em>  is also fully configured and started just as you would use it when using the first option of configuration.</p>
+</div>
+<div class="paragraph">
+<p>If you define it multiple times, within different beans, for example, you always receive the same instance of the <em>StorageManager</em> when you specify the same value for the <em>name</em> member of the <code>@ConfigProperty</code> annotation.</p>
+</div>
+<div class="paragraph">
+<p>This way, you can define and use multiple _StorageManager_s within your application.</p>
+</div>
+<div class="paragraph">
+<p>The <em>customizer</em> and <em>initializer</em> features described earlier as CDI beans implementing a specific interface are also available when you use the MicroProfile Config annotation (<code>@ConfigProperty</code>).  Since you can define multiple <em>StorageManager_s this way, you can distinguish between them based on the _database name</em>.</p>
+</div>
+<div class="paragraph">
+<p>The database name can be set by using the following property within the configuration file (example makes use of the properties format, but it is also supported in the other formats)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">database-name=theName</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If this property is not specified, the value of the MicroProfile config key (used within the name member of <code>@ConfigProperty</code>) is used.</p>
+</div>
+<div class="paragraph">
+<p>Within the <em>customizer</em> and <em>initializer</em>, you can use this to perform the required actions based on the instance you receive.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">EmbeddedStorageFoundation.getDataBaseName();
+
+StorageManager.databaseName();</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_supported_properties"><a class="anchor" href="#_supported_properties"></a>Supported properties</h2>
+<h2 id="_root_object"><a class="anchor" href="#_root_object"></a>Root object</h2>
 <div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">database-id</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The database ID to use with this Firestore client.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">emulator-host</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The emulator host to use with this Firestore client.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">host</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The service host.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">project-id</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The project ID. If no project ID is set, the project ID from the environment will be used.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">quota-project-id</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The project ID that specifies the project used for quota and billing purposes.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">credentials.type</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The type of the credentials provider. Supported values are:</p>
+<div class="paragraph">
+<p>The root object can be indicated by using the <code>@Storage</code> annotation on the class.  This annotation converts the POJO into a CDI bean (there is no need to use any scope-defining annotation) with Application Scope.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>"none"<br>
-No credentials are used.</p>
-</li>
-<li>
-<p>"input-stream"<br>
-Path of a JSON file stream. The stream can contain a Service Account key file in JSON format from the Google DevelopersConsole or a stored user credential using the format supported by the Cloud SDK.</p>
-</li>
-<li>
-<p>"default"<br>
-Returns the Application Default Credentials which are used to identify and authorize thewhole application.  The following are searched (in order) to find the Application DefaultCredentials:</p>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Credentials file pointed to by the GOOGLE_APPLICATION_CREDENTIALS environment variable</p>
-</li>
-<li>
-<p>Credentials provided by the Google Cloud SDK.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>gcloud auth application-default login for user account credentials.</p>
-</li>
-<li>
-<p>gcloud auth application-default login --impersonate-service-account forimpersonated service account credentials.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Google App Engine built-in credentials</p>
-</li>
-<li>
-<p>Google Cloud Shell built-in credentials</p>
-</li>
-<li>
-<p>Google Compute Engine built-in credentials</p>
-</li>
-</ol>
-</div>
-</li>
-</ul>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="admonitionblock caution">
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Depending on the amount of data and transactions, charges may apply depending on service usage. Please check with your service provider for details.
+This is only supported when you inject the <em>StorageManager</em> without making use of the MicroProfile Config <code>@ConfigProperty</code> annotation.
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Besides converting it into a CDI bean, any field injection within this class is also resolved.</p>
+</div>
+<div class="paragraph">
+<p>The integration also defines the instance of the class that is created as the root object (<code>StorageManager.setRoot()</code>) and stores the initial value (<code>StorageManager.storeRoot()</code>) when storageManager does not have a root object assigned yet (this happens only the very first time when you start up your application and the storage doesn&#8217;t contain any data yet)</p>
+</div>
+<div class="paragraph">
+<p>The POJO must have a (default) no-argument constructor so that the integration can create an instance of it.</p>
+</div>
+<div class="paragraph">
+<p>You can only annotate 1 class with the <code>@Storage</code>  annotation, if you have marked multiple, the deployment of your application will fail at the CDI validation phase.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="azure-storage.html">Azure Storage</a></span>
-  <span class="next"><a href="kafka.html">Kafka</a></span>
+  <span class="prev"><a href="micronaut.html">Micronaut</a></span>
+  <span class="next"><a href="../layered-entities/index.html">Layered Entities</a></span>
 </nav>
 </article>
   </div>
@@ -766,10 +774,10 @@ Depending on the amount of data and transactions, charges may apply depending on
 <footer class="footer">
 © 2023-2024 MicroStream Software. All rights reserved.
 </footer>
-<script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
-<script async src="../../../../_/js/vendor/highlight.js"></script>
-<script src="../../../../_/js/vendor/lunr.js"></script>
-<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
-<script async src="../../../../search-index.js"></script>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
   </body>
 </html>
