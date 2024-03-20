@@ -628,7 +628,7 @@ Spring Boot 3 with Spring Web MVC already set-up and configured. If you are unsu
 original <a href="https://spring.io/projects/spring-boot">SpringBoot</a> documentation.</p>
 </div>
 <div class="paragraph">
-<p>Please add the following dependency to your project:</p>
+<p>Please add the following dependencies to your project:</p>
 </div>
 <div class="listingblock">
 <div class="title">pom.xml</div>
@@ -636,8 +636,13 @@ original <a href="https://spring.io/projects/spring-boot">SpringBoot</a> documen
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
-      &lt;artifactId&gt;integrations-spring-boot3-console&lt;/artifactId&gt;
+      &lt;artifactId&gt;storage-restservice-springboot&lt;/artifactId&gt;
       &lt;version&gt;1.3.1&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;version&gt;${spring-boot.version}&lt;/version&gt;
     &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
