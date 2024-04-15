@@ -710,6 +710,21 @@ So you can control versioning for multiple entities at once, or even for the hol
 </tr>
 </table>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Do not share auto-incrementing contexts!
+Use a mutable context instead.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>The auto-incrementing contexts take care of the key creation.
 If you need to control it by yourself, use the mutable context.
