@@ -445,6 +445,9 @@
     <a class="nav-link" href="../../addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../addendum/tools.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../addendum/examples-and-demo-projects.html">Examples and Demo Projects</a>
   </li>
 </ul>
@@ -592,7 +595,7 @@
     <li><a href="redis.html">Redis</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/release/1x/docs/modules/storage/pages/storage-targets/blob-stores/redis.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/storage/pages/storage-targets/blob-stores/redis.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -607,7 +610,7 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
 	&lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
 	&lt;artifactId&gt;afs-redis&lt;/artifactId&gt;
-	&lt;version&gt;1.3.2&lt;/version&gt;
+	&lt;version&gt;1.4.0&lt;/version&gt;
 &lt;/dependency&gt;
 &lt;dependency&gt;
 	&lt;groupId&gt;io.lettuce&lt;/groupId&gt;
@@ -636,18 +639,23 @@ EmbeddedStorage.start(fileSystem.ensureDirectoryPath("storage"));</code></pre>
 <div class="listingblock">
 <div class="title">eclipsestore.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">storage-filesystem.redis.uri=redis://localhost:6379/0</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties"># optional, enforces checks
+storage-filesystem.target=redis
+
+storage-filesystem.redis.uri=redis://localhost:6379/0</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
+<col style="width: 16.6666%;">
 <col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
+<col style="width: 50.0001%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Property</th>
 <th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
 <tbody>
@@ -656,6 +664,7 @@ EmbeddedStorage.start(fileSystem.ensureDirectoryPath("storage"));</code></pre>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>The RedisURI contains the host/port and can carry authentication/database details. On a successful connect you get authenticated, and the database is selected afterward. This applies also after re-establishing a connection after a connection loss.</p>
 </div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 </tbody>
 </table>

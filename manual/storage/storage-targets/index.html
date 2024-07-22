@@ -445,6 +445,9 @@
     <a class="nav-link" href="../addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../addendum/tools.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../addendum/examples-and-demo-projects.html">Examples and Demo Projects</a>
   </li>
 </ul>
@@ -590,7 +593,7 @@
     <li><a href="index.html">Storage Targets</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/release/1x/docs/modules/storage/pages/storage-targets/index.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/storage/pages/storage-targets/index.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -626,7 +629,7 @@ EmbeddedStorage.start(fileSystem.ensureDirectoryPath("path", "to", "storage"));<
 </div>
 </div>
 <div class="paragraph">
-<p>The file system API is the same for all connectors, like for S3.<br>
+<p>The file system API is the same for all connectors, like for <a href="blob-stores/aws-s3.html" class="xref page">S3</a>.
 This is part of another module.</p>
 </div>
 <div class="listingblock">
@@ -635,7 +638,7 @@ This is part of another module.</p>
 &lt;dependency&gt;
 	&lt;groupId&gt;org.eclipse&lt;/groupId&gt;
 	&lt;artifactId&gt;afs-aws-s3&lt;/artifactId&gt;
-	&lt;version&gt;1.3.2&lt;/version&gt;
+	&lt;version&gt;1.4.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
@@ -648,7 +651,7 @@ BlobStoreFileSystem fileSystem = BlobStoreFileSystem.New(
 	// use caching connector
 	S3Connector.Caching(client)
 );
-EmbeddedStorage.start(fileSystem.ensureDirectoryPath("path", "to", "storage"));</code></pre>
+EmbeddedStorage.start(fileSystem.ensureDirectoryPath("bucket-name", "folder", "subfolder"));</code></pre>
 </div>
 </div>
 <nav class="pagination">

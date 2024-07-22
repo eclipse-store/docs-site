@@ -445,6 +445,9 @@
     <a class="nav-link" href="../storage/addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/addendum/tools.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/addendum/examples-and-demo-projects.html">Examples and Demo Projects</a>
   </li>
 </ul>
@@ -589,7 +592,7 @@
     <li><a href="index.html">Serializer</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/release/1x/docs/modules/serializer/pages/index.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/serializer/pages/index.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -600,8 +603,8 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>EclipseStore&#8217;s serialization engine, which is used by the storage, can be used standalone as well.
-It is usable as as replacement for the default Java serialization to convert objects to a binary format and vice versa. This API is part of the persistence-binary module:</p>
+<p>EclipseStore&#8217;s serialization engine, which is used by the storage, can also be used standalone.
+It is usable as a replacement for the default Java serialization to convert objects to a binary format and vice versa. This API is part of the persistence-binary module:</p>
 </div>
 </div>
 </div>
@@ -615,7 +618,7 @@ It is usable as as replacement for the default Java serialization to convert obj
 	&lt;dependency&gt;
 		&lt;groupId&gt;org.eclipse.serializer&lt;/groupId&gt;
 		&lt;artifactId&gt;serializer&lt;/artifactId&gt;
-		&lt;version&gt;1.3.2&lt;/version&gt;
+		&lt;version&gt;1.4.0&lt;/version&gt;
 	&lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
@@ -626,7 +629,7 @@ It is usable as as replacement for the default Java serialization to convert obj
 <h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can use any medium type, but for most purposes the byte array version should be sufficient, to transfer the serialized form over the transport layer of your choice.
+<p>You can use any medium type, but for most purposes, the byte array version should be sufficient to transfer the serialized form over the transport layer of your choice.
 Simply create a serializer instance, optionally based on a foundation, and call the serialize and deserialize methods.</p>
 </div>
 <div class="listingblock">
@@ -655,10 +658,48 @@ The <code>SerializerFoundation</code> provides an API like the MicroStream stora
 </td>
 <td class="content">
 The default Serializer implementation does not include type information in the serialized output!
-If you want to deserialize that with another serializer instance you must register all classes using the <code>SerializerFoundation</code> before you create the serializer or use a <code>TypedSerializer</code>!
+If you want to deserialize that with another serializer instance, you must register all classes using the <code>SerializerFoundation</code> before you create the serializer or use a <code>TypedSerializer</code>!
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_typedictionary"><a class="anchor" href="#_typedictionary"></a>TypeDictionary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The serializer internally generates a dictionary that describes all serialized types. This dictionary can be exported and imported to exchange those type informations between different serializer instances.</p>
+</div>
+<div class="sect2">
+<h3 id="_exporting_the_type_dictionary"><a class="anchor" href="#_exporting_the_type_dictionary"></a>Exporting the type dictionary</h3>
+<div class="paragraph">
+<p>The current type information can be obtained as Sting using the serializers exportTypeDictionay() method:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final String typeDictionaryString = serializer.exportTypeDictionay();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_importing_the_type_dictionary"><a class="anchor" href="#_importing_the_type_dictionary"></a>Importing the type dictionary</h3>
+<div class="paragraph">
+<p>To import an initial type dictionary, it must be supplied as a String. The SerializerFoundation offers methods to import that type dictionary string before the serializer instance is generated:</p>
+</div>
+<div class="listingblock">
+<div class="title">Using the static New(String typeDictionaryString) Method:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final SerializerFoundation&lt;?&gt; foundation = SerializerFoundation.New(typeDictionaryString);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Using the setInitialTypeDictionary(String typeDictionaryString) method:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final SerializerFoundation&lt;?&gt; foundation = SerializerFoundation.New();
+foundation.setInitialTypeDictionary(typeDictionaryString);</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -667,7 +708,7 @@ If you want to deserialize that with another serializer instance you must regist
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <code>TypedSerializer</code> implementation includes type information into the serialized output.
-By default the complete set of type information is included in all serialized output.</p>
+By default, the complete set of type information is included in all serialized output.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -679,7 +720,7 @@ Customer restored = serializer.deserialize(data);</code></pre>
 <div class="sect2">
 <h3 id="_configuring_the_included_type_information"><a class="anchor" href="#_configuring_the_included_type_information"></a>Configuring the included type information</h3>
 <div class="paragraph">
-<p>To reduce the serialized data it is possible to configure the included type information by suppling a <code>SerializerTypeInfoStrategyCreator</code> to the <code>SerializerFoundation</code>.</p>
+<p>To reduce the serialized data, it is possible to configure the included type information by supplying a <code>SerializerTypeInfoStrategyCreator</code> to the <code>SerializerFoundation</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -705,15 +746,15 @@ return TypedSerializer.Bytes(foundation);</code></pre>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TypeDictionary</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Includes type information for all types currently known to the serializer including those registered during the setup.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Includes type information for all types currently known to the serializer, including those registered during the setup.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Diff</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Includes type information for all types currently known to the serializer including those registered during the setup.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Includes type information for all types currently known to the serializer, including those registered during the setup.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IncrementalDiff</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Includes only type information for types added to the serializers type registry in the current serialization. Types that are registered during the serializers setup are never included.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Includes only type information for types added to the serializers type registry in the current serialization. Types that are registered during the serializer&#8217;s setup are never included.</p></td>
 </tr>
 </tbody>
 </table>
@@ -721,8 +762,8 @@ return TypedSerializer.Bytes(foundation);</code></pre>
 <div class="sect3">
 <h4 id="_the_includetypeinfoonce_parameter"><a class="anchor" href="#_the_includetypeinfoonce_parameter"></a>The <code>includeTypeInfoOnce</code> parameter:</h4>
 <div class="paragraph">
-<p>All three serializer type handling strategies allow to specify that the type information gets included only once if it has not changed by setting the parameter <code>includeTypeInfoOnce = true</code>.
-If so, the type information is only included if there where new types registered during the current serialization.</p>
+<p>All three serializer type handling strategies allow specifying that the type information gets included only once if it has not changed by setting the parameter <code>includeTypeInfoOnce = true</code>.
+If so, the type information is only included if new types are registered during the current serialization.</p>
 </div>
 </div>
 </div>

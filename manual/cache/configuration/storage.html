@@ -445,6 +445,9 @@
     <a class="nav-link" href="../../storage/addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../storage/addendum/tools.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../storage/addendum/examples-and-demo-projects.html">Examples and Demo Projects</a>
   </li>
 </ul>
@@ -591,7 +594,7 @@
     <li><a href="storage.html">Storage</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/release/1x/docs/modules/cache/pages/configuration/storage.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/cache/pages/configuration/storage.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -623,7 +626,7 @@ Cache&lt;Integer, String&gt; cache = cacheManager.createCache("jCache", configur
 <div class="listingblock">
 <div class="title">cache-config.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">key-type = java.lang.Integer
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">key-type = java.lang.Integer
 value-type = java.lang.String
 
 read-through = true
@@ -635,7 +638,7 @@ storage-configuration-resource-name = eclipsestore-storage.properties</code></pr
 <div class="listingblock">
 <div class="title">eclipsestore-storage.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">storage-directory = ~/cache-data
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">storage-directory = ~/cache-data
 channel-count = 4</code></pre>
 </div>
 </div>
@@ -645,7 +648,7 @@ channel-count = 4</code></pre>
 <div class="listingblock">
 <div class="title">cache-config.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">key-type = java.lang.Integer
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">key-type = java.lang.Integer
 value-type = java.lang.String
 
 read-through = true
@@ -683,7 +686,7 @@ storage.channel-count = 4</code></pre>
 <div class="listingblock">
 <div class="title">application.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">spring.jpa.properties.hibernate.cache.eclipsestore.missing_cache_strategy = create
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">spring.jpa.properties.hibernate.cache.eclipsestore.missing_cache_strategy = create
 spring.jpa.properties.hibernate.cache.eclipsestore.readThrough = true
 spring.jpa.properties.hibernate.cache.eclipsestore.writeThrough = true
 spring.jpa.properties.hibernate.cache.eclipsestore.storage.baseDirectory = ~/cache-data

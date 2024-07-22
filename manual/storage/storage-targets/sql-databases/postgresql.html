@@ -445,6 +445,9 @@
     <a class="nav-link" href="../../addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../addendum/tools.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../addendum/examples-and-demo-projects.html">Examples and Demo Projects</a>
   </li>
 </ul>
@@ -592,7 +595,7 @@
     <li><a href="postgresql.html">Postgres</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/release/1x/docs/modules/storage/pages/storage-targets/sql-databases/postgresql.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/storage/pages/storage-targets/sql-databases/postgresql.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -607,7 +610,7 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
 	&lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
 	&lt;artifactId&gt;afs-sql&lt;/artifactId&gt;
-	&lt;version&gt;1.3.2&lt;/version&gt;
+	&lt;version&gt;1.4.0&lt;/version&gt;
 &lt;/dependency&gt;
 &lt;dependency&gt;
 	&lt;groupId&gt;org.postgresql&lt;/groupId&gt;
@@ -644,7 +647,10 @@ Please note that you have to define a data source provider.</p>
 <div class="listingblock">
 <div class="title">eclipsestore.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">storage-filesystem.sql.postgres.data-source-provider=com.sample.MyDataSourceProvider
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties"># optional, enforces checks
+storage-filesystem.target=sql.postgres
+
+storage-filesystem.sql.postgres.data-source-provider=com.sample.MyDataSourceProvider
 storage-filesystem.sql.postgres.catalog=mycatalog
 storage-filesystem.sql.postgres.schema=myschema
 storage-filesystem.sql.postgres.url=jdbc:postgresql://localhost:5432/mydb

@@ -445,6 +445,9 @@
     <a class="nav-link" href="../../addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../addendum/tools.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../addendum/examples-and-demo-projects.html">Examples and Demo Projects</a>
   </li>
 </ul>
@@ -592,7 +595,7 @@
     <li><a href="azure-storage.html">Azure Storage</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/release/1x/docs/modules/storage/pages/storage-targets/blob-stores/azure-storage.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/storage/pages/storage-targets/blob-stores/azure-storage.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -607,7 +610,7 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
 	&lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
 	&lt;artifactId&gt;afs-azure-storage&lt;/artifactId&gt;
-	&lt;version&gt;1.3.2&lt;/version&gt;
+	&lt;version&gt;1.4.0&lt;/version&gt;
 &lt;/dependency&gt;
 &lt;dependency&gt;
 	&lt;groupId&gt;com.azure&lt;/groupId&gt;
@@ -636,7 +639,10 @@ EmbeddedStorage.start(fileSystem.ensureDirectoryPath("storage"));</code></pre>
 <div class="listingblock">
 <div class="title">eclipsestore.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">storage-filesystem.azure.storage.credentials.type=basic
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties"># optional, enforces checks
+storage-filesystem.target=azure.storage
+
+storage-filesystem.azure.storage.credentials.type=basic
 storage-filesystem.azure.storage.credentials.username=user
 storage-filesystem.azure.storage.credentials.password=secret</code></pre>
 </div>
@@ -648,13 +654,15 @@ storage-filesystem.azure.storage.credentials.password=secret</code></pre>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
+<col style="width: 16.6666%;">
 <col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
+<col style="width: 50.0001%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Property</th>
 <th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
 </tr>
 </thead>
 <tbody>
@@ -663,18 +671,21 @@ storage-filesystem.azure.storage.credentials.password=secret</code></pre>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Sets the blob service endpoint, additionally parses it for information (SAS token).</p>
 </div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">connection-string</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Sets the connection string to connect to the service.</p>
 </div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">encryption-scope</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Sets the encryption scope that is used to encrypt blob contents on the server.</p>
 </div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">credentials.type</p></td>
@@ -693,30 +704,35 @@ Credentials will be loaded from the credentials.account-name and credentials.acc
 </li>
 </ul>
 </div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">credentials.username</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>The username, used when "credentials.type" is "basic".</p>
 </div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">credentials.password</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>The password, used when "credentials.type" is "basic".</p>
 </div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">credentials.account-name</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>The account name, used when "credentials.type" is "shared-key".</p>
 </div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">credentials.account-key</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>The account key, used when "credentials.type" is "shared-key".</p>
 </div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 </tr>
 </tbody>
 </table>
