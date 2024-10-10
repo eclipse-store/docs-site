@@ -5,6 +5,9 @@ site:
 content:
   sources:
   - url: https://github.com/eclipse-store/store.git
+    branches: release/1x
+    start_path: docs
+  - url: https://github.com/eclipse-store/store.git
     branches: main
     start_path: docs
 asciidoc:
