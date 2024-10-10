@@ -333,6 +333,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/storing-data/deep-copy.html">Deep Copy Utility</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/storing-data/reloader.html">Reloading</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -567,14 +570,17 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">V1</span>
+    <span class="version">V2</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="welcome.html">V1</a>
+          <a href="welcome.html">V2</a>
+        </li>
+        <li class="version">
+          <a href="../1/intro/welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -592,6 +598,13 @@
     <li><a href="installation.html">Installation</a></li>
   </ul>
 </nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">V2</button>
+  <div class="version-menu">
+    <a class="version is-current" href="installation.html">V2</a>
+    <a class="version" href="../1/intro/installation.html">V1</a>
+  </div>
+</div>
 <div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/intro/pages/installation.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
@@ -609,33 +622,18 @@
 <div class="listingblock">
 <div class="title">Maven [pom.xml]</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml"> &lt;repositories&gt;
-    &lt;repository&gt;
-        &lt;id&gt;ossrh&lt;/id&gt;
-        &lt;url&gt;https://oss.sonatype.org/content/repositories/snapshots&lt;/url&gt;
-        &lt;releases&gt;
-            &lt;enabled&gt;false&lt;/enabled&gt;
-        &lt;/releases&gt;
-        &lt;snapshots&gt;
-            &lt;enabled&gt;true&lt;/enabled&gt;
-        &lt;/snapshots&gt;
-    &lt;/repository&gt;
-&lt;/repositories&gt;
-
-&lt;dependencies&gt;
-	&lt;dependency&gt;
-		&lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
-		&lt;artifactId&gt;storage-embedded&lt;/artifactId&gt;
-		&lt;version&gt;1.4.0&lt;/version&gt;
-	&lt;/dependency&gt;
-&lt;/dependencies&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+	&lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
+	&lt;artifactId&gt;storage-embedded&lt;/artifactId&gt;
+	&lt;version&gt;2.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Gradle (Groovy) [build.gradle]</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
-	implementation 'org.eclipse.store:storage-embedded:1.4.0'
+	implementation 'org.eclipse.store:storage-embedded:2.0.0'
 }</code></pre>
 </div>
 </div>
@@ -643,14 +641,14 @@
 <div class="title">Gradle (Kotlin) [build.gradle.kts]</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">dependencies {
-	implementation("org.eclipse.store:storage-embedded:1.4.0")
+	implementation("org.eclipse.store:storage-embedded:2.0.0")
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Scala SBT [build.sbt]</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">libraryDependencies += "org.eclipse.store" % "storage-embedded" % "1.4.0"</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">libraryDependencies += "org.eclipse.store" % "storage-embedded" % "2.0.0"</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -659,7 +657,7 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
 	&lt;dependency org="org.eclipse.store"
 		name="storage-embedded"
-		rev="1.4.0" /&gt;
+		rev="2.0.0" /&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
 </div>
@@ -667,7 +665,7 @@
 <div class="title">Apache Buildr [Buildfile]</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-ruby hljs" data-lang="ruby">define 'my-app' do
-	compile.with 'org.eclipse.store:storage-embedded:1.4.0'
+	compile.with 'org.eclipse.store:storage-embedded:2.0.0'
 end</code></pre>
 </div>
 </div>
@@ -690,7 +688,7 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
 	artifacts = [
-		"org.eclipse.store:storage-embedded:1.4.0"
+		"org.eclipse.store:storage-embedded:2.0.0"
 	],
 )</code></pre>
 </div>
@@ -700,7 +698,7 @@ maven_install(
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">maven_jar(
 	name = "eclipsestore",
-	artifact = "org.eclipse.store:storage-embedded:1.4.0"
+	artifact = "org.eclipse.store:storage-embedded:2.0.0"
 )</code></pre>
 </div>
 </div>

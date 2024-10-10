@@ -333,6 +333,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../storage/storing-data/deep-copy.html">Deep Copy Utility</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../storage/storing-data/reloader.html">Reloading</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -567,14 +570,17 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">V1</span>
+    <span class="version">V2</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../../intro/welcome.html">V1</a>
+          <a href="../../intro/welcome.html">V2</a>
+        </li>
+        <li class="version">
+          <a href="../../1/intro/welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -594,6 +600,13 @@
     <li><a href="spring-boot.html">Spring-Boot</a></li>
   </ul>
 </nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">V2</button>
+  <div class="version-menu">
+    <a class="version is-current" href="spring-boot.html">V2</a>
+    <a class="version" href="../../1/misc/integrations/spring-boot.html">V1</a>
+  </div>
+</div>
 <div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/misc/pages/integrations/spring-boot.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
@@ -620,7 +633,7 @@ It is available within this artifact:</p>
    &lt;dependency&gt;
       &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
       &lt;artifactId&gt;integrations-spring-boot3&lt;/artifactId&gt;
-      &lt;version&gt;1.4.0&lt;/version&gt;
+      &lt;version&gt;2.0.0&lt;/version&gt;
    &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
@@ -960,6 +973,17 @@ vaadin.url-mapping=/store-console/*</code></pre>
 starts a web server on port <code>8080</code> the Client GUI will be available at: <a href="http://localhost:8080/store-console/" class="bare">http://localhost:8080/store-console/</a>. Open this URL
 in your browser, select from the dropdown list the endpoint of the Spring REST Service (<a href="http://localhost:8080/store-data/" class="bare">http://localhost:8080/store-data/</a>)
 and click connect.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_spring_dev_tools"><a class="anchor" href="#_spring_dev_tools"></a>Spring Dev Tools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are using Spring Dev Tools, it is recommended to exclude the EclipseStore classes from the classpath. Spring Dev Tools use their own restart classloader, which dynamically reloads classes. This can cause issues with the EclipseStore classes, as they are not designed to be reloaded on the fly.</p>
+</div>
+<div class="paragraph">
+<p>Spring documentation: <a href="https://docs.spring.io/spring-boot/reference/using/devtools.html" class="bare">https://docs.spring.io/spring-boot/reference/using/devtools.html</a></p>
 </div>
 </div>
 </div>

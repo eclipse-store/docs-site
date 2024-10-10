@@ -333,6 +333,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storing-data/deep-copy.html">Deep Copy Utility</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storing-data/reloader.html">Reloading</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -567,14 +570,17 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">V1</span>
+    <span class="version">V2</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../../intro/welcome.html">V1</a>
+          <a href="../../intro/welcome.html">V2</a>
+        </li>
+        <li class="version">
+          <a href="../../1/intro/welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -594,6 +600,13 @@
     <li><a href="file-storage.html">File Storage</a></li>
   </ul>
 </nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">V2</button>
+  <div class="version-menu">
+    <a class="version is-current" href="file-storage.html">V2</a>
+    <a class="version" href="../../1/storage/faq/file-storage.html">V1</a>
+  </div>
+</div>
 <div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/storage/pages/faq/file-storage.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
@@ -639,6 +652,15 @@ the process that currently runs the application.
 Allowing another process to bypass these rules would eventually result in catastrophic consistency errors.<br>
 The requirement to distribute an application over multiple processes must be solved by a clustering approach (e.g.
 by distributing logic AND persistent data over multiple processes or by having one process to serve as the data master for multiple worker processes).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_is_it_possible_to_change_the_channel_count_of_an_existing_storage"><a class="anchor" href="#_is_it_possible_to_change_the_channel_count_of_an_existing_storage"></a>Is it possible to change the channel count of an existing storage?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Yes.
+This can be done with the <a href="../addendum/tools.html#_storage_converter" class="xref page">converter tool</a>.</p>
 </div>
 </div>
 </div>

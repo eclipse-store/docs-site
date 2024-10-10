@@ -333,6 +333,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/storing-data/deep-copy.html">Deep Copy Utility</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/storing-data/reloader.html">Reloading</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -567,14 +570,17 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">V1</span>
+    <span class="version">V2</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="welcome.html">V1</a>
+          <a href="welcome.html">V2</a>
+        </li>
+        <li class="version">
+          <a href="../1/intro/welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -592,6 +598,13 @@
     <li><a href="changelog.html">Changelog</a></li>
   </ul>
 </nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">V2</button>
+  <div class="version-menu">
+    <a class="version is-current" href="changelog.html">V2</a>
+    <a class="version" href="../1/intro/changelog.html">V1</a>
+  </div>
+</div>
 <div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/intro/pages/changelog.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
@@ -601,10 +614,62 @@
 <article class="doc">
 <h1 class="page">Changelog</h1>
 <div class="sect1">
-<h2 id="_1_4_0"><a class="anchor" href="#_1_4_0"></a>1.4.0</h2>
+<h2 id="_2_0_0"><a class="anchor" href="#_2_0_0"></a>2.0.0</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_features"><a class="anchor" href="#_features"></a>Features</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Additional Type Handlers <a href="https://github.com/eclipse-serializer/serializer/issues/72">[72</a>]</p>
+</li>
+<li>
+<p>Enhanced Reloader <a href="https://github.com/eclipse-serializer/serializer/issues/135">[135</a>] <a href="https://github.com/eclipse-serializer/serializer/pull/136">[136</a>]</p>
+</li>
+<li>
+<p>Various Storer Enhancements <a href="https://github.com/eclipse-serializer/serializer/pull/143">[143</a>]</p>
+</li>
+<li>
+<p>Ensure Correct Inventorisation of S3 Directories <a href="https://github.com/eclipse-store/store/issues/250">[250</a>] <a href="https://github.com/eclipse-store/store/pull/270">[270</a>]</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bugfixes"><a class="anchor" href="#_bugfixes"></a>Bugfixes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Adaptive Housekeeping Idle GC Fix <a href="https://github.com/eclipse-store/store/pull/293">[293</a>]</p>
+</li>
+<li>
+<p>Lock File Manager Fixes <a href="https://github.com/eclipse-store/store/issues/281">[281</a>] <a href="https://github.com/eclipse-store/store/pull/282">[282</a>]</p>
+</li>
+<li>
+<p>LazyHashMap Fix <a href="https://github.com/eclipse-serializer/serializer/issues/117">[117</a>] <a href="https://github.com/eclipse-serializer/serializer/pull/139">[139</a>]</p>
+</li>
+<li>
+<p>Add Missing Constructor Methods for CSV Converter <a href="https://github.com/eclipse-store/store/pull/283">[283</a>]</p>
+</li>
+<li>
+<p>Fix Intermittent Problem When Opening Database <a href="https://github.com/eclipse-store/store/issues/264">[264</a>]</p>
+</li>
+<li>
+<p>Fix Type Handler Foundation Registration Order Necessity <a href="https://github.com/eclipse-serializer/serializer/pull/142">[142</a>] <a href="https://github.com/eclipse-store/store/issues/204">[204</a>]</p>
+</li>
+<li>
+<p>Fix for Allocation of LazyArgs During Cleanup <a href="https://github.com/eclipse-serializer/serializer/issues/132">[132</a>] <a href="https://github.com/eclipse-serializer/serializer/pull/133">[133</a>]</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_1_4_0"><a class="anchor" href="#_1_4_0"></a>1.4.0</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_features_2"><a class="anchor" href="#_features_2"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -620,7 +685,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes"><a class="anchor" href="#_bugfixes"></a>Bugfixes</h3>
+<h3 id="_bugfixes_2"><a class="anchor" href="#_bugfixes_2"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -638,7 +703,7 @@
 <h2 id="_1_3_2"><a class="anchor" href="#_1_3_2"></a>1.3.2</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_2"><a class="anchor" href="#_features_2"></a>Features</h3>
+<h3 id="_features_3"><a class="anchor" href="#_features_3"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -651,7 +716,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_2"><a class="anchor" href="#_bugfixes_2"></a>Bugfixes</h3>
+<h3 id="_bugfixes_3"><a class="anchor" href="#_bugfixes_3"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -669,7 +734,7 @@
 <h2 id="_1_3_1"><a class="anchor" href="#_1_3_1"></a>1.3.1</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_3"><a class="anchor" href="#_features_3"></a>Features</h3>
+<h3 id="_features_4"><a class="anchor" href="#_features_4"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -682,7 +747,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_3"><a class="anchor" href="#_bugfixes_3"></a>Bugfixes</h3>
+<h3 id="_bugfixes_4"><a class="anchor" href="#_bugfixes_4"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -708,7 +773,7 @@
 <h2 id="_1_2_0"><a class="anchor" href="#_1_2_0"></a>1.2.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_4"><a class="anchor" href="#_features_4"></a>Features</h3>
+<h3 id="_features_5"><a class="anchor" href="#_features_5"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -718,7 +783,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_4"><a class="anchor" href="#_bugfixes_4"></a>Bugfixes</h3>
+<h3 id="_bugfixes_5"><a class="anchor" href="#_bugfixes_5"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -733,7 +798,7 @@
 <h2 id="_1_1_0"><a class="anchor" href="#_1_1_0"></a>1.1.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_5"><a class="anchor" href="#_features_5"></a>Features</h3>
+<h3 id="_features_6"><a class="anchor" href="#_features_6"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -764,7 +829,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_5"><a class="anchor" href="#_bugfixes_5"></a>Bugfixes</h3>
+<h3 id="_bugfixes_6"><a class="anchor" href="#_bugfixes_6"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
