@@ -242,7 +242,7 @@
     <span class="nav-text">Backup</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage/configuration/backup/continuous-backup.html">Continous Backup</a>
+    <a class="nav-link" href="../storage/configuration/backup/continuous-backup.html">Continuous Backup</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../storage/configuration/backup/full-backup.html">Full Backup</a>
@@ -504,6 +504,9 @@
     <a class="nav-link" href="../misc/logging/index.html">Logging</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/locking/index.html">Locking</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/monitoring/index.html">Monitoring</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -614,10 +617,41 @@
 <article class="doc">
 <h1 class="page">Changelog</h1>
 <div class="sect1">
-<h2 id="_2_0_0"><a class="anchor" href="#_2_0_0"></a>2.0.0</h2>
+<h2 id="_2_1_0"><a class="anchor" href="#_2_1_0"></a>2.1.0</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_features"><a class="anchor" href="#_features"></a>Features</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../misc/locking/index.html" class="xref page">Concurrency API</a> <a href="https://github.com/eclipse-serializer/serializer/pull/156">[156</a>]</p>
+</li>
+<li>
+<p><a href="../storage/storing-data/best-practice.html#_get_objects_that_are_persisted_by_a_storer" class="xref page">Object registration listener for storer</a> <a href="https://github.com/eclipse-store/store/discussions/134">[134</a>] <a href="https://github.com/eclipse-serializer/serializer/pull/160">[160</a>]</p>
+</li>
+<li>
+<p>Spring custom initializer <a href="https://github.com/eclipse-store/store/pull/323">[323</a>]</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bugfixes"><a class="anchor" href="#_bugfixes"></a>Bugfixes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixes for Android regressions <a href="https://github.com/eclipse-serializer/serializer/pull/154">[154</a>] <a href="https://github.com/eclipse-serializer/serializer/pull/155">[155</a>] <a href="https://github.com/eclipse-store/store/issues/325">[325</a>] <a href="https://github.com/eclipse-store/store/issues/326">[326</a>] <a href="https://github.com/eclipse-store/store/pull/329">[329</a>]</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_0_0"><a class="anchor" href="#_2_0_0"></a>2.0.0</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_features_2"><a class="anchor" href="#_features_2"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -636,7 +670,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes"><a class="anchor" href="#_bugfixes"></a>Bugfixes</h3>
+<h3 id="_bugfixes_2"><a class="anchor" href="#_bugfixes_2"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -669,7 +703,7 @@
 <h2 id="_1_4_0"><a class="anchor" href="#_1_4_0"></a>1.4.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_2"><a class="anchor" href="#_features_2"></a>Features</h3>
+<h3 id="_features_3"><a class="anchor" href="#_features_3"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -685,7 +719,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_2"><a class="anchor" href="#_bugfixes_2"></a>Bugfixes</h3>
+<h3 id="_bugfixes_3"><a class="anchor" href="#_bugfixes_3"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -703,7 +737,7 @@
 <h2 id="_1_3_2"><a class="anchor" href="#_1_3_2"></a>1.3.2</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_3"><a class="anchor" href="#_features_3"></a>Features</h3>
+<h3 id="_features_4"><a class="anchor" href="#_features_4"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -716,7 +750,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_3"><a class="anchor" href="#_bugfixes_3"></a>Bugfixes</h3>
+<h3 id="_bugfixes_4"><a class="anchor" href="#_bugfixes_4"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -734,7 +768,7 @@
 <h2 id="_1_3_1"><a class="anchor" href="#_1_3_1"></a>1.3.1</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_4"><a class="anchor" href="#_features_4"></a>Features</h3>
+<h3 id="_features_5"><a class="anchor" href="#_features_5"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -747,7 +781,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_4"><a class="anchor" href="#_bugfixes_4"></a>Bugfixes</h3>
+<h3 id="_bugfixes_5"><a class="anchor" href="#_bugfixes_5"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -773,7 +807,7 @@
 <h2 id="_1_2_0"><a class="anchor" href="#_1_2_0"></a>1.2.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_5"><a class="anchor" href="#_features_5"></a>Features</h3>
+<h3 id="_features_6"><a class="anchor" href="#_features_6"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -783,7 +817,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_5"><a class="anchor" href="#_bugfixes_5"></a>Bugfixes</h3>
+<h3 id="_bugfixes_6"><a class="anchor" href="#_bugfixes_6"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -798,7 +832,7 @@
 <h2 id="_1_1_0"><a class="anchor" href="#_1_1_0"></a>1.1.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_6"><a class="anchor" href="#_features_6"></a>Features</h3>
+<h3 id="_features_7"><a class="anchor" href="#_features_7"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -829,7 +863,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_6"><a class="anchor" href="#_bugfixes_6"></a>Bugfixes</h3>
+<h3 id="_bugfixes_7"><a class="anchor" href="#_bugfixes_7"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>

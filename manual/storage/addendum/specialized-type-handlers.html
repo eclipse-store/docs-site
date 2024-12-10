@@ -242,7 +242,7 @@
     <span class="nav-text">Backup</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../configuration/backup/continuous-backup.html">Continous Backup</a>
+    <a class="nav-link" href="../configuration/backup/continuous-backup.html">Continuous Backup</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../configuration/backup/full-backup.html">Full Backup</a>
@@ -502,6 +502,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../misc/logging/index.html">Logging</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../misc/locking/index.html">Locking</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../misc/monitoring/index.html">Monitoring</a>
@@ -776,7 +779,7 @@ If you want a more optimized version of JDK collection handlers, you can utilize
 	&lt;dependency&gt;
 		&lt;groupId&gt;org.eclipse.serializer&lt;/groupId&gt;
 		&lt;artifactId&gt;persistence-binary-jdk8&lt;/artifactId&gt;
-		&lt;version&gt;2.0.0&lt;/version&gt;
+		&lt;version&gt;2.1.0&lt;/version&gt;
 	&lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
@@ -799,7 +802,7 @@ foundation.onConnectionFoundation(BinaryHandlersJDK8::registerJDK8TypeHandlers);
 	&lt;dependency&gt;
 		&lt;groupId&gt;org.eclipse.serializer&lt;/groupId&gt;
 		&lt;artifactId&gt;persistence-binary-jdk17&lt;/artifactId&gt;
-		&lt;version&gt;2.0.0&lt;/version&gt;
+		&lt;version&gt;2.1.0&lt;/version&gt;
 	&lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
@@ -808,6 +811,15 @@ foundation.onConnectionFoundation(BinaryHandlersJDK8::registerJDK8TypeHandlers);
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final EmbeddedStorageFoundation&lt;?&gt; foundation = EmbeddedStorage.Foundation();
 foundation.onConnectionFoundation(BinaryHandlersJDK17::registerJDK17TypeHandlers);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For serializer:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final SerializerFoundation&lt;?&gt; foundation = SerializerFoundation.New();
+BinaryHandlersJDK17.registerJDK17TypeHandlers(foundation);</code></pre>
 </div>
 </div>
 </div>

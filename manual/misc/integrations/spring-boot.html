@@ -242,7 +242,7 @@
     <span class="nav-text">Backup</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../storage/configuration/backup/continuous-backup.html">Continous Backup</a>
+    <a class="nav-link" href="../../storage/configuration/backup/continuous-backup.html">Continuous Backup</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../../storage/configuration/backup/full-backup.html">Full Backup</a>
@@ -504,6 +504,9 @@
     <a class="nav-link" href="../logging/index.html">Logging</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../locking/index.html">Locking</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../monitoring/index.html">Monitoring</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -633,7 +636,7 @@ It is available within this artifact:</p>
    &lt;dependency&gt;
       &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
       &lt;artifactId&gt;integrations-spring-boot3&lt;/artifactId&gt;
-      &lt;version&gt;2.0.0&lt;/version&gt;
+      &lt;version&gt;2.1.0&lt;/version&gt;
    &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
@@ -984,6 +987,34 @@ and click connect.</p>
 </div>
 <div class="paragraph">
 <p>Spring documentation: <a href="https://docs.spring.io/spring-boot/reference/using/devtools.html" class="bare">https://docs.spring.io/spring-boot/reference/using/devtools.html</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_code_configuration_before_storage_creation"><a class="anchor" href="#_code_configuration_before_storage_creation"></a>Code Configuration Before Storage Creation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are some use cases where it is necessary to configure the storage&#8217;s context before it is created. For this purpose, you can use the <code>StorageContextInitializer</code> to create a custom storage configuration in your application.</p>
+</div>
+<div class="paragraph">
+<p>Example for configuring <code>LazyReferenceManager</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Component
+public class StorageContextInitializerImpl implements StorageContextInitializer
+{
+    @Override
+    public void initialize()
+    {
+        LazyReferenceManager.set(LazyReferenceManager.New(
+                Lazy.Checker(
+                        1_000_000, // timeout of lazy access
+                        0.75       // memory quota
+                )));
+    }
+}</code></pre>
+</div>
 </div>
 </div>
 </div>

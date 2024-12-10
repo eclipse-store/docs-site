@@ -242,7 +242,7 @@
     <span class="nav-text">Backup</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../configuration/backup/continuous-backup.html">Continous Backup</a>
+    <a class="nav-link" href="../configuration/backup/continuous-backup.html">Continuous Backup</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../configuration/backup/full-backup.html">Full Backup</a>
@@ -504,6 +504,9 @@
     <a class="nav-link" href="../../misc/logging/index.html">Logging</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../misc/locking/index.html">Locking</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../misc/monitoring/index.html">Monitoring</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -632,8 +635,8 @@
 </div>
 </div>
 <div class="paragraph">
-<p>In the upper code snippet the "hidden" object cannot be accessed by <code>store(myForeignObject.hidden)</code> if no getter is available.
-To allow such hidden objects to be stored after they have been modified you have to options:</p>
+<p>In the upper code snippet, the "hidden" object cannot be accessed by <code>store(myForeignObject.hidden)</code> if no getter is available.
+To allow such hidden objects to be stored after they have been modified, you have two options:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -662,10 +665,67 @@ To allow such hidden objects to be stored after they have been modified you have
 <h2 id="_use_immutable_data_models"><a class="anchor" href="#_use_immutable_data_models"></a>Use Immutable data models</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To increase performance use immutable sub-graphs as often as possible.</p>
+<p>To increase performance, use immutable sub-graphs as often as possible.</p>
 </div>
 <div class="paragraph">
-<p>Storing those with the provided <a href="transactions.html" class="xref page">convenience storing methods</a> or using a thread local <a href="lazy-eager-full.html#eager-storing" class="xref page">storer</a> to insert those sub-graphs concurrently can give a great performance boost.</p>
+<p>Storing those with the provided <a href="transactions.html" class="xref page">convenience storing methods</a> or using a thread-local <a href="lazy-eager-full.html#eager-storing" class="xref page">storer</a> to insert those sub-graphs concurrently can give a great performance boost.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_get_objects_that_are_persisted_by_a_storer"><a class="anchor" href="#_get_objects_that_are_persisted_by_a_storer"></a>Get objects that are persisted by a storer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes, it can be useful to get all objects and/or their assigned storage ID that are persisted by a store operation.</p>
+</div>
+<div class="paragraph">
+<p>To do so, you can register a custom <code>PersistenceObjectRegistrationListener</code> implementation to a BinaryStorer to collect all objects registered by that storer instance.</p>
+</div>
+<div class="paragraph">
+<p>The default storer will call the <code>onObjectRegistration</code> method for each object registered to be stored during the store phase. Implementers should be aware that this has an impact on the storer&#8217;s performance.</p>
+</div>
+<div class="listingblock">
+<div class="title">PersistenceObjectRegistrationListenerImpl:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public static class PersistenceObjectRegistrationListenerImpl implements PersistenceObjectRegistrationListener {
+
+    private Hashtable&lt;Long, Object&gt; persistenceObjects = new Hashtable&lt;Long, Object&gt;();
+
+    @Override
+    public void onObjectRegistration(long objectID, Object object) {
+        this.persistenceObjects.put(objectID, object);
+    }
+
+    public void clear() {
+        this.persistenceObjects.clear();
+    }
+
+    public Hashtable&lt;Long, Object&gt; get() {
+        return this.persistenceObjects;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">usage:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">//create a storer
+BinaryStorer storer = (Default) storage.createStorer();
+
+//register PersistenceObjectRegistrationListenerImpl implementation
+PersistenceObjectRegistrationListenerImpl registrationListener = new PersistenceObjectRegistrationListenerImpl();
+storer.registerRegistrationListener(registrationListener);
+
+//store some data
+storer.store(...);
+storer.commit();
+
+//get and process persisted objects
+registrationListener.get().forEach(...);
+
+//clean up
+registrationListener.clear();</code></pre>
+</div>
 </div>
 </div>
 </div>
