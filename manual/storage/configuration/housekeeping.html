@@ -665,6 +665,14 @@
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enabling_adaptive_housekeeping_for_write_intensive_data_applications"><a class="anchor" href="#_enabling_adaptive_housekeeping_for_write_intensive_data_applications"></a>Enabling Adaptive Housekeeping for Write-Intensive Data Applications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>EclipseStore is designed to write data as soon as it is requested. If there is a high volume of consecutive data writes, the housekeeping process does not start, resulting in an increased number of open files and significant disk space consumption. One possible solution is to use the Adaptive Housekeeping Controller, which, based on its configuration, allocates time for cleaning and reorganizing data files on the disk.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// New foundation
