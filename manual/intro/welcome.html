@@ -447,10 +447,13 @@
     <a class="nav-link" href="../storage/addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/addendum/storage-graph-analysis.html">Storage Graph Analysis</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/addendum/tools.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/addendum/examples-and-demo-projects.html">Examples and Demo Projects</a>
+    <a class="nav-link" href="../storage/addendum/troubleshooting.html">Troubleshooting</a>
   </li>
 </ul>
   </li>
@@ -458,6 +461,54 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../serializer/index.html">Serializer</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/index.html">GigaMap</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../gigamap/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/indexing/index.html">Indexing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/indexing/bitmap/index.html">Bitmap Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/bitmap/types.html">Index Types</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/bitmap/defining.html">Defining Indices</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../gigamap/indexing/lucene/index.html">Lucene Index</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/queries/index.html">Queries</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../gigamap/queries/defining.html">Defining Queries</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../gigamap/queries/executing.html">Executing Queries</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../gigamap/crud.html">CRUD</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../gigamap/persistence.html">Persistence</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -572,14 +623,17 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">V2</span>
+    <span class="version">V3</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="welcome.html">V2</a>
+          <a href="welcome.html">V3</a>
+        </li>
+        <li class="version">
+          <a href="../2/intro/welcome.html">V2</a>
         </li>
         <li class="version">
           <a href="../1/intro/welcome.html">V1</a>
@@ -601,9 +655,10 @@
   </ul>
 </nav>
 <div class="page-versions">
-  <button class="version-menu-toggle" title="Show other versions of page">V2</button>
+  <button class="version-menu-toggle" title="Show other versions of page">V3</button>
   <div class="version-menu">
-    <a class="version is-current" href="welcome.html">V2</a>
+    <a class="version is-current" href="welcome.html">V3</a>
+    <a class="version" href="../2/intro/welcome.html">V2</a>
     <a class="version" href="../1/intro/welcome.html">V1</a>
   </div>
 </div>
@@ -619,7 +674,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Welcome to the EclipseStore Reference Manual.
-This manual includes concepts, instructions and examples to guide you on how to use EclipseStore, version 2.1.3.</p>
+This manual includes concepts, instructions and examples to guide you on how to use EclipseStore, version 3.0.0.</p>
 </div>
 <div class="paragraph">
 <p>You should be familiar with the Java programming language and you should have installed your preferred Integrated Development Environment (IDE).
@@ -628,10 +683,51 @@ But since you are here we guess you got that covered ;)</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_whats_new_in_2_1_3"><a class="anchor" href="#_whats_new_in_2_1_3"></a>What&#8217;s new in 2.1.3</h2>
+<h2 id="_whats_new_in_3_0_0"><a class="anchor" href="#_whats_new_in_3_0_0"></a>What&#8217;s new in 3.0.0</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>See <a href="changelog.html" class="xref page">Changelog</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_api_docs"><a class="anchor" href="#_api_docs"></a>API Docs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The API documentation is available at</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://javadoc.io/doc/org.eclipse.serializer" class="bare">https://javadoc.io/doc/org.eclipse.serializer</a></p>
+</li>
+<li>
+<p><a href="https://javadoc.io/doc/org.eclipse.store" class="bare">https://javadoc.io/doc/org.eclipse.store</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples_and_demo_projects"><a class="anchor" href="#_examples_and_demo_projects"></a>Examples and Demo Projects</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_examples_collection"><a class="anchor" href="#_examples_collection"></a>Examples Collection</h3>
+<div class="paragraph">
+<p>A collection of examples with different topics:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/eclipse-store/store/tree/master/examples" class="bare">https://github.com/eclipse-store/store/tree/master/examples</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bookstore_demo"><a class="anchor" href="#_bookstore_demo"></a>BookStore Demo</h3>
+<div class="paragraph">
+<p>The BookStore Demo is a fully fledged sample application. It shows how to design an application with EclipseStore from the ground up.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/eclipse-store/bookstore-demo" class="bare">https://github.com/eclipse-store/bookstore-demo</a></p>
+</div>
 </div>
 </div>
 </div>
