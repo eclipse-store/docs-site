@@ -694,9 +694,19 @@ If you want to learn more about Lucene, refer to the <a href="https://lucene.apa
 <div class="title">Maven [pom.xml]</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;one.microstream&lt;/groupId&gt;
+    &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
     &lt;artifactId&gt;gigamap-lucene&lt;/artifactId&gt;
     &lt;version&gt;3.0.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.lucene&lt;/groupId&gt;
+    &lt;artifactId&gt;lucene-core&lt;/artifactId&gt;
+    &lt;version&gt;${lucene.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.lucene&lt;/groupId&gt;
+    &lt;artifactId&gt;lucene-queryparser&lt;/artifactId&gt;
+    &lt;version&gt;${lucene.version}&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
