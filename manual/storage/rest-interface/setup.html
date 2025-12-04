@@ -687,7 +687,10 @@
 <p>SpringBoot 3.x REST Service</p>
 </li>
 <li>
-<p>Spark Java REST Service</p>
+<p>Javalin REST Service</p>
+</li>
+<li>
+<p>Spark Java REST Service (Deprecated, will be removed in future versions)</p>
 </li>
 </ul>
 </div>
@@ -711,7 +714,7 @@ original <a href="https://spring.io/projects/spring-boot">SpringBoot</a> documen
     &lt;dependency&gt;
       &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
       &lt;artifactId&gt;storage-restservice-springboot&lt;/artifactId&gt;
-      &lt;version&gt;3.0.1&lt;/version&gt;
+      &lt;version&gt;3.1.0&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
@@ -759,6 +762,59 @@ application. The corresponding property is <code>org.eclipse.store.rest.base-url
 </div>
 </div>
 <div class="sect1">
+<h2 id="_javalin_java_rest_service"><a class="anchor" href="#_javalin_java_rest_service"></a>Javalin Java REST Service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this example, we will use the <a href="https://javalin.io/">Javalin</a> implementation that EclipseStore provides.</p>
+</div>
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
+        &lt;artifactId&gt;storage-restservice-javalin&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_additional_configuration_2"><a class="anchor" href="#_additional_configuration_2"></a>Additional Configuration</h3>
+<div class="paragraph">
+<p>If you want to change the default port (4567) or instance name (<em>store-data</em>) it can be done by using the program variables:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Javalin REST Service - environment variables</caption>
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 14.2857%;">
+<col style="width: 57.1429%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Environment variable</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>eclipse_store_rest_port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>4567</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP port of the REST service (valid range 1–65535).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>eclipse_store_rest_storage_name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>store-data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instance name used in the base URL (without leading/trailing "/").</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_spark_java_rest_service"><a class="anchor" href="#_spark_java_rest_service"></a>Spark Java REST Service</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -776,7 +832,7 @@ dependency injection, web server or anything else.</p>
     &lt;dependency&gt;
         &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
         &lt;artifactId&gt;storage-restservice-sparkjava&lt;/artifactId&gt;
-        &lt;version&gt;3.0.1&lt;/version&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
@@ -816,7 +872,7 @@ service.start();</code></pre>
 <p>The base URL of the provided endpoints is per default: <a href="http://localhost:4567/store-data/" class="bare">http://localhost:4567/store-data/</a> and you can find out all available endpoints on the root <a href="http://localhost:4567" class="bare">http://localhost:4567</a></p>
 </div>
 <div class="sect2">
-<h3 id="_additional_configuration_2"><a class="anchor" href="#_additional_configuration_2"></a>Additional Configuration</h3>
+<h3 id="_additional_configuration_3"><a class="anchor" href="#_additional_configuration_3"></a>Additional Configuration</h3>
 <div class="paragraph">
 <p>If you want to change the default port (4567) or instance name (<em>store-data</em>) it can be done by using the rest service implementation directly, and not go through the _Resolver` as in the previous snippet.</p>
 </div>
