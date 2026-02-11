@@ -6,7 +6,7 @@
     <title>Lucene Index :: EclipseStore Reference Manual</title>
     <link rel="canonical" href="https://docs.eclipsestore.io/manual/gigamap/indexing/lucene/index.html">
     <link rel="prev" href="../bitmap/defining.html">
-    <link rel="next" href="../../queries/index.html">
+    <link rel="next" href="configuration.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../../_/css/site.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-32x32.png">
@@ -487,7 +487,34 @@
 </ul>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="index.html">Lucene Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../jvector/index.html">JVector Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../jvector/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../jvector/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -624,14 +651,17 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">V3</span>
+    <span class="version">V4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="../../../intro/welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../../../intro/welcome.html">V3</a>
+          <a href="../../../intro/welcome.html">V4</a>
+        </li>
+        <li class="version">
+          <a href="../../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
           <a href="../../../2/intro/welcome.html">V2</a>
@@ -658,9 +688,10 @@
   </ul>
 </nav>
 <div class="page-versions">
-  <button class="version-menu-toggle" title="Show other versions of page">V3</button>
+  <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
-    <a class="version is-current" href="index.html">V3</a>
+    <a class="version is-current" href="index.html">V4</a>
+    <a class="version" href="../../../3/gigamap/indexing/lucene/index.html">V3</a>
     <a class="version is-missing" href="../../../2/intro/welcome.html">V2</a>
     <a class="version is-missing" href="../../../1/intro/welcome.html">V1</a>
   </div>
@@ -676,14 +707,90 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A specialized index implementation which connects to a <a href="https://lucene.apache.org">Lucene</a> directory.</p>
+<p>The Lucene index adds full-text search capabilities to entities stored in a GigaMap. Like the <a href="../bitmap/index.html" class="xref page">Bitmap</a> and <a href="../jvector/index.html" class="xref page">JVector</a> indices, it is registered with the GigaMap and automatically kept in sync as entities are added, updated, or removed.</p>
 </div>
 <div class="paragraph">
-<p>Lucene is the de facto industry standard for full-text indexing in the Java ecosystem.
-If you want to learn more about Lucene, refer to the <a href="https://lucene.apache.org/core/documentation.html">official documentation</a>.</p>
+<p>Under the hood, the index uses <a href="https://lucene.apache.org">Apache Lucene</a>, the de facto industry standard for full-text indexing in the Java ecosystem. This enables powerful text search features including tokenization, stemming, relevance scoring, and the full Lucene query syntax.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_full_text_search"><a class="anchor" href="#_what_is_full_text_search"></a>What is Full-Text Search?</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Lucene uses so-called documents which are basically key-value stores consisting of a name and a textual value. The Java entities are mapped to documents, which then can be searched.</p>
+<p>Traditional database queries match exact values: <code>firstName = "John"</code> finds only exact matches. Full-text search is different - it understands text:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tokenization</strong>: "Machine Learning Tutorial" becomes searchable as "machine", "learning", "tutorial"</p>
+</li>
+<li>
+<p><strong>Case insensitivity</strong>: "PYTHON" matches "python" and "Python"</p>
+</li>
+<li>
+<p><strong>Relevance scoring</strong>: Results are ranked by how well they match</p>
+</li>
+<li>
+<p><strong>Partial matching</strong>: Wildcards like <code>Py*</code> find "Python", "Pygame", etc.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_when_to_use_full_text_search"><a class="anchor" href="#_when_to_use_full_text_search"></a>When to Use Full-Text Search</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query Type</th>
+<th class="tableblock halign-left valign-top">Index Type</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact match</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bitmap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>category = "Electronics"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Full-text search</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lucene</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description contains "wireless bluetooth"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Similarity search</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JVector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Find products similar to this one"</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Use the Lucene index when you need to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Search within text content (descriptions, articles, comments)</p>
+</li>
+<li>
+<p>Find documents by keywords regardless of exact phrasing</p>
+</li>
+<li>
+<p>Rank results by relevance</p>
+</li>
+<li>
+<p>Support advanced search syntax (AND, OR, phrases, wildcards)</p>
+</li>
+<li>
+<p>Build search-as-you-type features</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -696,7 +803,7 @@ If you want to learn more about Lucene, refer to the <a href="https://lucene.apa
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
     &lt;artifactId&gt;gigamap-lucene&lt;/artifactId&gt;
-    &lt;version&gt;3.1.0&lt;/version&gt;
+    &lt;version&gt;4.0.0-beta1&lt;/version&gt;
 &lt;/dependency&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;org.apache.lucene&lt;/groupId&gt;
@@ -716,50 +823,368 @@ If you want to learn more about Lucene, refer to the <a href="https://lucene.apa
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>First, we need to implement a <code>DocumentPopulator</code>, which maps the Java entities into documents.</p>
-</div>
-<div class="paragraph">
-<p>The <code>DocumentPopulator</code> comes with several <code>create*Field</code> methods that allow us to create document entries quickly.</p>
+<p>First, implement a <code>DocumentPopulator</code> that maps your entity fields to Lucene document fields.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">class PersonDocumentPopulator extends DocumentPopulator&lt;Person&gt;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class ArticleDocumentPopulator extends DocumentPopulator&lt;Article&gt;
 {
     @Override
-    public void populate(Document document, Person person)
+    public void populate(Document document, Article article)
     {
-        document.add(createTextField("firstName", person.getFirstName()));
-        document.add(createTextField("lastName" , person.getLastName ()));
+        document.add(createTextField("title", article.getTitle()));
+        document.add(createTextField("content", article.getContent()));
+        document.add(createStringField("author", article.getAuthor()));
     }
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Then we create a <code>LuceneContext</code> and register it at the GigaMap.</p>
+<p>Then create a <code>LuceneContext</code> and register it with the GigaMap.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">LuceneContext&lt;Person&gt; luceneContext = LuceneContext.New(
-    Paths.get("lucene-store"),    // path to directory
-    new PersonDocumentPopulator() // our document populator
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Create context with document populator
+LuceneContext&lt;Article&gt; context = LuceneContext.New(
+    Paths.get("lucene-index"),      // Directory for index files
+    new ArticleDocumentPopulator()  // Maps entities to documents
 );
 
-LuceneIndex&lt;Person&gt; luceneIndex = gigaMap.index().register(LuceneIndex.Category(luceneContext));</code></pre>
+// Create GigaMap and register Lucene index
+GigaMap&lt;Article&gt; articles = GigaMap.New();
+LuceneIndex&lt;Article&gt; luceneIndex = articles.index().register(LuceneIndex.Category(context));
+
+// Add entities (automatically indexed)
+articles.add(new Article("Python Guide", "Learn Python programming...", "Jane"));
+articles.add(new Article("Java Tips", "Best practices for Java...", "John"));</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Afterward we are able to query the index using the Lucene query language.</p>
+<p>Query using the Lucene query syntax.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">List&lt;Person&gt; result = luceneIndex.query("firstName:John");</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Simple field search
+List&lt;Article&gt; pythonArticles = luceneIndex.query("title:Python");
+
+// Full-text search across content
+List&lt;Article&gt; programmingArticles = luceneIndex.query("content:programming");
+
+// Boolean queries
+List&lt;Article&gt; javaByJohn = luceneIndex.query("title:Java AND author:John");
+
+// Wildcard search
+List&lt;Article&gt; pyArticles = luceneIndex.query("title:Py*");
+
+// Phrase search
+List&lt;Article&gt; exactPhrase = luceneIndex.query("content:\"best practices\"");</code></pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_field_types"><a class="anchor" href="#_field_types"></a>Field Types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>DocumentPopulator</code> provides helper methods for different field types:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Method</th>
+<th class="tableblock halign-left valign-top">Lucene Field Type</th>
+<th class="tableblock halign-left valign-top">Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createTextField(name, value)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TextField (analyzed)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Full-text searchable content. Tokenized and indexed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createStringField(name, value)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">StringField (not analyzed)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact match only. Use for IDs, categories, status values.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createIntField(name, value)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IntPoint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Numeric integer values. Supports range queries.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createLongField(name, value)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LongPoint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Numeric long values. Supports range queries.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createFloatField(name, value)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FloatPoint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Numeric float values. Supports range queries.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createDoubleField(name, value)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DoublePoint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Numeric double values. Supports range queries.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_field_type_examples"><a class="anchor" href="#_field_type_examples"></a>Field Type Examples</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class ProductDocumentPopulator extends DocumentPopulator&lt;Product&gt;
+{
+    @Override
+    public void populate(Document document, Product product)
+    {
+        // Full-text searchable
+        document.add(createTextField("name", product.getName()));
+        document.add(createTextField("description", product.getDescription()));
+
+        // Exact match only
+        document.add(createStringField("sku", product.getSku()));
+        document.add(createStringField("category", product.getCategory()));
+
+        // Numeric fields for range queries
+        document.add(createDoubleField("price", product.getPrice()));
+        document.add(createIntField("quantity", product.getQuantity()));
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_query_syntax"><a class="anchor" href="#_query_syntax"></a>Query Syntax</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Lucene index supports the full <a href="https://lucene.apache.org/core/9_8_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html">Lucene query syntax</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_basic_queries"><a class="anchor" href="#_basic_queries"></a>Basic Queries</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title:Python</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Field contains term "Python"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Python</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default field contains "Python"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title:"Machine Learning"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Phrase search (exact sequence)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title:Py*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wildcard (starts with "Py")</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title:Pythn~</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fuzzy search (similar spelling)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_boolean_queries"><a class="anchor" href="#_boolean_queries"></a>Boolean Queries</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title:Python AND author:Jane</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both conditions must match</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title:Python OR title:Java</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Either condition matches</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title:Python NOT deprecated</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exclude results containing "deprecated"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>+title:Python -draft</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must have "Python", must not have "draft"</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_range_queries"><a class="anchor" href="#_range_queries"></a>Range Queries</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Text range
+luceneIndex.query("author:[A TO M]");  // Authors A through M
+
+// Numeric range (requires native Query object)
+Query priceRange = DoublePoint.newRangeQuery("price", 10.0, 100.0);
+List&lt;Product&gt; affordable = luceneIndex.query(priceRange);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_result_handling"><a class="anchor" href="#_result_handling"></a>Result Handling</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_basic_query"><a class="anchor" href="#_basic_query"></a>Basic Query</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Returns all matching entities
+List&lt;Article&gt; results = luceneIndex.query("title:Python");</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_limited_results"><a class="anchor" href="#_limited_results"></a>Limited Results</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Returns at most 10 results
+List&lt;Article&gt; top10 = luceneIndex.query("title:Python", 10);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_with_relevance_scores"><a class="anchor" href="#_with_relevance_scores"></a>With Relevance Scores</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Access entity ID, entity, and relevance score
+luceneIndex.query("title:Python", (entityId, article, score) -&gt; {
+    System.out.println(article.getTitle() + " (score: " + score + ")");
+});
+
+// With result limit
+luceneIndex.query("title:Python", 10, (entityId, article, score) -&gt; {
+    System.out.println(article.getTitle() + " (score: " + score + ")");
+});</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_persistence"><a class="anchor" href="#_persistence"></a>Persistence</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Lucene index supports three storage options:</p>
+</div>
+<div class="sect2">
+<h3 id="_embedded_storage_default"><a class="anchor" href="#_embedded_storage_default"></a>Embedded Storage (Default)</h3>
+<div class="paragraph">
+<p>Stores index data inside the GigaMap&#8217;s object graph. The index is persisted automatically when the GigaMap is stored.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// No directory specified - uses embedded storage
+LuceneContext&lt;Article&gt; context = LuceneContext.New(
+    new ArticleDocumentPopulator()
+);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_file_system_storage"><a class="anchor" href="#_file_system_storage"></a>File System Storage</h3>
+<div class="paragraph">
+<p>Stores index data in a directory on the file system using memory-mapped files.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Specify directory path - uses MMapDirectory
+LuceneContext&lt;Article&gt; context = LuceneContext.New(
+    Paths.get("/data/lucene-index"),
+    new ArticleDocumentPopulator()
+);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_in_memory_storage"><a class="anchor" href="#_in_memory_storage"></a>In-Memory Storage</h3>
+<div class="paragraph">
+<p>Stores index data in memory. Useful for testing or temporary indexes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Use ByteBuffersDirectory for in-memory storage
+LuceneContext&lt;Article&gt; context = LuceneContext.New(
+    DirectoryCreator.ByteBuffers(),
+    new ArticleDocumentPopulator()
+);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_integration_with_eclipsestore"><a class="anchor" href="#_integration_with_eclipsestore"></a>Integration with EclipseStore</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">try (EmbeddedStorageManager storage = EmbeddedStorage.start(storageDir))
+{
+    GigaMap&lt;Article&gt; articles = GigaMap.New();
+    storage.setRoot(articles);
+
+    LuceneContext&lt;Article&gt; context = LuceneContext.New(new ArticleDocumentPopulator());
+    LuceneIndex&lt;Article&gt; luceneIndex = articles.index().register(LuceneIndex.Category(context));
+
+    articles.add(new Article("Title", "Content", "Author"));
+
+    storage.storeRoot();
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_further_reading"><a class="anchor" href="#_further_reading"></a>Further Reading</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="configuration.html" class="xref page">Configuration Options</a></p>
+</li>
+<li>
+<p><a href="use-cases.html" class="xref page">Use Cases</a></p>
+</li>
+<li>
+<p><a href="advanced.html" class="xref page">Advanced Usage</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../bitmap/defining.html">Defining Indices</a></span>
-  <span class="next"><a href="../../queries/index.html">Queries</a></span>
+  <span class="next"><a href="configuration.html">Configuration</a></span>
 </nav>
 </article>
   </div>
