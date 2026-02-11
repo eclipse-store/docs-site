@@ -11,6 +11,9 @@ content:
     branches: release/2x
     start_path: docs
   - url: https://github.com/eclipse-store/store.git
+    branches: release/3x
+    start_path: docs
+  - url: https://github.com/eclipse-store/store.git
     branches: main
     start_path: docs
 asciidoc:
