@@ -200,6 +200,9 @@
     <a class="nav-link" href="../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../storage/storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../../storage/storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -706,7 +757,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>EclipseStore supports monitoring using the <a href="https://docs.oracle.com/en/java/javase/11/management/monitoring-and-management-using-jmx-technology.html#GUID-805517EC-2D33-4D61-81D8-4D0FA770D1B8">Java Management Extensions (JMX) framework</a>.</p>
+<p>EclipseStore supports monitoring using the <a href="https://docs.oracle.com/en/java/javase/17/management/monitoring-and-management-using-jmx-technology.html">Java Management Extensions (JMX) framework</a>.</p>
 </div>
 </div>
 </div>
@@ -714,12 +765,26 @@
 <h2 id="_enable_jmx"><a class="anchor" href="#_enable_jmx"></a>Enable JMX</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Please see <a href="https://docs.oracle.com/en/java/javase/11/management/monitoring-and-management-using-jmx-technology.html#GUID-E17343B0-FED2-4050-88D7-E4793E704ED5">how to enable JMX</a>.</p>
+<p>Please see <a href="https://docs.oracle.com/en/java/javase/17/management/monitoring-and-management-using-jmx-technology.html">how to enable JMX</a>.</p>
+</div>
+<div class="paragraph">
+<p>To enable JMX monitoring for your application, add the following JVM arguments:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">-Dcom.sun.management.jmxremote
+-Dcom.sun.management.jmxremote.port=9090
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.ssl=false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For production environments, always enable authentication and SSL.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_provided_jmx_beans"><a class="anchor" href="#_provided_jmx_beans"></a>Provided JMX beans</h2>
+<h2 id="_provided_jmx_beans"><a class="anchor" href="#_provided_jmx_beans"></a>Provided JMX Beans</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>By default, all provided beans use the domain <code>org.eclipse.store</code>.</p>
@@ -735,42 +800,151 @@
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">name</th>
-<th class="tableblock halign-left valign-top">description</th>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.eclipse.store:name=LazyReferenceManager</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Provides information of the storage LazyReferenceManager. There is only one instance of this bean.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides information about the storage LazyReferenceManager. There is only one instance of this bean. Useful for monitoring lazy reference loading and clearing behavior.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.eclipse.store:storage=storageX,name=EmbeddedStorage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Provides information about the amount of persisted data.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides information about the amount of persisted data. Monitor this to track storage growth over time.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.eclipse.store:storage=storageX,name=EntityCacheSummary</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Provides information of the storage entity cache</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides information about the storage entity cache. Shows how many entities are cached in memory and can help identify memory pressure.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.eclipse.store:storage=storageX,name=ObjectRegistry</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Provides information of the storage object registry</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides information about the storage object registry. Tracks the total number of known objects.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.eclipse.store:storage=storageX,channel=channel-X,group=Entity cache</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Provides information of each channel&#8217;s entity cache</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides per-channel entity cache information. Use this to monitor the cache distribution across channels.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.eclipse.store:storage=storageX,channel=channel-X,group=housekeeping</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Provides information about the storage&#8217;s channel housekeeping</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides per-channel housekeeping information. Monitor this to ensure housekeeping keeps up with data changes.</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_key_metrics_to_watch"><a class="anchor" href="#_key_metrics_to_watch"></a>Key Metrics to Watch</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_storage_growth"><a class="anchor" href="#_storage_growth"></a>Storage Growth</h3>
+<div class="paragraph">
+<p>The <code>EmbeddedStorage</code> bean reports the total amount of persisted data.
+Monitor this metric over time to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Detect unexpected data growth</p>
+</li>
+<li>
+<p>Verify that housekeeping is reclaiming space from deleted objects</p>
+</li>
+<li>
+<p>Plan storage capacity</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_entity_cache"><a class="anchor" href="#_entity_cache"></a>Entity Cache</h3>
+<div class="paragraph">
+<p>The <code>EntityCacheSummary</code> and per-channel <code>Entity cache</code> beans report cache usage.
+Watch these to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure the cache is not growing beyond available memory</p>
+</li>
+<li>
+<p>Identify if lazy references are being loaded but not cleared</p>
+</li>
+<li>
+<p>Tune the LazyReferenceManager&#8217;s clearing behavior</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_housekeeping"><a class="anchor" href="#_housekeeping"></a>Housekeeping</h3>
+<div class="paragraph">
+<p>The per-channel <code>housekeeping</code> beans report on garbage collection and file compaction activity.
+Monitor these to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure housekeeping completes within its configured time budget</p>
+</li>
+<li>
+<p>Verify that storage space is being reclaimed</p>
+</li>
+<li>
+<p>Adjust <a href="../../storage/configuration/housekeeping.html" class="xref page">housekeeping configuration</a> if needed</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_accessing_jmx_beans_programmatically"><a class="anchor" href="#_accessing_jmx_beans_programmatically"></a>Accessing JMX Beans Programmatically</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can access the JMX beans programmatically using the standard JMX API:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+ObjectName name = new ObjectName("org.eclipse.store:storage=storage0,name=EmbeddedStorage");
+MBeanInfo info = mBeanServer.getMBeanInfo(name);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_integration_with_monitoring_tools"><a class="anchor" href="#_integration_with_monitoring_tools"></a>Integration with Monitoring Tools</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_jconsole_visualvm"><a class="anchor" href="#_jconsole_visualvm"></a>JConsole / VisualVM</h3>
+<div class="paragraph">
+<p>Connect to your application using JConsole or VisualVM and navigate to the <code>org.eclipse.store</code> domain in the MBean tree.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prometheus_micrometer"><a class="anchor" href="#_prometheus_micrometer"></a>Prometheus / Micrometer</h3>
+<div class="paragraph">
+<p>To expose EclipseStore metrics to Prometheus, use a JMX-to-Prometheus exporter or Micrometer&#8217;s JMX integration:</p>
+</div>
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+	&lt;groupId&gt;io.micrometer&lt;/groupId&gt;
+	&lt;artifactId&gt;micrometer-registry-prometheus&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Configure the JMX metrics you want to export in your Micrometer configuration to scrape the <code>org.eclipse.store</code> domain.</p>
+</div>
+</div>
 </div>
 </div>
 <nav class="pagination">

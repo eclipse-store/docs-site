@@ -200,6 +200,9 @@
     <a class="nav-link" href="welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../storage/storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -714,7 +765,7 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
 	&lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
 	&lt;artifactId&gt;storage-embedded&lt;/artifactId&gt;
-	&lt;version&gt;4.0.0-beta1&lt;/version&gt;
+	&lt;version&gt;4.0.0-beta3&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
@@ -722,7 +773,7 @@
 <div class="title">Gradle (Groovy) [build.gradle]</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
-	implementation 'org.eclipse.store:storage-embedded:4.0.0-beta1'
+	implementation 'org.eclipse.store:storage-embedded:4.0.0-beta3'
 }</code></pre>
 </div>
 </div>
@@ -730,14 +781,14 @@
 <div class="title">Gradle (Kotlin) [build.gradle.kts]</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">dependencies {
-	implementation("org.eclipse.store:storage-embedded:4.0.0-beta1")
+	implementation("org.eclipse.store:storage-embedded:4.0.0-beta3")
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Scala SBT [build.sbt]</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">libraryDependencies += "org.eclipse.store" % "storage-embedded" % "4.0.0-beta1"</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">libraryDependencies += "org.eclipse.store" % "storage-embedded" % "4.0.0-beta3"</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -746,7 +797,7 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
 	&lt;dependency org="org.eclipse.store"
 		name="storage-embedded"
-		rev="4.0.0-beta1" /&gt;
+		rev="4.0.0-beta3" /&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
 </div>
@@ -754,7 +805,7 @@
 <div class="title">Apache Buildr [Buildfile]</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-ruby hljs" data-lang="ruby">define 'my-app' do
-	compile.with 'org.eclipse.store:storage-embedded:4.0.0-beta1'
+	compile.with 'org.eclipse.store:storage-embedded:4.0.0-beta3'
 end</code></pre>
 </div>
 </div>
@@ -777,7 +828,7 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
 	artifacts = [
-		"org.eclipse.store:storage-embedded:4.0.0-beta1"
+		"org.eclipse.store:storage-embedded:4.0.0-beta3"
 	],
 )</code></pre>
 </div>
@@ -787,7 +838,7 @@ maven_install(
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">maven_jar(
 	name = "eclipsestore",
-	artifact = "org.eclipse.store:storage-embedded:4.0.0-beta1"
+	artifact = "org.eclipse.store:storage-embedded:4.0.0-beta3"
 )</code></pre>
 </div>
 </div>
@@ -799,6 +850,8 @@ maven_install(
 <div class="paragraph">
 <p>These are the different modules that make up EclipseStore.</p>
 </div>
+<div class="sect2">
+<h3 id="_eclipse_serializer_modules"><a class="anchor" href="#_eclipse_serializer_modules"></a>Eclipse Serializer Modules</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -812,8 +865,20 @@ maven_install(
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">afs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Abstract file system (AFS) layer.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">base</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Collection of common utilities. Math, IO, Exceptions, Threads, String operations, and so on.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">codegen</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code generation framework for entity types and other generated artifacts.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">communication</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Communication layer for network-based data transfer and messaging.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">configuration</p></td>
@@ -828,24 +893,69 @@ maven_install(
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yaml extension for the configuration layer.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">afs</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Abstract file system (AFS) layer.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nativememory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native (off-heap) memory management utilities.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">persistence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base persistence framework providing the foundation for object graph serialization and deserialization.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">persistence-binary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extension of the persistence base framework with a concrete implementation of the persistent form as binary data. This persistent form is superior to all text-based formats in storage and performance needs, making it the preferred method for storage and network serialization.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">persistence-binary-android</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Android-specific extension of the binary persistence layer.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">persistence-binary-jdk8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JDK 8+ specific extension of the binary persistence layer with type handlers for modern JDK types.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serializer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High-level serializer API providing a convenient entry point for object serialization.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_eclipsestore_modules"><a class="anchor" href="#_eclipsestore_modules"></a>EclipseStore Modules</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">ArtifactId</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">afs-aws</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common AWS file system abstraction base module.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">afs-aws-dynamodb</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">File system implementations for AWS DynamoDB.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File system implementation for AWS DynamoDB.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">afs-aws-s3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">File system implementations for AWS S3.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File system implementation for AWS S3.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">afs-azure-storage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">File system implementations for Azure Cloud (Azure Storage).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File system implementation for Azure Cloud (Azure Storage).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">afs-blobstore</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Base for all blob store file system implementations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">afs-googlecloud-firestore</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File system implementation for Google Cloud Firestore.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">afs-kafka</p></td>
@@ -868,16 +978,36 @@ maven_install(
 <td class="tableblock halign-left valign-top"><p class="tableblock">File system implementation for SQL databases.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cache</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSR-107 (JCache) implementation for EclipseStore.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cache-hibernate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hibernate cache region factory for EclipseStore.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gigamap</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The GigaMap is a specialized collection aimed at optimizing performance and memory usage in EclipseStore. It utilizes off-heap bitmap indexing to facilitate lightning-fast searches and lazy loading of objects, eliminating the need for manual reference management.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gigamap-jvector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GigaMap JVector integration for vector search capabilities.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">gigamap-lucene</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A specialized index implementation which connects to a Lucene directory.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">persistence-binary</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Extension of the persistence base framework with a concrete implementation of the persistent form as binary data. This persistent form is superior to all text-based formats in storage and performance needs, making it the preferred method for storage and network serialization.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integrations-spring-boot3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spring Boot 3 integration for EclipseStore.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integrations-spring-boot3-console</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spring Boot 3 console with embedded REST UI for EclipseStore.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integrations-cdi4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CDI 4 (Jakarta) extension for EclipseStore.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">storage</p></td>
@@ -890,6 +1020,14 @@ maven_install(
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">storage-embedded-configuration</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Layer with support for external configuration files (XML, INI) and convenience functionality to create foundations for the embedded storage.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">storage-embedded-tools-storage-converter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tool for converting storage data between different formats.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">storage-embedded-tools-storage-migrator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tool for migrating storage data using OpenRewrite recipes.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">storage-restadapter</p></td>
@@ -919,8 +1057,13 @@ maven_install(
 <td class="tableblock halign-left valign-top"><p class="tableblock">storage-restservice-sparkjava (deprecated)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">REST service implementation which utilizes SparkJava and provides REST endpoints. (Deprecated, use storage-restservice-javalin instead.)</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">storage-restservice-springboot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST service implementation for Spring Boot which provides REST endpoints.</p></td>
+</tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 <nav class="pagination">

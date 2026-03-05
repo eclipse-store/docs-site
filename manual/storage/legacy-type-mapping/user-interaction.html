@@ -200,6 +200,9 @@
     <a class="nav-link" href="../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -704,256 +755,105 @@
 </aside>
 <article class="doc">
 <h1 class="page">User Interaction</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>Here is an overview of how to enable and configure different levels of user interaction for the Legacy Type Mapping.</p>
+<p>This page provides details on how Legacy Type Mapping communicates its results and how to customize the behavior.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_default_behavior"><a class="anchor" href="#_default_behavior"></a>Default Behavior</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, a <code>LoggingLegacyTypeMappingResultor</code> is used, which wraps the <code>PersistenceLegacyTypeMappingResultor</code>.
+It accepts all heuristic mappings and logs detected mappings via SLF4J.</p>
 </div>
 <div class="paragraph">
-<p>Somewhere you have a <code>foundation</code> instance, a foundation in where everything is configured, from which the <code>StorageManager</code> is created.</p>
+<p>To see the mapping output during development, configure your logging framework to show log messages from the <code>LoggingLegacyTypeMappingResultor</code> class.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_disabling_logging"><a class="anchor" href="#_disabling_logging"></a>Disabling Logging</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To accept all mappings silently without any logging, use the <code>PersistenceLegacyTypeMappingResultor</code> directly:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">EmbeddedStorageFoundation&lt;?&gt; foundation =
-    EmbeddedStorage.Foundation(); // or from somewhere else</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>It itself contains a foundation for connections.
-To access the inner thing needs a little detour.</p>
-</div>
-<div class="paragraph">
-<p>Incidentally, that&#8217;s not a JDBC connection, but this is just one thing that creates helper instances like <code>Storer</code> and <code>Loader</code>.
-Because Legacy Type Mapping affects loading, it has to go in there.</p>
-</div>
-<div class="paragraph">
-<p>Either you access it directly, like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">EmbeddedStorageConnectionFoundation f = foundation.getConnectionFoundation();</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Or like this, that&#8217;s better for method chaining.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">foundation.onConnectionFoundation(f -&gt;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">EmbeddedStorageFoundation&lt;?&gt; foundation = EmbeddedStorage.Foundation();
+
+foundation.onConnectionFoundation(f -&gt;
 {
-    ...
+    f.setLegacyTypeMappingResultor(
+        PersistenceLegacyTypeMappingResultor.New()
+    );
+});</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_custom_resultor_implementation"><a class="anchor" href="#_custom_resultor_implementation"></a>Custom Resultor Implementation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can implement a completely custom resultor by implementing <code>PersistenceLegacyTypeMappingResultor</code>.
+The method to override is <code>createMappingResult</code>, which receives the legacy type definition, the current type handler, explicit mappings, explicit new members, and heuristic match results:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">EmbeddedStorageFoundation&lt;?&gt; foundation = EmbeddedStorage.Foundation();
+
+foundation.onConnectionFoundation(f -&gt;
+{
+    f.setLegacyTypeMappingResultor(new PersistenceLegacyTypeMappingResultor&lt;&gt;()
+    {
+        @Override
+        public &lt;T&gt; PersistenceLegacyTypeMappingResult&lt;Binary, T&gt; createMappingResult(
+            final PersistenceTypeDefinition                                                    legacyTypeDefinition,
+            final PersistenceTypeHandler&lt;Binary, T&gt;                                            currentTypeHandler  ,
+            final XGettingMap&lt;PersistenceTypeDefinitionMember, PersistenceTypeDefinitionMember&gt; explicitMappings    ,
+            final XGettingSet&lt;PersistenceTypeDefinitionMember&gt;                                 explicitNewMembers  ,
+            final MultiMatch&lt;PersistenceTypeDefinitionMember&gt;                                  matchedMembers
+        )
+        {
+            // Create the default mapping result
+            final PersistenceLegacyTypeMappingResult&lt;Binary, T&gt; result =
+                PersistenceLegacyTypeMappingResultor.createLegacyTypeMappingResult(
+                    legacyTypeDefinition, currentTypeHandler,
+                    explicitMappings, explicitNewMembers, matchedMembers
+                );
+
+            // Custom handling: log, validate, persist, etc.
+            logger.info("Legacy type mapping: {} -&gt; {}",
+                result.legacyTypeDefinition().toTypeIdentifier(),
+                result.currentTypeHandler().toTypeIdentifier()
+            );
+
+            return result;
+        }
+    });
 });</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you have that, the configuration for the Legacy Type Mapping callback logic is just a one liner:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">f.setLegacyTypeMappingResultor(...);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Default</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">PersistenceLegacyTypeMappingResultor.New()</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>That&#8217;s just the necessary logic, without anything further.
-If you do not change anything, this is done by default.</p>
-</div>
-<div class="paragraph">
-<p><strong>With Console Output</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">PrintingLegacyTypeMappingResultor.New(PersistenceLegacyTypeMappingResultor.New())</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>That wraps a printer around the necessary logic.
-All these storage and persistence classes are nothing sacred or super-duper intertwined or anything.
-These are just interfaces and if you plug in another implementation then it will be used.</p>
-</div>
-<div class="paragraph">
-<p><strong>Inquiry</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">InquiringLegacyTypeMappingResultor.New(PersistenceLegacyTypeMappingResultor.New())</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Resultor which asks the user to apply.
-More customization is possible, see below.</p>
-</div>
-<div class="paragraph">
-<p><strong>And so on</strong></p>
-</div>
-<div class="paragraph">
-<p>With the implementation of just one single interface method, you can build anything else you can imagine.
-For example, logging to a file instead of the console.
-Or in the personally preferred logging framework.
-Or write confirmed mappings into the refactorings file.
-Everything is possible.</p>
-</div>
-<div class="paragraph">
-<p>For the inquiring implementation (<code>InquiringLegacyTypeMappingResultor</code>) there are a few settings: When should he ask?
-Always or only if something is unclear.
-<em>Never</em> does not make any sense of course, then you shouldn&#8217;t use it, or alternatively the printing resultor.</p>
-</div>
-<div class="paragraph">
-<p>When is a mapping unclear?<br>
-If at least one field mapping is not completely clear.<br>
-A field mapping is clear if:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If two fields are exactly the same (similarity 1.0 or 100%)</p>
-</li>
-<li>
-<p>Or if two fields are specified by the explicit mapping.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>So if all fields are clear according to the above rule, then there is no need to ask.</p>
-</div>
-<div class="paragraph">
-<p>And there is another special case: If a field is discarded that is not explicitly marked as discardable, then as a precaution an inquiry is always done.
-Although no data is lost, but the data would not be available in the application, so better ask.</p>
-</div>
-<div class="paragraph">
-<p>There are options to control this a bit finer.
-You can optionally specify a double as a threshold (from 0.0 to 1.0, otherwise Exception):<br>
-The value determines how similar two matching fields automatically have to be so that they are not inquired.<br>
-Example: The value is 0.9 (90%), but a match found is only 0.8 (80%) similar.
-This is according to the specification too little, there must be an inquiry as a precaution.
-If you specify 1.0, that means: always ask, everything is really perfectly clear.
-If you enter 0.0, this means: never ask or only for implicitly dropping fields.</p>
-</div>
-<div class="paragraph">
-<p>Looks like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">InquiringLegacyTypeMappingResultor.New(
-    PersistenceLegacyTypeMappingResultor.New()) // implicitely 1.0
-InquiringLegacyTypeMappingResultor.New(
-    PersistenceLegacyTypeMappingResultor.New(), 0.7) // 0.7 threshold</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Here a small example with a <code>Person</code> class.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">int    customerid  ; // -&gt; pin
-String firstname   ; // -&gt; firstName
-String surname     ; // -&gt; lastName
-String comment     ; // discarded, NOT new commerceId</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>It should be changed to:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Integer pin       ; // &lt;- customerid
-String  firstName ; // &lt;- firstname
-String  lastName  ; // &lt;- surname
-String  commerceId; // new, NOT old comment
-Address address   ; // new</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Without explicitly predefined mappings, the inquiry would look like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">             [***new***] pin
-firstname    -0,944----&gt; firstName
-surname      -0,688----&gt; lastName
-comment      -0,750----&gt; commerceId
-             [***new***] address
-customerid   [discarded]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>customerid</code> and <code>pin</code> are too different to be automatically assigned to each other.
-Therefore, it is wrongly assumed that <code>customerid</code> is omitted and <code>pin</code> is new.
-<code>comment</code> and <code>commerceId</code> are surprisingly similar (75%) and are therefore assigned.<br>
-But that&#8217;s not what we want.</p>
-</div>
-<div class="paragraph">
-<p>Incidentally, it would not matter here what is defined as a threshold: <code>customerid</code> would be eliminated by the implicit decision.
-This is too delicate not to inquire, so it is always necessary to ask.</p>
-</div>
-<div class="paragraph">
-<p>To get the mapping right, you have to specify two entries:</p>
+<p>Use cases for custom resultors:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>customerid</code> is now called <code>pin</code></p>
+<p>Writing confirmed mappings to the refactoring CSV for future determinism</p>
 </li>
 <li>
-<p>and <code>comment</code> should be omitted</p>
+<p>Integrating with external approval workflows</p>
+</li>
+<li>
+<p>Sending notifications when schema changes are detected</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Then the inquiry looks like this:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">customerid   -[mapped]-&gt; pin
-firstname    -0,944----&gt; firstName
-surname      -0,688----&gt; lastName
-             [***new***] commerceId
-             [***new***] address
-comment      [discarded]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Due to the explicit mapping from <code>customerid</code> to <code>pin</code>, the similarity does not matter, it is the mapping that matters.
-To indicate this, it says "[mapped]" instead of the similarity.
-The rest is as usual.
-Only comment is now "[discarded]", according to the mapping.
-The difference to the above is namely: This is an explicitly predetermined absence.
-That does not force inquiry.</p>
-</div>
-<div class="paragraph">
-<p>This clears the way for the threshold:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>If you enter 0.7 or more then you will be asked.
-As far as everything would be clear, but the mapping of <code>surname</code> to <code>lastName</code> is below the required "minimum similarity", so rather ask.</p>
-</li>
-<li>
-<p>If you enter 0.6 or less, you will no longer be asked.
-Because all assignments are either explicitly specified or they are according to "minimum similarity" similar enough to rely on it.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>A recommendation for a good value for the "minimum similarity" is difficult.
-As soon as one softens rules, there is always the danger of a mistake.
-See <code>comment</code> example above: is 75% similar to <code>commerceId</code>.
-Still wrong.
-Then prefer 80%?
-Or 90%?
-Of course it is better, but the danger is still there.</p>
-</div>
-<div class="paragraph">
-<p>If you want to be sure, just make 1.0 or omit the parameter, then by default 1.0 is taken.</p>
-</div>
-<div class="paragraph">
-<p>The most important is the explicit mapping anyway : if "enough" is given by the user, there is no need to ask.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Legacy Type Mapping</a></span>

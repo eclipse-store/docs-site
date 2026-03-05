@@ -200,6 +200,9 @@
     <a class="nav-link" href="../../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../../../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../storage/storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../../../storage/storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -799,6 +850,21 @@ public enum Interest
 </div>
 </div>
 <div class="paragraph">
+<p>If you need range queries on numeric types (e.g. <code>lessThan</code>, <code>greaterThan</code>, <code>between</code>), use the byte-decomposed indexers:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public final static ByteIndexerInteger&lt;Person&gt; age = new ByteIndexerInteger.Abstract&lt;&gt;()
+{
+    @Override
+    protected Integer getInteger(final Person entity)
+    {
+        return entity.getAge();
+    }
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>If you want to index a custom type for which there is no predefined indexer available, simply extend from the 'Indexer.Abstract' base type.</p>
 </div>
 <div class="admonitionblock important">
@@ -832,7 +898,10 @@ Keep in mind that indexers use value equality by default, so when using a custom
 </div>
 </div>
 <div class="paragraph">
-<p>Collections can also be indexed. In fact, everything that implements <code>Iterable</code> is supported.</p>
+<p>Collections can also be indexed using <code>IndexerMultiValue</code>. Everything that implements <code>Iterable</code> is supported, making it suitable for lists, sets, or any other collection type.</p>
+</div>
+<div class="paragraph">
+<p>This is useful for modeling many-to-many relationships, tags, categories, or any field where an entity can have multiple associated values. Each value in the collection is indexed individually, so an entity with three interests will appear in the index under all three keys.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -851,6 +920,9 @@ Keep in mind that indexers use value equality by default, so when using a custom
     }
 };</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>In addition to the standard query methods (<code>is</code>, <code>in</code>, <code>not</code>, <code>notIn</code>), multi-value indexers provide the <code>all</code> method, which finds entities whose collection contains <strong>all</strong> of the specified keys. See <a href="../../queries/defining.html#_multi_value_queries" class="xref page">Multi-Value Queries</a> for details.</p>
 </div>
 <div class="paragraph">
 <p>With custom logic, you can define any indexer you can imagine, not just returning values from the entity. For instance, this one creates a generation index.</p>

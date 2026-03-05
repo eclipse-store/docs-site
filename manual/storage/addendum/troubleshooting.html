@@ -200,6 +200,9 @@
     <a class="nav-link" href="../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -710,10 +761,10 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_starting_a_storage_with_missing_objects"><a class="anchor" href="#_starting_a_storage_with_missing_objects"></a>Starting a storage with missing objects</h2>
+<h2 id="_starting_a_storage_with_missing_objects"><a class="anchor" href="#_starting_a_storage_with_missing_objects"></a>Starting a Storage with Missing Objects</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If the storage throws a StorageExceptionConsistency exception stating "No entity found for objectId", the storage misses an object in the persisted data.
+<p>If the storage throws a <code>StorageExceptionConsistency</code> exception stating "No entity found for objectId", the storage is missing an object in the persisted data.
 In that case, it may be useful to start the storage and ignore that error.</p>
 </div>
 <div class="admonitionblock warning">
@@ -725,14 +776,14 @@ In that case, it may be useful to start the storage and ignore that error.</p>
 <td class="content">
 <div class="paragraph">
 <p>Do not start a storage with missing objects unless you are absolutely certain what you are doing. Doing so may cause the storage garbage collector to delete further objects! And may cause other errors if code tries to use missing objects!
-Consider to enable the <a href="../configuration/readonly.html" class="xref page">read only storage mode</a>!</p>
+Consider enabling the <a href="../configuration/readonly.html" class="xref page">read only storage mode</a>!</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>To start a storage that misses objects, you need to set a different StorageEntityCollector that ignores that exception:</p>
+<p>To start a storage that misses objects, you need to set a different <code>StorageEntityCollector</code> that ignores that exception:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -745,16 +796,16 @@ final EmbeddedStorageManager storage = foundation.start();</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_identifying_missing_objects"><a class="anchor" href="#_identifying_missing_objects"></a>Identifying missing objects:</h2>
+<h2 id="_identifying_missing_objects"><a class="anchor" href="#_identifying_missing_objects"></a>Identifying Missing Objects</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A missing object can&#8217;t be identified, but it is possible to locate objects that reference the missing object.
-see <a href="storage-graph-analysis.html" class="xref page">Searching for Missing Objects</a> how to search for a missing object.</p>
+<p>A missing object cannot be identified directly, but it is possible to locate objects that reference the missing object.
+See <a href="storage-graph-analysis.html" class="xref page">Searching for Missing Objects</a> for how to search for a missing object.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_overwriting_and_existing_object_by_its_objectid"><a class="anchor" href="#_overwriting_and_existing_object_by_its_objectid"></a>Overwriting and existing object by its ObjectId</h2>
+<h2 id="_overwriting_an_existing_object_by_its_objectid"><a class="anchor" href="#_overwriting_an_existing_object_by_its_objectid"></a>Overwriting an Existing Object by Its ObjectId</h2>
 <div class="sectionbody">
 <div class="admonitionblock warning">
 <table>
@@ -771,8 +822,8 @@ see <a href="storage-graph-analysis.html" class="xref page">Searching for Missin
 </table>
 </div>
 <div class="paragraph">
-<p>To overwrite an object, you need to create a Storer instance that provides the
-Storer.store(instance, objectID) API:</p>
+<p>To overwrite an object, you need to create a <code>Storer</code> instance that provides the
+<code>Storer.store(instance, objectID)</code> API:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -780,6 +831,129 @@ Storer.store(instance, objectID) API:</p>
 storer.store(new String("Overwritten object"), 1000000000000100000L);
 storer.commit();</code></pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common_error_messages"><a class="anchor" href="#_common_error_messages"></a>Common Error Messages</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_storage_is_already_running"><a class="anchor" href="#_storage_is_already_running"></a>"Storage is already running"</h3>
+<div class="paragraph">
+<p>This error occurs when trying to start a storage that is already started. Ensure you only call <code>start()</code> once, or call <code>shutdown()</code> before restarting.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Check if storage is running before starting
+if (!storage.isRunning())
+{
+    storage.start();
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_storageexceptionio_or_file_access_errors"><a class="anchor" href="#_storageexceptionio_or_file_access_errors"></a>"StorageExceptionIo" or File Access Errors</h3>
+<div class="paragraph">
+<p>File access errors typically indicate:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Permission issues</strong> — the application does not have read/write access to the storage directory</p>
+</li>
+<li>
+<p><strong>Disk full</strong> — the storage target has run out of space</p>
+</li>
+<li>
+<p><strong>Locked storage</strong> — another process has a <a href="../configuration/lock-file.html" class="xref page">lock file</a> on the storage directory</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To resolve lock file issues:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Verify no other process is using the same storage directory</p>
+</li>
+<li>
+<p>If the previous process crashed without cleaning up, the lock file may be stale</p>
+</li>
+<li>
+<p>After verifying no other process is active, you can safely delete the lock file</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_class_not_found_or_classloader_errors"><a class="anchor" href="#_class_not_found_or_classloader_errors"></a>"Class not found" or ClassLoader Errors</h3>
+<div class="paragraph">
+<p>If the storage references types that are not on the classpath:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure all types that were previously stored are available on the classpath</p>
+</li>
+<li>
+<p>If classes were renamed or moved, configure <a href="../legacy-type-mapping/index.html" class="xref page">legacy type mapping</a></p>
+</li>
+<li>
+<p>If using a custom ClassLoader, see <a href="../customizing/custom-class-loader.html" class="xref page">Custom Class Loader</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_outofmemoryerror"><a class="anchor" href="#_outofmemoryerror"></a>OutOfMemoryError</h3>
+<div class="paragraph">
+<p>If the application runs out of memory:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use <a href="../loading-data/lazy-loading/index.html" class="xref page">Lazy references</a> to avoid loading the entire object graph into memory</p>
+</li>
+<li>
+<p>Configure the <a href="../loading-data/lazy-loading/clearing-lazy-references.html" class="xref page">LazyReferenceManager</a> to clear unused lazy references</p>
+</li>
+<li>
+<p>Increase the JVM heap size (<code>-Xmx</code>)</p>
+</li>
+<li>
+<p>Monitor memory usage via <a href="../../misc/monitoring/index.html" class="xref page">JMX monitoring</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_storage_recovery_steps"><a class="anchor" href="#_storage_recovery_steps"></a>Storage Recovery Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If your storage becomes corrupted or is in an inconsistent state:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Stop the application</strong> — do not attempt writes to a corrupted storage</p>
+</li>
+<li>
+<p><strong>Create a backup</strong> — copy the entire storage directory before any recovery attempt</p>
+</li>
+<li>
+<p><strong>Try starting in read-only mode</strong> — use the <a href="../configuration/readonly.html" class="xref page">read-only storage mode</a> to inspect the data</p>
+</li>
+<li>
+<p><strong>Start with unchecked entity collector</strong> — if specific objects are missing, use <code>StorageEntityCollector.Creator.Unchecked()</code> as shown above</p>
+</li>
+<li>
+<p><strong>Restore from backup</strong> — if the storage cannot be recovered, restore from a <a href="../configuration/backup/continuous-backup.html" class="xref page">continuous backup</a> or <a href="../configuration/backup/full-backup.html" class="xref page">full backup</a></p>
+</li>
+</ol>
 </div>
 </div>
 </div>

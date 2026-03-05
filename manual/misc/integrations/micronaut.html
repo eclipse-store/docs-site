@@ -200,6 +200,9 @@
     <a class="nav-link" href="../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../storage/storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../../storage/storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -704,14 +755,103 @@
 </aside>
 <article class="doc">
 <h1 class="page">Micronaut Integration</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>The Micronaut integration for EclipseStore ships with the official Micronaut releases and is hosted at their <a href="https://github.com/micronaut-projects/micronaut-eclipsestore">Github repository</a>.</p>
+<p>The Micronaut integration for EclipseStore ships with the official Micronaut releases and is hosted at their <a href="https://github.com/micronaut-projects/micronaut-eclipsestore">GitHub repository</a>.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_getting_started"><a class="anchor" href="#_getting_started"></a>Getting Started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Add the Micronaut EclipseStore dependency to your project:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">implementation("io.micronaut.eclipsestore:micronaut-eclipsestore")
+annotationProcessor("io.micronaut.eclipsestore:micronaut-eclipsestore-processor")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or for Maven:</p>
+</div>
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.eclipsestore&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-eclipsestore&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration"><a class="anchor" href="#_configuration"></a>Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configure the storage in your <code>application.yml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">eclipsestore:
+  storage:
+    main:
+      storage-directory: "data/main"
+      channel-count: 2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Multiple named storage managers can be configured by adding additional keys under <code>eclipsestore.storage</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_injecting_the_storage_manager"><a class="anchor" href="#_injecting_the_storage_manager"></a>Injecting the Storage Manager</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import io.micronaut.eclipsestore.annotation.Store;
+import jakarta.inject.Singleton;
+import org.eclipse.store.storage.types.StorageManager;
+
+@Singleton
+public class CustomerRepository
+{
+    private final StorageManager storageManager;
+
+    public CustomerRepository(StorageManager storageManager)
+    {
+        this.storageManager = storageManager;
+    }
+
+    @Store
+    public void addCustomer(Customer customer)
+    {
+        root().getCustomers().add(customer);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>@Store</code> annotation provides declarative storing — Micronaut automatically calls <code>store()</code> on the modified objects after the method completes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources"><a class="anchor" href="#_resources"></a>Resources</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>For more information see the <a href="https://guides.micronaut.io/latest/micronaut-eclipsestore-persitence-gradle-java.html">official guide</a>.</p>
 </div>
 <div class="paragraph">
 <p>Official Micronaut site: <a href="https://micronaut.io/" class="bare">https://micronaut.io/</a></p>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="spring-boot.html">Spring-Boot</a></span>

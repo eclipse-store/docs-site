@@ -200,6 +200,9 @@
     <a class="nav-link" href="../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../storage/storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -744,10 +795,7 @@
 <p>This applies to all internal changes of the GigaMap as well as to added and removed entities.</p>
 </div>
 <div class="paragraph">
-<p>But when entities have been modified, not only the GigaMap has to be stored, but the entities itself as well. This is the same behavior as with normal collections.</p>
-</div>
-<div class="paragraph">
-<p>Let&#8217;s say we update an entity where the update affects the indices, then we have to store both, the GigaMap and the entity.</p>
+<p>Entities modified through the <code>update</code> or <code>apply</code> methods are automatically included in the store operation. There is no need to store them separately.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -755,8 +803,47 @@
     p.setLastName("Smith"),
     p.setAddress(newAddress)
 });
-storageManager.storeAll(gigaMap, person);</code></pre>
+gigaMap.store();</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Changes made to entities directly (outside of <code>update</code> or <code>apply</code>) are not tracked by the GigaMap and must be stored manually.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_concurrency"><a class="anchor" href="#_concurrency"></a>Concurrency</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When using GigaMap in a multi-threaded environment, it is important to understand how storing interacts with the GigaMap&#8217;s internal locking.</p>
+</div>
+<div class="paragraph">
+<p><code>gigaMap.store()</code> is the <strong>recommended</strong> way to store. It is synchronized on the GigaMap instance, which guarantees that no other thread can modify the GigaMap while the store operation is running.</p>
+</div>
+<div class="paragraph">
+<p>Storing the GigaMap through any other path, such as <code>storageManager.store(gigaMap)</code> or <code>storageConnection.storeAll(&#8230;&#8203;)</code>, does <strong>not</strong> acquire the GigaMap&#8217;s lock. If another thread modifies the GigaMap concurrently (e.g. by calling <code>add</code>, <code>remove</code>, or <code>update</code>), the internal data structures can be modified while they are being serialized, leading to errors such as <code>BinaryPersistenceException: Inconsistent element count</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you need to store the GigaMap through an external path, you must synchronize on the GigaMap instance yourself:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">synchronized (gigaMap) {
+    storageManager.store(gigaMap);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the same principle as the classic problem with synchronized JDK collections like <code>Vector</code>: synchronizing individual methods is not sufficient when multiple operations need to be atomic. In this case, the entire store traversal must be protected from concurrent modifications.</p>
 </div>
 </div>
 </div>

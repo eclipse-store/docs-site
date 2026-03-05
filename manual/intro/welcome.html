@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Welcome :: EclipseStore Reference Manual</title>
     <link rel="canonical" href="https://docs.eclipsestore.io/manual/intro/welcome.html">
-    <link rel="next" href="system-requirements.html">
+    <link rel="next" href="architecture.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-32x32.png">
@@ -199,6 +199,9 @@
     <a class="nav-link" href="welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -258,7 +261,7 @@
     <a class="nav-link" href="../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../storage/storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -460,7 +463,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -512,6 +536,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -571,7 +607,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -705,19 +756,132 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Welcome to the EclipseStore Reference Manual.
-This manual includes concepts, instructions and examples to guide you on how to use EclipseStore, version 4.0.0-beta1.</p>
-</div>
-<div class="paragraph">
-<p>You should be familiar with the Java programming language and you should have installed your preferred Integrated Development Environment (IDE).
-But since you are here we guess you got that covered ;)</p>
+This manual includes concepts, instructions and examples to guide you on how to use EclipseStore, version 4.0.0 (Beta).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_whats_new_in_4_0_0_beta1"><a class="anchor" href="#_whats_new_in_4_0_0_beta1"></a>What&#8217;s new in 4.0.0-beta1</h2>
+<h2 id="_what_is_eclipsestore"><a class="anchor" href="#_what_is_eclipsestore"></a>What is EclipseStore?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>EclipseStore is a Java-native object graph persistence engine.
+Instead of mapping your objects to tables (like an ORM) or documents (like a document database), EclipseStore stores your Java object graph directly in its native structure.</p>
+</div>
+<div class="sect2">
+<h3 id="_key_benefits"><a class="anchor" href="#_key_benefits"></a>Key Benefits</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>No mapping required</strong> — store plain Java objects without annotations, schemas, or mapping files</p>
+</li>
+<li>
+<p><strong>Ultra-fast</strong> — binary serialization is significantly faster than traditional database approaches</p>
+</li>
+<li>
+<p><strong>Almost any Java type</strong> — persist almost any Java object, including collections, records, and custom types, see <a href="../storage/addendum/supported-java-features.html" class="xref page">Supported Java Features</a></p>
+</li>
+<li>
+<p><strong>Flexible storage targets</strong> — store on local file system, cloud storage (S3, Azure, GCS), SQL databases, Redis, Kafka, and more</p>
+</li>
+<li>
+<p><strong>Lazy loading</strong> — load only the data you need, when you need it</p>
+</li>
+<li>
+<p><strong>ACID transactions</strong> — full transactional guarantees for data consistency</p>
+</li>
+<li>
+<p><strong>Minimal dependencies</strong> — lightweight with only SLF4J as an external runtime dependency</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_does_it_compare"><a class="anchor" href="#_how_does_it_compare"></a>How Does It Compare?</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">EclipseStore</th>
+<th class="tableblock halign-left valign-top">Traditional Database + ORM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data model</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Plain Java objects</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tables/Documents + mapping layer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Query language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java streams and methods</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SQL / JPQL / proprietary</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schema management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Automatic type evolution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Migration scripts</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Setup complexity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimal (1 dependency)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database server + driver + ORM framework</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>You should be familiar with the Java programming language and you should have installed your preferred Integrated Development Environment (IDE).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_start"><a class="anchor" href="#_quick_start"></a>Quick Start</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Define your data model as plain Java classes
+public class DataRoot
+{
+    private final List&lt;String&gt; messages = new ArrayList&lt;&gt;();
+
+    public List&lt;String&gt; getMessages() { return messages; }
+}
+
+// Start the storage
+DataRoot root = new DataRoot();
+EmbeddedStorageManager storage = EmbeddedStorage.start(root, Paths.get("data"));
+
+// Store data
+root.getMessages().add("Hello EclipseStore!");
+storage.store(root.getMessages());
+
+// Shutdown
+storage.shutdown();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For a complete guide, see <a href="../storage/getting-started.html" class="xref page">Getting Started</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_new_in_4_0_0_beta"><a class="anchor" href="#_whats_new_in_4_0_0_beta"></a>What&#8217;s new in 4.0.0 (Beta)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>See <a href="changelog.html" class="xref page">Changelog</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture"><a class="anchor" href="#_architecture"></a>Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For a high-level overview of how EclipseStore and the Eclipse Serializer relate, see <a href="architecture.html" class="xref page">Architecture Overview</a>.</p>
 </div>
 </div>
 </div>
@@ -771,7 +935,7 @@ But since you are here we guess you got that covered ;)</p>
 </div>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="system-requirements.html">System Requirements</a></span>
+  <span class="next"><a href="architecture.html">Architecture Overview</a></span>
 </nav>
 </article>
   </div>

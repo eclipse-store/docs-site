@@ -200,6 +200,9 @@
     <a class="nav-link" href="../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -705,11 +756,13 @@
 <article class="doc">
 <h1 class="page">Data Management</h1>
 <div class="sect1">
-<h2 id="_where_is_the_data_of_my_database_located"><a class="anchor" href="#_where_is_the_data_of_my_database_located"></a>Where is the data of my database located</h2>
+<h2 id="_where_is_the_data_of_my_database_located"><a class="anchor" href="#_where_is_the_data_of_my_database_located"></a>Where is the data of my database located?</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>EclipseStore connects your application&#8217;s entity graph residing in memory to a physical form of data (i.e.
-persistent data) to/from which entity data is stored/loaded as required.</p>
+persistent data) to/from which entity data is stored/loaded as required.
+By default, data is stored on the local file system in the directory configured via <code>setStorageDirectory()</code> or the <code>storage-directory</code> configuration property.
+See <a href="../configuration/storage-files-and-directories.html" class="xref page">Storage Files and Directories</a> for details on the directory structure and file layout.</p>
 </div>
 </div>
 </div>
@@ -720,6 +773,109 @@ persistent data) to/from which entity data is stored/loaded as required.</p>
 <p>EclipseStore uses the common concept of <a href="../loading-data/lazy-loading/index.html" class="xref page">Lazy Loading</a>, allowing you to define which parts of your data (entity sub-graphs) are loaded only when required instead of eagerly at startup.
 A few well-placed lazy references in your entity model make your application load only a tiny bit of "head" entities at startup time and load everything else later on demand.
 This allows the handling of arbitrarily big databases with relatively small memory requirements.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_does_storage_size_grow_over_time"><a class="anchor" href="#_how_does_storage_size_grow_over_time"></a>How does storage size grow over time?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When objects are updated or deleted, the old data is not immediately removed from the storage files.
+Instead, new data is appended and the deleted data becomes "garbage."
+The <a href="../housekeeping.html" class="xref page">housekeeping</a> process runs in the background to reclaim space from deleted or updated objects.</p>
+</div>
+<div class="paragraph">
+<p>You can monitor storage growth through the <a href="../../misc/monitoring/index.html" class="xref page">monitoring</a> JMX beans, which report the amount of persisted data.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_can_i_reduce_storage_size"><a class="anchor" href="#_how_can_i_reduce_storage_size"></a>How can I reduce storage size?</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure <a href="../configuration/housekeeping.html" class="xref page">housekeeping</a> is configured with sufficient time budget to keep up with updates</p>
+</li>
+<li>
+<p>Store only the data you need — avoid storing derived or cached data</p>
+</li>
+<li>
+<p>Use <a href="../loading-data/lazy-loading/index.html" class="xref page">Lazy references</a> to manage what is kept in memory</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_do_i_handle_concurrent_access"><a class="anchor" href="#_how_do_i_handle_concurrent_access"></a>How do I handle concurrent access?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>EclipseStore is designed for single-process access.
+The storage manager itself handles the internal persistence operations (reading and writing storage files) in a thread-safe manner.</p>
+</div>
+<div class="paragraph">
+<p>However, <strong>your application code is responsible for synchronizing access to the shared object graph</strong>.
+Since EclipseStore stores plain Java objects that live in memory, the same concurrency rules apply as for any shared mutable data in Java.
+Without proper synchronization, concurrent reads and writes to the same objects can cause race conditions and inconsistent state — just like with any in-memory data structure.</p>
+</div>
+<div class="paragraph">
+<p>Use <a href="../../misc/locking/index.html" class="xref page">locking</a> or other synchronization strategies to protect your data during concurrent access.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Do not open the same storage from multiple processes simultaneously — this will lead to data corruption.</p>
+</li>
+<li>
+<p>The <a href="../configuration/lock-file.html" class="xref page">lock file</a> mechanism helps prevent accidental concurrent access.</p>
+</li>
+<li>
+<p>For multi-process or distributed access, consider using EclipseStore behind a service API layer.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_can_i_recover_from_data_corruption"><a class="anchor" href="#_can_i_recover_from_data_corruption"></a>Can I recover from data corruption?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If storage files become corrupted (e.g., due to disk failure or a crash during write):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check if a <a href="../configuration/backup/continuous-backup.html" class="xref page">continuous backup</a> or <a href="../configuration/backup/full-backup.html" class="xref page">full backup</a> is available and restore from it</p>
+</li>
+<li>
+<p>If no backup is available, try starting the storage with the <code>StorageEntityCollector.Creator.Unchecked()</code> option (see <a href="../addendum/troubleshooting.html" class="xref page">Troubleshooting</a>)</p>
+</li>
+<li>
+<p>Contact the EclipseStore community for assistance with complex recovery scenarios</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_can_i_export_my_data"><a class="anchor" href="#_can_i_export_my_data"></a>Can I export my data?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Yes. EclipseStore provides binary <a href="../import-export.html" class="xref page">Import / Export</a> to transfer storage data between instances.
+The exported binary data can also be converted to and from CSV for inspection or editing with external tools.
+See <a href="../import-export.html" class="xref page">Import / Export</a> for details.</p>
 </div>
 </div>
 </div>

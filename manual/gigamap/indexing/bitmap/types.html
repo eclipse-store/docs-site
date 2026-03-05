@@ -200,6 +200,9 @@
     <a class="nav-link" href="../../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../../../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../storage/storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../../../storage/storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -762,10 +813,22 @@ gigaMap.index().bitmap().addUniqueConstraint(PersonIndices.id);
 <h2 id="_identity_index"><a class="anchor" href="#_identity_index"></a>Identity Index</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Unique index, which will be used exclusively to identify an entity. It can consist of one or more indexers.</p>
+<p>An identity index is used exclusively to identify an entity within the GigaMap. It can consist of one or more indexers.</p>
 </div>
 <div class="paragraph">
-<p>To elaborate on that: When looking up or removing entities, the GigaMap doesn&#8217;t traverse all data, as that would be too inefficient. Instead, it creates an internal query based on the index definitions to look up entries. If no identifier index is provided, a compound one will be created using all standard indices.</p>
+<p>When looking up or removing entities, the GigaMap doesn&#8217;t traverse all data, as that would be too inefficient. Instead, it creates an internal query based on the identity index definitions to look up entries. If no identity index is provided, a compound one will be created using all standard indices.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+An identity index is <strong>not</strong> a unique index. It only defines which fields are used to identify entities — it does not enforce uniqueness. If you need to ensure that no two entities share the same identity value, you must add a unique constraint separately.
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -775,11 +838,19 @@ final GigaMap&lt;Person&gt; gigaMap = GigaMap.&lt;Person&gt;Builder()
     ...
     .build();
 
+// identity index with unique constraint
+final GigaMap&lt;Person&gt; gigaMap = GigaMap.&lt;Person&gt;Builder()
+    .withBitmapIdentityIndex(PersonIndices.id)
+    .withBitmapUniqueIndex(PersonIndices.id) // enforce uniqueness at runtime
+    ...
+    .build();
+
 // or register it after creating
 GigaMap&lt;Person&gt; gigaMap = GigaMap.New();
 final BitmapIndices&lt;E&gt; bitmap = this.gigaMap.index().bitmap();
 bitmap.ensure(PersonIndices.id); // add index first
 bitmap.setIdentityIndices(PersonIndices.id); // set as identity
+bitmap.addUniqueConstraint(PersonIndices.id); // enforce uniqueness
 ...</code></pre>
 </div>
 </div>
@@ -800,6 +871,175 @@ bitmap.setIdentityIndices(PersonIndices.id); // set as identity
 <div class="paragraph">
 <p>Currently it only supports equality queries.
 Range queries are not supported yet.</p>
+</div>
+<div class="sect2">
+<h3 id="_zero_and_negative_values"><a class="anchor" href="#_zero_and_negative_values"></a>Zero and Negative Values</h3>
+<div class="paragraph">
+<p>All binary indexers support zero and negative values.
+Internally, each indexer maps the key to a non-zero long representation because the bitmap index uses bit positions as array indices, and a value of <code>0L</code> would have no bits set.</p>
+</div>
+<div class="paragraph">
+<p>For sub-64-bit types (<code>Byte</code>, <code>Short</code>, <code>Integer</code>, <code>Float</code>), this mapping is collision-free — no two distinct keys ever map to the same internal representation.</p>
+</div>
+<div class="paragraph">
+<p><code>BinaryIndexerLong</code> uses <code>Long.MAX_VALUE</code> as the internal representation for zero.
+As a consequence, <code>Long.MAX_VALUE</code> is not supported as an index key and will throw an <code>IllegalArgumentException</code>.
+All other long values are fully supported.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_byte_index"><a class="anchor" href="#_byte_index"></a>Byte Index</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A composite bitmap index designed for high cardinality numeric types with range query support.</p>
+</div>
+<div class="paragraph">
+<p>It decomposes numbers into individual bytes (base 256) and stores each byte position as a separate sub-index with at most 256 entries. This uses the same composite index infrastructure as <code>IndexerLocalDate</code> (which decomposes into year/month/day).</p>
+</div>
+<div class="paragraph">
+<p>Byte indexers support both equality and range queries: <code>is</code>, <code>not</code>, <code>in</code>, <code>notIn</code>, <code>lessThan</code>, <code>lessThanEqual</code>, <code>greaterThan</code>, <code>greaterThanEqual</code>, and <code>between</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// use the builder
+final GigaMap&lt;Product&gt; gigaMap = GigaMap.&lt;Product&gt;Builder()
+    .withBitmapIdentityIndex(ProductIndices.price)
+    .build();
+
+// query with range conditions
+gigaMap.query(ProductIndices.price.between(10, 100));
+gigaMap.query(ProductIndices.price.greaterThan(50));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use byte indexers when you need range queries on numeric types with high cardinality. Use binary indexers when you only need equality queries.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_choosing_between_regular_binary_and_byte_indexers"><a class="anchor" href="#_choosing_between_regular_binary_and_byte_indexers"></a>Choosing Between Regular, Binary, and Byte Indexers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The bitmap index offers three families of indexers: <strong>regular indexers</strong> (e.g. <code>IndexerString</code>, <code>IndexerLong</code>), <strong>binary indexers</strong> (e.g. <code>BinaryIndexerString</code>, <code>BinaryIndexerLong</code>), and <strong>byte indexers</strong> (e.g. <code>ByteIndexerInt</code>, <code>ByteIndexerLong</code>). The right choice depends on your data characteristics and query needs.</p>
+</div>
+<div class="sect2">
+<h3 id="_comparison"><a class="anchor" href="#_comparison"></a>Comparison</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 18.1818%;">
+<col style="width: 27.2727%;">
+<col style="width: 27.2727%;">
+<col style="width: 27.2728%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Aspect</th>
+<th class="tableblock halign-left valign-top">Regular Indexer</th>
+<th class="tableblock halign-left valign-top">Binary Indexer</th>
+<th class="tableblock halign-left valign-top">Byte Indexer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cardinality</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low to medium (few distinct values, many entities per value)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High (many distinct values, few entities per value)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High (many distinct values, few entities per value)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Query types</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Equality (<code>is</code>, <code>in</code>), predicates (<code>is(predicate)</code>), and - depending on the index type - range queries</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Equality only (<code>is</code>, <code>in</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Equality (<code>is</code>, <code>in</code>, <code>not</code>, <code>notIn</code>) and range queries (<code>lessThan</code>, <code>greaterThan</code>, <code>between</code>, etc.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any object with <code>equals</code>/<code>hashCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must convert to <code>long</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Numeric types and <code>Instant</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">On-heap hash table</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off-heap bit-position array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composite sub-indices with at most 256 entries per byte position</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Null values</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native support</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires sentinel value handling</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires sentinel value handling</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_use_regular_indexer_when"><a class="anchor" href="#_use_regular_indexer_when"></a>Use Regular Indexer When</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Indexed values have <strong>low cardinality</strong> — few distinct values shared by many entities (enums, categories, status fields)</p>
+</li>
+<li>
+<p>You need <strong>predicate-based queries</strong>, e.g. <code>firstName.is(name &#8594; name.startsWith("J"))</code></p>
+</li>
+<li>
+<p>You need <strong>range queries</strong> via <code>IndexerComparing</code></p>
+</li>
+<li>
+<p>The key type does not naturally map to <code>long</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Typical use cases:</strong> enumerations, boolean flags, date/time fields, categories, multi-value fields</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_use_binary_indexer_when"><a class="anchor" href="#_use_binary_indexer_when"></a>Use Binary Indexer When</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Indexed values have <strong>high cardinality</strong> — many distinct values (unique IDs, foreign keys)</p>
+</li>
+<li>
+<p>Only <strong>equality queries</strong> are needed (<code>is</code>, <code>in</code>)</p>
+</li>
+<li>
+<p>The key can be efficiently converted to <code>long</code> (numeric IDs, TSID, UUID)</p>
+</li>
+<li>
+<p><strong>Memory efficiency</strong> matters for large datasets</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Typical use cases:</strong> primary/foreign key indices, UUIDs, TSIDs, unique codes or reference numbers</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_use_byte_indexer_when"><a class="anchor" href="#_use_byte_indexer_when"></a>Use Byte Indexer When</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Indexed values have <strong>high cardinality</strong> — many distinct values</p>
+</li>
+<li>
+<p>You need <strong>range queries</strong> (<code>lessThan</code>, <code>greaterThan</code>, <code>between</code>, etc.) on high-cardinality data</p>
+</li>
+<li>
+<p>The key is a <strong>numeric type</strong> or <code>Instant</code></p>
+</li>
+<li>
+<p>You want the benefits of bitmap indexing for high-cardinality fields without sacrificing range query support</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Typical use cases:</strong> prices, quantities, timestamps (as <code>Instant</code>), scores, measurements, or any numeric field that requires both high-cardinality support and range filtering</p>
+</div>
 </div>
 </div>
 </div>

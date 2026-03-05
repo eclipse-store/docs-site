@@ -200,6 +200,9 @@
     <a class="nav-link" href="../../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../../../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../storage/storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../../../storage/storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -787,17 +838,25 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.time.LocalDateTime</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IndexerInstant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.time.Instant</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IndexerZonedDateTime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.time.ZonedDateTime</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IndexerYearMonth</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.time.YearMonth</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IndexerMultiValue</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Iterable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Iterable (lists, sets, or any collection)</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>If you need indexers for high cardinality, like unique values, the binary indexers are the way to go. They are optimized for a huge number of entries.</p>
+<p>If you need indexers for high cardinality, like unique values, the binary indexers are the way to go. They are optimized for a huge number of entries. Note that binary indexers only support equality queries (<code>is</code>, <code>in</code>), not predicates or range queries. See <a href="types.html#_choosing_between_regular_and_binary_indexers" class="xref page">Choosing Between Regular and Binary Indexers</a> for detailed guidance.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -842,6 +901,72 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BinaryIndexerUUID</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.util.UUID</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For high cardinality with range query support, the byte-decomposed indexers combine efficient storage with range operations (<code>lessThan</code>, <code>greaterThan</code>, <code>between</code>, etc.):</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Indexer</th>
+<th class="tableblock halign-left valign-top">Key Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ByteIndexerByte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Byte, byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ByteIndexerShort</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Short, short</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ByteIndexerInteger</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Integer, int</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ByteIndexerLong</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Long, long</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ByteIndexerFloat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Float, float</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ByteIndexerDouble</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Double, double</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ByteIndexerInstant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.time.Instant</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For geographic coordinate indexing with spatial queries (bounding box, proximity, range), the <a href="../spatial/index.html" class="xref page">spatial indexer</a> is available:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Indexer</th>
+<th class="tableblock halign-left valign-top">Key Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SpatialIndexer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latitude/longitude coordinate pairs (Double)</p></td>
 </tr>
 </tbody>
 </table>

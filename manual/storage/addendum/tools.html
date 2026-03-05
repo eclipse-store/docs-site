@@ -200,6 +200,9 @@
     <a class="nav-link" href="../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -708,10 +759,118 @@
 <h2 id="_storage_migrator"><a class="anchor" href="#_storage_migrator"></a>Storage Migrator</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With this utility you can easily migrate MicroStream projects to EclipseStore.</p>
+<p>The Storage Migrator is a utility for migrating MicroStream projects to EclipseStore.
+It is based on <a href="https://docs.openrewrite.org/">OpenRewrite</a> and can migrate source code (package names from <code>one.microstream</code> to <code>org.eclipse.store</code> / <code>org.eclipse.serializer</code>) and type dictionary files of existing storages.</p>
+</div>
+<div class="paragraph">
+<p>The migrator is executed via Maven on the command line in your MicroStream project folder.
+The parameters <code>eclipseStoreVersion</code> and <code>typeDictionaryRelativePath</code> control what is migrated:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Source code migration is only done when <code>eclipseStoreVersion</code> is set.</p>
+</li>
+<li>
+<p>Type dictionary migration is only done when <code>typeDictionaryRelativePath</code> is set.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_migrate_source_code_and_type_dictionary"><a class="anchor" href="#_migrate_source_code_and_type_dictionary"></a>Migrate Source Code and Type Dictionary</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn org.openrewrite.maven:rewrite-maven-plugin:run \
+  -Drewrite.activeRecipes=org.eclipse.store.storage.embedded.tools.storage.migrator.ConvertProject \
+  -Drewrite.recipeArtifactCoordinates=org.eclipse.store:storage-embedded-tools-storage-migrator:4.0.0-beta3 \
+  -DeclipseStoreVersion=4.0.0-beta3 \
+  -Drewrite.plainTextMasks=**/*.ptd \
+  -DtypeDictionaryRelativeFilePath=src/main/resources/PersistenceTypeDictionary.ptd</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_migrate_source_code_only"><a class="anchor" href="#_migrate_source_code_only"></a>Migrate Source Code Only</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn org.openrewrite.maven:rewrite-maven-plugin:run \
+  -Drewrite.activeRecipes=org.eclipse.store.storage.embedded.tools.storage.migrator.ConvertProject \
+  -Drewrite.recipeArtifactCoordinates=org.eclipse.store:storage-embedded-tools-storage-migrator:4.0.0-beta3 \
+  -DeclipseStoreVersion=4.0.0-beta3</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_migrate_type_dictionary_only"><a class="anchor" href="#_migrate_type_dictionary_only"></a>Migrate Type Dictionary Only</h3>
+<div class="paragraph">
+<p>Copy the type dictionary file (<code>PersistenceTypeDictionary.ptd</code> from the root of your storage folder) into your project, then run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn org.openrewrite.maven:rewrite-maven-plugin:run \
+  -Drewrite.activeRecipes=org.eclipse.store.storage.embedded.tools.storage.migrator.ConvertProject \
+  -Drewrite.recipeArtifactCoordinates=org.eclipse.store:storage-embedded-tools-storage-migrator:4.0.0-beta3 \
+  -Drewrite.plainTextMasks=**/*.ptd \
+  -DtypeDictionaryRelativeFilePath=src/main/resources/PersistenceTypeDictionary.ptd</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After migration, the storage can be opened with EclipseStore.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_standalone_jar"><a class="anchor" href="#_standalone_jar"></a>Standalone JAR</h3>
+<div class="paragraph">
+<p>The standalone JAR is not built by default. To build it locally, activate the <code>migrator-standalone</code> Maven profile in the EclipseStore repository:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn -Pmigrator-standalone clean package -pl storage/embedded-tools/storage-migrator -am</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This produces a fat JAR with all dependencies included:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">storage/embedded-tools/storage-migrator/target/storage-embedded-tools-storage-migrator-&lt;version&gt;-jar-with-dependencies.jar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can then use this JAR as the recipe artifact coordinate in the migration commands above, or publish it to your local Maven repository:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn -Pmigrator-standalone install -pl storage/embedded-tools/storage-migrator -am</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Always create a backup of your code and storage before running the migrator</p>
+</li>
+<li>
+<p>The migration is a one-way operation and cannot be undone</p>
+</li>
+<li>
+<p>The type dictionary migration only updates metadata — your actual data remains unchanged</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>For more information see the <a href="https://github.com/eclipse-store/store/tree/main/storage/embedded-tools/storage-migrator">readme file</a>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -719,10 +878,136 @@
 <h2 id="_storage_converter"><a class="anchor" href="#_storage_converter"></a>Storage Converter</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The storage converter provides an option to copy a storage to another storage target, for example to change the channel count or move the storage from the local disk to the cloud.</p>
+<p>The Storage Converter copies a storage from one storage target to another.
+This is useful for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Changing the number of storage channels</p>
+</li>
+<li>
+<p>Moving storage from local disk to a cloud storage target or vice-versa</p>
+</li>
+<li>
+<p>Converting</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h3>
+<div class="paragraph">
+<p>Add the storage converter dependency:</p>
+</div>
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
+	&lt;dependency&gt;
+		&lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
+		&lt;artifactId&gt;storage-embedded-tools-storage-converter&lt;/artifactId&gt;
+		&lt;version&gt;4.0.0-beta3&lt;/version&gt;
+	&lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_standalone_jar_2"><a class="anchor" href="#_standalone_jar_2"></a>Standalone JAR</h3>
+<div class="paragraph">
+<p>Build the standalone JAR by activating the <code>converter-standalone</code> Maven profile:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn -Pconverter-standalone clean package</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then run it with an <a href="../configuration/index.html#external-configuration" class="xref page">external configuration</a> file for each storage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">java -jar storage-embedded-tools-storage-converter-4.0.0-beta3.jar sourceConfig.xml targetConfig.xml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_java_api"><a class="anchor" href="#_java_api"></a>Java API</h3>
+<div class="paragraph">
+<p>For more control, use the <code>StorageConverter</code> class directly with two <code>StorageConfiguration</code> instances:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">StorageConfiguration source = StorageConfiguration.Builder()
+	.setStorageFileProvider(
+		StorageLiveFileProvider.New(
+			NioFileSystem.New().ensureDirectoryPath("path", "to", "source", "storage")
+		)
+	)
+	.createConfiguration();
+
+StorageConfiguration target = StorageConfiguration.Builder()
+	.setStorageFileProvider(
+		StorageLiveFileProvider.New(
+			NioFileSystem.New().ensureDirectoryPath("path", "to", "target", "storage")
+		)
+	)
+	.setChannelCountProvider(StorageChannelCountProvider.New(4))
+	.createConfiguration();
+
+new StorageConverter(source, target).start();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To move from local file system to a cloud storage target, configure the target <code>StorageConfiguration</code> with the desired storage target. See <a href="../storage-targets/index.html" class="xref page">Storage Targets</a> for the available options.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The source storage must not be in use (not started) during the conversion</p>
+</li>
+<li>
+<p>Always verify the target storage after conversion by starting it and validating your data</p>
+</li>
+<li>
+<p>The converter creates a new independent copy — the source storage is not modified</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>For more information see the <a href="https://github.com/eclipse-store/store/tree/main/storage/embedded-tools/storage-converter">readme file</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_converting_binary_data"><a class="anchor" href="#_converting_binary_data"></a>Converting binary data</h3>
+<div class="paragraph">
+<p>To convert the binary representation of persisted objects BinaryConverter implementations can be specified by the implementations full class name.</p>
+</div>
+<div class="listingblock">
+<div class="title">To use the supplied the BinaryConverterBitmapLevel2 converter:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">java -jar storage-embedded-tools-storage-converter-{maven-version}.jar src.ini dst.ini -c org.eclipse.store.storage.embedded.tools.storage.converter.BinaryConverterBitmapLevel2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If more than one BinaryConverter shall be applied the -c option, including the converters must be applied in quotation marks:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">... "-c binaryConverter1, binaryConverter2"</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -200,6 +200,9 @@
     <a class="nav-link" href="../../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../../storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../../storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../../../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../../../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -705,11 +756,17 @@
 </aside>
 <article class="doc">
 <h1 class="page">Full Backup</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>To issue a full backup of the whole storage to be executed, the <code>EmbeddedStorageManager</code> provides two methods named <code>issueFullBackup</code>.
-Keep in mind that this could result in a very long running operation, depending on the storage size.
-Although the full backup may be a valid solution in some circumstances, the <a href="continuous-backup.html" class="xref page">continuous backup</a> should be preferred, since it is by far more efficient.</p>
+<p>A full backup copies the entire storage to a specified target directory or storage target.
+The <code>EmbeddedStorageManager</code> provides the <code>issueFullBackup</code> method for this purpose.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_basic_usage"><a class="anchor" href="#_basic_usage"></a>Basic Usage</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">EmbeddedStorageManager storage = ...;
@@ -729,6 +786,130 @@ The backup can be written to any available <a href="../../storage-targets/index.
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_when_to_use_full_backup"><a class="anchor" href="#_when_to_use_full_backup"></a>When to Use Full Backup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Full backup creates a complete snapshot of the storage at the time of execution.
+Consider the following when choosing between full and continuous backup:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Full Backup</th>
+<th class="tableblock halign-left valign-top">Continuous Backup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One-time snapshot of the entire storage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Continuously mirrors all changes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can be long-running for large storages</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimal ongoing overhead</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good for periodic backup schedules</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good for real-time disaster recovery</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simple to set up</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires configuration at startup</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For most production use cases, the <a href="continuous-backup.html" class="xref page">continuous backup</a> is preferred because it is far more efficient and provides continuous protection.</p>
+</div>
+<div class="paragraph">
+<p>Full backup is most appropriate for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>One-time backup before a major migration or upgrade</p>
+</li>
+<li>
+<p>Periodic scheduled backups (e.g., nightly) as an additional safety net</p>
+</li>
+<li>
+<p>Creating a storage copy for testing or development environments</p>
+</li>
+<li>
+<p>Situations where continuous backup is not feasible</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_restoring_from_a_full_backup"><a class="anchor" href="#_restoring_from_a_full_backup"></a>Restoring from a Full Backup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A full backup is a complete, self-contained copy of the storage.
+It can be used directly as a storage or copied to replace the original storage directory.</p>
+</div>
+<div class="paragraph">
+<p>To restore, simply copy the backup directory to the original storage location, or point the storage configuration to the backup directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">EmbeddedStorageManager storage = EmbeddedStorage.start(
+	Paths.get("full", "backup", "dir")
+);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_backup_to_different_storage_targets"><a class="anchor" href="#_backup_to_different_storage_targets"></a>Backup to Different Storage Targets</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The full backup accepts any <code>AWritableDirectory</code>, allowing you to write backups to different storage targets:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Backup to an AWS S3 bucket
+BlobStoreFileSystem fileSystem = BlobStoreFileSystem.New(
+	S3Connector.Caching(s3Client)
+);
+storage.issueFullBackup(
+	fileSystem.ensureDirectoryPath("my-backup-bucket", "backup", "dir")
+);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_performance_considerations"><a class="anchor" href="#_performance_considerations"></a>Performance Considerations</h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Full backup is a <strong>blocking operation</strong> — the calling thread is blocked until the backup completes, and store operations are paused for the duration.
+For large storages this can take a significant amount of time.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For large storages, consider triggering full backups during periods of low activity, for example via a scheduled cron job during off-peak hours or at night.</p>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="continuous-backup.html">Continuous Backup</a></span>

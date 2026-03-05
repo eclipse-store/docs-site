@@ -200,6 +200,9 @@
     <a class="nav-link" href="../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -703,17 +754,157 @@
 </aside>
 <article class="doc">
 <h1 class="page">Deleting Data</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>Deleting data does not require performing explicit deleting actions like <code>DELETE FROM table WHERE&#8230;&#8203;</code>. Instead you just need to clear any references to the object in your object-graph and store those changes.
 If a stored object is not reachable anymore its data will be deleted from the storage later.
 This behavior is comparable to Java&#8217;s garbage collector.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_basic_deletion"><a class="anchor" href="#_basic_deletion"></a>Basic Deletion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Remove the reference to the object and store the parent:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">root.MyArrayList.remove(0);
-storage.store(root.MyArrayList);</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">root.getMyArrayList().remove(0);
+storage.store(root.getMyArrayList());</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deleting_from_different_collection_types"><a class="anchor" href="#_deleting_from_different_collection_types"></a>Deleting from Different Collection Types</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_removing_from_a_list"><a class="anchor" href="#_removing_from_a_list"></a>Removing from a List</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Remove by index
+root.getOrders().remove(0);
+storage.store(root.getOrders());
+
+// Remove by reference
+root.getOrders().remove(order);
+storage.store(root.getOrders());
+
+// Remove with condition
+root.getOrders().removeIf(o -&gt; o.isCancelled());
+storage.store(root.getOrders());</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_removing_from_a_map"><a class="anchor" href="#_removing_from_a_map"></a>Removing from a Map</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Remove by key
+root.getCustomerMap().remove(customerId);
+storage.store(root.getCustomerMap());
+
+// Remove entries matching a condition
+root.getCustomerMap().entrySet().removeIf(
+	e -&gt; e.getValue().isInactive()
+);
+storage.store(root.getCustomerMap());</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_removing_from_a_set"><a class="anchor" href="#_removing_from_a_set"></a>Removing from a Set</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">root.getTags().remove(tag);
+storage.store(root.getTags());</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clearing_an_entire_collection"><a class="anchor" href="#_clearing_an_entire_collection"></a>Clearing an Entire Collection</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">root.getOrders().clear();
+storage.store(root.getOrders());</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setting_a_field_to_null"><a class="anchor" href="#_setting_a_field_to_null"></a>Setting a Field to Null</h3>
+<div class="paragraph">
+<p>If the object to delete is referenced by a single field rather than a collection:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">root.setCurrentSession(null);
+storage.store(root);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bulk_deletion"><a class="anchor" href="#_bulk_deletion"></a>Bulk Deletion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When removing many objects, batch the removals and store once:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Remove all inactive customers
+List&lt;Customer&gt; inactive = root.getCustomers().stream()
+	.filter(Customer::isInactive)
+	.toList();
+
+root.getCustomers().removeAll(inactive);
+storage.store(root.getCustomers());</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_important_always_store_the_parent"><a class="anchor" href="#_important_always_store_the_parent"></a>Important: Always Store the Parent</h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You must store the <strong>parent object</strong> that contains the reference, not the deleted object itself.</p>
+</div>
+<div class="paragraph">
+<p>Incorrect (does nothing for deletion):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">root.getOrders().remove(order);
+storage.store(order); // Wrong! This stores the removed object, not the parent</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Correct:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">root.getOrders().remove(order);
+storage.store(root.getOrders()); // Store the collection that changed</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_when_is_data_actually_erased"><a class="anchor" href="#_when_is_data_actually_erased"></a>When Is Data Actually Erased?</h2>
+<div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -727,7 +918,92 @@ Deleted data is not erased immediately from the storage files.
 </table>
 </div>
 <div class="paragraph">
-<p>The erasing from the storage files is done by the <a href="housekeeping.html" class="xref page">housekeeping</a> process.</p>
+<p>The erasing from the storage files is done by the <a href="housekeeping.html" class="xref page">housekeeping</a> process.
+Housekeeping runs in the background and reclaims space from deleted (unreachable) objects during its garbage collection phase.</p>
+</div>
+<div class="paragraph">
+<p>The timing depends on your <a href="configuration/housekeeping.html" class="xref page">housekeeping configuration</a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Housekeeping interval</strong> — how often housekeeping runs</p>
+</li>
+<li>
+<p><strong>Time budget</strong> — how much time each housekeeping cycle is allowed to spend</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Until housekeeping reclaims the space, the data remains in the storage files but is no longer accessible through the object graph.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deleting_with_lazy_references"><a class="anchor" href="#_deleting_with_lazy_references"></a>Deleting with Lazy References</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If the object to delete is behind a <a href="loading-data/lazy-loading/index.html" class="xref page">Lazy</a> reference, you need to clear the lazy reference and store the parent.</p>
+</div>
+<div class="sect2">
+<h3 id="_clearing_a_lazy_field"><a class="anchor" href="#_clearing_a_lazy_field"></a>Clearing a Lazy Field</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class DataRoot
+{
+	private Lazy&lt;List&lt;Order&gt;&gt; archive = Lazy.Reference(new ArrayList&lt;&gt;());
+
+	public Lazy&lt;List&lt;Order&gt;&gt; getArchive()
+	{
+		return this.archive;
+	}
+
+	public void setArchive(Lazy&lt;List&lt;Order&gt;&gt; archive)
+	{
+		this.archive = archive;
+	}
+}
+
+// Delete the archived data
+Lazy.clear(root.getArchive()); <i class="conum" data-value="1"></i><b>(1)</b>
+root.setArchive(null);         <i class="conum" data-value="2"></i><b>(2)</b>
+storage.store(root);           <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Clear the lazy reference to free the loaded data from memory. The static <code>Lazy.clear()</code> is null-safe — unlike calling <code>.clear()</code> on the instance directly, it does not throw a <code>NullPointerException</code> if the reference is <code>null</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Set the field to <code>null</code> to remove the reference from the object graph</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Store the parent so the change is persisted</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_removing_from_a_collection_of_lazy_references"><a class="anchor" href="#_removing_from_a_collection_of_lazy_references"></a>Removing from a Collection of Lazy References</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class DataRoot
+{
+	private final Map&lt;String, Lazy&lt;Customer&gt;&gt; customers = new HashMap&lt;&gt;();
+}
+
+// Remove a single customer
+Lazy&lt;Customer&gt; removed = root.getCustomers().remove(customerId);
+Lazy.clear(removed);
+storage.store(root.getCustomers());</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="loading-data/lazy-loading/clearing-lazy-references.html">Clearing Lazy References</a></span>

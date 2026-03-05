@@ -6,7 +6,7 @@
     <title>JVector Advanced Usage :: EclipseStore Reference Manual</title>
     <link rel="canonical" href="https://docs.eclipsestore.io/manual/gigamap/indexing/jvector/advanced.html">
     <link rel="prev" href="use-cases.html">
-    <link rel="next" href="../../queries/index.html">
+    <link rel="next" href="../spatial/index.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../../_/css/site.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-32x32.png">
@@ -200,6 +200,9 @@
     <a class="nav-link" href="../../../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../../../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../../storage/storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../../../storage/storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item is-current-page" data-depth="4">
     <a class="nav-link" href="advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -745,6 +796,234 @@ PQ compression automatically enforces <code>maxDegree=32</code> due to the Fused
 </td>
 </tr>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_how_the_on_disk_index_works"><a class="anchor" href="#_how_the_on_disk_index_works"></a>How the On-Disk Index Works</h3>
+<div class="paragraph">
+<p>The vector index uses the HNSW (Hierarchical Navigable Small World) algorithm, which constructs a multi-layer proximity graph for efficient approximate nearest neighbor search. When on-disk mode is enabled, this graph is persisted to disk and accessed via memory-mapped files rather than being held entirely on the Java heap.</p>
+</div>
+<div class="sect3">
+<h4 id="_build_and_persist_lifecycle"><a class="anchor" href="#_build_and_persist_lifecycle"></a>Build and Persist Lifecycle</h4>
+<div class="paragraph">
+<p>The graph is always <strong>built in-memory</strong> first. Entities are added to the graph one at a time, each inserted by finding its nearest neighbors through a beam search and then connecting it to those neighbors via bidirectional edges. Once the in-memory graph is ready, it is serialized to disk.</p>
+</div>
+<div class="paragraph">
+<p>Persistence creates two files in the configured <code>indexDirectory</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{indexName}.graph</code>&#8201;&#8212;&#8201;The full HNSW graph structure, including node connectivity (edges), and optionally embedded inline vectors and FusedPQ compressed data.</p>
+</li>
+<li>
+<p><code>{indexName}.meta</code>&#8201;&#8212;&#8201;A small metadata file containing the file format version, the vector dimension, and the current vector count. This is used on startup to verify that the on-disk graph matches the current data.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_loading_from_disk"><a class="anchor" href="#_loading_from_disk"></a>Loading from Disk</h4>
+<div class="paragraph">
+<p>On startup, the index first checks whether valid graph and metadata files exist. The metadata is verified: the dimension must match the configured value, and the vector count must match the number of vectors currently stored. If both checks pass, the graph is loaded directly from disk using memory-mapped I/O. This avoids rebuilding the graph from scratch, which can be expensive for large datasets.</p>
+</div>
+<div class="paragraph">
+<p>If the metadata does not match (e.g., because new entities were added while the application was offline, or the configuration changed), the on-disk files are ignored and the graph is rebuilt in-memory from the stored vectors.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_memory_mapped_access"><a class="anchor" href="#_memory_mapped_access"></a>Memory-Mapped Access</h4>
+<div class="paragraph">
+<p>The on-disk graph is accessed through memory mapping the graph file. The operating system&#8217;s virtual memory subsystem pages graph data in and out as needed, which means:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The JVM heap is not burdened with the full graph structure.</p>
+</li>
+<li>
+<p>The OS page cache automatically keeps frequently accessed portions of the graph in physical memory.</p>
+</li>
+<li>
+<p>Datasets much larger than available RAM can still be searched, with a trade-off of slightly higher query latency when pages need to be fetched from disk.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_product_quantization_pq_compression"><a class="anchor" href="#_product_quantization_pq_compression"></a>Product Quantization (PQ) Compression</h3>
+<div class="paragraph">
+<p>Product Quantization is a lossy vector compression technique that drastically reduces the memory footprint of stored vectors while maintaining reasonable search accuracy.</p>
+</div>
+<div class="sect3">
+<h4 id="_the_core_idea"><a class="anchor" href="#_the_core_idea"></a>The Core Idea</h4>
+<div class="paragraph">
+<p>A raw float vector of dimension <em>D</em> requires <em>D * 4</em> bytes of storage. For a 768-dimensional embedding, that is 3,072 bytes per vector. At scale (e.g., 10 million vectors), this alone consumes roughly 30 GB of memory&#8201;&#8212;&#8201;just for the vectors.</p>
+</div>
+<div class="paragraph">
+<p>PQ reduces this by splitting each vector into <em>M</em> subspaces (contiguous slices) and independently quantizing each subspace using a codebook of 256 centroids (cluster centers). Since 256 values fit in a single byte (2^8 = 256), each subspace is encoded as one byte. A full vector is thus compressed from <em>D * 4</em> bytes down to <em>M</em> bytes.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong> A 768-dimensional vector with <code>pqSubspaces=48</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Each subspace covers 768 / 48 = 16 dimensions.</p>
+</li>
+<li>
+<p>Each subspace is encoded as 1 byte (index into its 256-entry codebook).</p>
+</li>
+<li>
+<p>Compressed size: 48 bytes per vector (vs. 3,072 bytes raw)&#8201;&#8212;&#8201;a <strong>64x reduction</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_training_the_codebook"><a class="anchor" href="#_training_the_codebook"></a>Training the Codebook</h4>
+<div class="paragraph">
+<p>Before vectors can be compressed, PQ must learn the codebooks by clustering the training data. This happens automatically when the index is persisted to disk for the first time (provided at least 256 vectors exist). The training process:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Collects all stored vectors.</p>
+</li>
+<li>
+<p>Splits each vector into <em>M</em> subspaces.</p>
+</li>
+<li>
+<p>Runs k-means clustering (k=256) independently on each subspace, producing 256 centroids per subspace.</p>
+</li>
+<li>
+<p>Encodes every vector by replacing each subspace with the index of its nearest centroid.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The resulting codebook and compressed codes are stored alongside the graph.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_approximate_distance_computation"><a class="anchor" href="#_approximate_distance_computation"></a>Approximate Distance Computation</h4>
+<div class="paragraph">
+<p>Once vectors are compressed, distances between a query vector and a stored (compressed) vector can be computed without decompressing. For each subspace, the distance between the query&#8217;s subspace and the centroid (looked up by the stored byte index) is precomputed into a lookup table. The total distance is the sum of these per-subspace distances.</p>
+</div>
+<div class="paragraph">
+<p>This is much faster than computing the full exact distance, because it replaces <em>D</em> floating-point multiplications with <em>M</em> table lookups and additions.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fusedpq_compression_fused_into_the_graph"><a class="anchor" href="#_fusedpq_compression_fused_into_the_graph"></a>FusedPQ: Compression Fused into the Graph</h3>
+<div class="paragraph">
+<p>When PQ compression is enabled for an on-disk index, the implementation uses <strong>FusedPQ</strong>&#8201;&#8212;&#8201;a technique where the compressed PQ codes for each node&#8217;s neighbors are stored directly alongside the graph edges in the on-disk file.</p>
+</div>
+<div class="paragraph">
+<p>During graph traversal (search), the HNSW algorithm must evaluate the distance from the query to each candidate neighbor. With FusedPQ, these approximate distances can be computed directly from the fused PQ codes embedded in the graph structure, without a separate random-access lookup into a vector store. This reduces I/O and cache misses during search.</p>
+</div>
+<div class="paragraph">
+<p>The on-disk graph file thus contains three types of data per node:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Graph edges</strong>&#8201;&#8212;&#8201;The connections to neighboring nodes (the HNSW structure).</p>
+</li>
+<li>
+<p><strong>Inline vectors</strong>&#8201;&#8212;&#8201;The full-precision float vectors, used for exact reranking.</p>
+</li>
+<li>
+<p><strong>FusedPQ codes</strong>&#8201;&#8212;&#8201;The PQ-compressed representations of the node&#8217;s neighbors, used for fast approximate scoring during traversal.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The FusedPQ implementation requires exactly <code>maxDegree=32</code>. This is a fixed constraint of the algorithm&#8217;s internal layout, which is why enabling PQ compression automatically enforces this value.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_two_phase_search_with_reranking"><a class="anchor" href="#_two_phase_search_with_reranking"></a>Two-Phase Search with Reranking</h3>
+<div class="paragraph">
+<p>When PQ compression is active, searches use a <strong>two-phase approach</strong> to balance speed and accuracy:</p>
+</div>
+<div class="paragraph">
+<p><strong>Phase 1&#8201;&#8212;&#8201;Approximate candidate retrieval:</strong> The HNSW graph is traversed using the FusedPQ-compressed vectors for fast approximate distance computation. This phase fetches <code>2 * k</code> candidates (twice the requested result count) to ensure the true top-k results are captured despite the approximation error introduced by quantization.</p>
+</div>
+<div class="paragraph">
+<p><strong>Phase 2&#8201;&#8212;&#8201;Exact reranking:</strong> The <code>2 * k</code> approximate candidates are then re-scored using the full-precision inline vectors stored in the graph file. The exact scores are sorted and the best <em>k</em> results are returned.</p>
+</div>
+<div class="paragraph">
+<p>This two-phase approach achieves nearly the same recall as an uncompressed search while benefiting from the speed and memory advantages of PQ during graph traversal.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_choosing_pq_subspaces"><a class="anchor" href="#_choosing_pq_subspaces"></a>Choosing PQ Subspaces</h3>
+<div class="paragraph">
+<p>The <code>pqSubspaces</code> parameter (often called <em>M</em> in PQ literature) controls the compression ratio and accuracy trade-off:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Subspaces</th>
+<th class="tableblock halign-left valign-top">Bytes per Vector</th>
+<th class="tableblock halign-left valign-top">Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dimension / 2</code> (e.g., 384 for dim=768)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">384 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Highest accuracy, least compression</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dimension / 4</code> (e.g., 192 for dim=768)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good balance of accuracy and compression (recommended starting point)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dimension / 8</code> (e.g., 96 for dim=768)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">96 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">More aggressive compression, some accuracy loss</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dimension / 16</code> (e.g., 48 for dim=768)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">48 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum compression, noticeable accuracy loss</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The dimension must be evenly divisible by the number of subspaces. If <code>pqSubspaces</code> is set to 0, it defaults to <code>dimension / 4</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parallel_on_disk_writes"><a class="anchor" href="#_parallel_on_disk_writes"></a>Parallel On-Disk Writes</h3>
+<div class="paragraph">
+<p>For large indices, writing the graph to disk can be slow. Enabling <code>parallelOnDiskWrite(true)</code> uses the <code>OnDiskParallelGraphIndexWriter</code>, which allocates parallel direct buffers and uses multiple worker threads (one per available processor) to write the graph concurrently. This can significantly speed up persistence for indices with millions of nodes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">VectorIndexConfiguration config = VectorIndexConfiguration.builder()
+    .dimension(768)
+    .similarityFunction(VectorSimilarityFunction.COSINE)
+    .onDisk(true)
+    .indexDirectory(Path.of("/data/vectors"))
+    .enablePqCompression(true)
+    .pqSubspaces(48)
+    .parallelOnDiskWrite(true) // Multi-threaded disk writes
+    .build();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sequential (single-threaded) writing is the default, which is preferable in resource-constrained environments or for smaller indices.</p>
+</div>
 </div>
 </div>
 </div>
@@ -930,6 +1209,82 @@ The <code>vectorize()</code> method must never return <code>null</code>. If it d
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_batch_vectorization"><a class="anchor" href="#_batch_vectorization"></a>Batch Vectorization</h3>
+<div class="paragraph">
+<p>When adding multiple entities via <code>GigaMap.addAll()</code>, the vectorizer&#8217;s <code>vectorizeAll()</code> method is called instead of <code>vectorize()</code> for each entity individually. The default implementation delegates to <code>vectorize()</code> one by one, but you can override it to use a more efficient batch API&#8201;&#8212;&#8201;for example, sending all texts to an embedding service in a single request.</p>
+</div>
+<div class="paragraph">
+<p>This is especially useful with external embedding APIs like LangChain4j, where a single batch call is significantly faster than many individual calls due to reduced network overhead and server-side batching.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class ProductVectorizer extends Vectorizer&lt;Product&gt;
+{
+    private final EmbeddingModel embeddingModel;
+
+    public ProductVectorizer(EmbeddingModel embeddingModel)
+    {
+        this.embeddingModel = embeddingModel;
+    }
+
+    @Override
+    public float[] vectorize(Product product)
+    {
+        return embeddingModel.embed(product.name()).content().vector();
+    }
+
+    @Override
+    public List&lt;float[]&gt; vectorizeAll(List&lt;? extends Product&gt; products)
+    {
+        List&lt;TextSegment&gt; segments = products.stream()
+            .map(p -&gt; TextSegment.from(p.name()))
+            .toList();
+
+        return embeddingModel.embedAll(segments).content().stream()
+            .map(Embedding::vector)
+            .toList();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Using <code>addAll()</code> with a batch vectorizer:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">EmbeddingModel embeddingModel = OllamaEmbeddingModel.builder()
+    .baseUrl("http://localhost:11434")
+    .modelName("all-minilm")
+    .build();
+
+GigaMap&lt;Product&gt; gigaMap = GigaMap.New();
+VectorIndices&lt;Product&gt; vectorIndices = gigaMap.index().register(VectorIndices.Category());
+
+VectorIndexConfiguration config = VectorIndexConfiguration.builder()
+    .dimension(384)  // all-minilm dimension
+    .similarityFunction(VectorSimilarityFunction.COSINE)
+    .build();
+
+vectorIndices.add("embeddings", config, new ProductVectorizer(embeddingModel));
+
+// Batch add - calls vectorizeAll() once instead of vectorize() 100 times
+gigaMap.addAll(products);</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Batch vectorization works with any <code>EmbeddingModel</code> implementation from LangChain4j, including OpenAI, Cohere, Ollama, and in-process models. Just swap the model builder.
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -986,7 +1341,7 @@ mvn test -Dtest=VectorIndexBenchmarkTest \
 </div>
 <nav class="pagination">
   <span class="prev"><a href="use-cases.html">Use Cases</a></span>
-  <span class="next"><a href="../../queries/index.html">Queries</a></span>
+  <span class="next"><a href="../spatial/index.html">Spatial Index</a></span>
 </nav>
 </article>
   </div>

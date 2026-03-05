@@ -200,6 +200,9 @@
     <a class="nav-link" href="welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
@@ -259,7 +262,7 @@
     <a class="nav-link" href="../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage/storage-targets/local-file-system.html">Local File System</a>
+    <a class="nav-link" href="../storage/storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
@@ -461,7 +464,28 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../serializer/index.html">Serializer</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/type-handling.html">Type Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/typed-serializer.html">TypedSerializer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serializer/performance.html">Performance and Thread Safety</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -513,6 +537,18 @@
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
   </li>
 </ul>
   </li>
@@ -572,7 +608,22 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../communication/index.html">Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/tls.html">TLS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../communication/error-handling.html">Error Handling and Reconnection</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -703,17 +754,39 @@
 <article class="doc">
 <h1 class="page">Changelog</h1>
 <div class="sect1">
-<h2 id="_4_0_0_beta_1"><a class="anchor" href="#_4_0_0_beta_1"></a>4.0.0 (Beta 1)</h2>
+<h2 id="_4_0_0_beta"><a class="anchor" href="#_4_0_0_beta"></a>4.0.0 (Beta)</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_features"><a class="anchor" href="#_features"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="../gigamap/indexing/jvector/index.html" class="xref page">Vector index for GigaMap</a> <a href="https://github.com/eclipse-store/store/pull/548">[548</a>]</p>
+<p>GigaMap</p>
+<div class="ulist">
+<ul>
+<li>
+<p>New <a href="../gigamap/indexing/jvector/index.html" class="xref page">Vector index</a> <a href="https://github.com/eclipse-store/store/pull/548">[548</a>]</p>
 </li>
 <li>
-<p>Lucene index update <a href="https://github.com/eclipse-store/store/pull/546">[546</a>]</p>
+<p>New <a href="../gigamap/indexing/spatial/index.html" class="xref page">Spatial index</a> <a href="https://github.com/eclipse-store/store/pull/582">[582</a>]</p>
+</li>
+<li>
+<p><a href="../gigamap/indexing/lucene/index.html" class="xref page">Lucene index</a> update <a href="https://github.com/eclipse-store/store/pull/546">[546</a>]</p>
+</li>
+<li>
+<p>Concurrency handling improvements and eventual indexing <a href="https://github.com/eclipse-store/store/pull/564">[564</a>]</p>
+</li>
+<li>
+<p>ByteIndexers for numeric and Instant types <a href="https://github.com/eclipse-store/store/pull/574">[574</a>]</p>
+</li>
+<li>
+<p>Indexer for ZonedDateTime and Instant <a href="https://github.com/eclipse-store/store/pull/565">[565</a>]</p>
+</li>
+<li>
+<p>Add support for zero and negative value indexing in BinaryIndexers <a href="https://github.com/eclipse-store/store/pull/566">[566</a>]</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Native memory accessors to ensure future compatibility with upcoming Java versions <a href="https://github.com/eclipse-serializer/serializer/issues/130">[130</a>] <a href="https://github.com/eclipse-serializer/serializer/pull/225">[225</a>]</p>
@@ -726,10 +799,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Fix for ArrayIndexOutOfBoundsException in GigaMap <a href="https://github.com/eclipse-store/store/issues/500">[500</a>] <a href="https://github.com/eclipse-store/store/pull/524">[524</a>]</p>
-</li>
-<li>
-<p>Fix for NullPointerException in GigaMap <a href="https://github.com/eclipse-store/store/pull/549">[549</a>]</p>
+<p>Fixes for GigaMap <a href="https://github.com/eclipse-store/store/issues/500">[500</a>] <a href="https://github.com/eclipse-store/store/pull/524">[524</a>] <a href="https://github.com/eclipse-store/store/pull/549">[549</a>] <a href="https://github.com/eclipse-store/store/pull/563">[563</a>] <a href="https://github.com/eclipse-store/store/pull/570">[570</a>] <a href="https://github.com/eclipse-store/store/pull/571">[571</a>] <a href="https://github.com/eclipse-store/store/pull/586">[586</a>] <a href="https://github.com/eclipse-store/store/pull/595">[595</a>]</p>
 </li>
 <li>
 <p>Fixes for Lazy references, which could cause storage inconsistencies <a href="https://github.com/eclipse-serializer/serializer/issues/221">[221</a>] <a href="https://github.com/eclipse-serializer/serializer/pull/222">[222</a>] <a href="https://github.com/eclipse-serializer/serializer/pull/227">[227</a>]</p>
@@ -743,6 +813,9 @@
 <ul>
 <li>
 <p>Type handling updates and adjustments to changes in the JDK <a href="https://github.com/eclipse-serializer/serializer/issues/223">[223</a>] <a href="https://github.com/eclipse-serializer/serializer/pull/224">[224</a>] <a href="https://github.com/eclipse-serializer/serializer/issues/226">[226</a>] <a href="https://github.com/eclipse-serializer/serializer/pull/228">[228</a>]</p>
+</li>
+<li>
+<p>Vaadin viewer app optimizations <a href="https://github.com/eclipse-store/store/pull/588">[588</a>]</p>
 </li>
 </ul>
 </div>
