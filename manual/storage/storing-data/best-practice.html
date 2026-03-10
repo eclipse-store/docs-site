@@ -799,6 +799,68 @@ To allow such hidden objects to be stored after they have been modified, you hav
 </div>
 </div>
 <div class="sect1">
+<h2 id="_prefer_composition_over_inheritance"><a class="anchor" href="#_prefer_composition_over_inheritance"></a>Prefer Composition Over Inheritance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When designing your data model, prefer composition over inheritance, especially when working with collection types.</p>
+</div>
+<div class="paragraph">
+<p>EclipseStore provides <a href="../addendum/specialized-type-handlers.html" class="xref page">specialized type handlers</a> for commonly used JDK types such as <code>ArrayList</code>, <code>HashMap</code>, <code>HashSet</code>, and others.
+These type handlers are designed to work with the exact types they are registered for.
+If you create a subclass of such a type, the specialized type handler will <strong>not</strong> be used.
+Instead, EclipseStore falls back to generic type analysis, which may lead to unexpected behavior, degraded performance, or serialization issues.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Extending collection types (e.g., <code>class MyList extends ArrayList</code>) can interfere with EclipseStore&#8217;s serialization and type handler resolution.
+Always prefer wrapping collections as fields in your own classes instead of extending them.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Don&#8217;t</strong> do this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Bad: extending a collection type
+public class CustomerList extends ArrayList&lt;Customer&gt;
+{
+	private String name;
+
+	// ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Do</strong> this instead:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Good: using composition
+public class CustomerList
+{
+	private final List&lt;Customer&gt; customers = new ArrayList&lt;&gt;();
+	private String name;
+
+	// ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By using composition, <code>ArrayList</code> retains its own specialized type handler, while your custom class is handled generically through its fields.
+This pattern also results in a cleaner, more flexible design that is easier to maintain and evolve.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_use_immutable_data_models"><a class="anchor" href="#_use_immutable_data_models"></a>Use Immutable data models</h2>
 <div class="sectionbody">
 <div class="paragraph">

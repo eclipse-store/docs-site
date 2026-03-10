@@ -782,8 +782,8 @@ The parameters <code>eclipseStoreVersion</code> and <code>typeDictionaryRelative
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.activeRecipes=org.eclipse.store.storage.embedded.tools.storage.migrator.ConvertProject \
-  -Drewrite.recipeArtifactCoordinates=org.eclipse.store:storage-embedded-tools-storage-migrator:4.0.0-beta3 \
-  -DeclipseStoreVersion=4.0.0-beta3 \
+  -Drewrite.recipeArtifactCoordinates=org.eclipse.store:storage-embedded-tools-storage-migrator:4.0.0 \
+  -DeclipseStoreVersion=4.0.0 \
   -Drewrite.plainTextMasks=**/*.ptd \
   -DtypeDictionaryRelativeFilePath=src/main/resources/PersistenceTypeDictionary.ptd</code></pre>
 </div>
@@ -795,8 +795,8 @@ The parameters <code>eclipseStoreVersion</code> and <code>typeDictionaryRelative
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.activeRecipes=org.eclipse.store.storage.embedded.tools.storage.migrator.ConvertProject \
-  -Drewrite.recipeArtifactCoordinates=org.eclipse.store:storage-embedded-tools-storage-migrator:4.0.0-beta3 \
-  -DeclipseStoreVersion=4.0.0-beta3</code></pre>
+  -Drewrite.recipeArtifactCoordinates=org.eclipse.store:storage-embedded-tools-storage-migrator:4.0.0 \
+  -DeclipseStoreVersion=4.0.0</code></pre>
 </div>
 </div>
 </div>
@@ -809,7 +809,7 @@ The parameters <code>eclipseStoreVersion</code> and <code>typeDictionaryRelative
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.activeRecipes=org.eclipse.store.storage.embedded.tools.storage.migrator.ConvertProject \
-  -Drewrite.recipeArtifactCoordinates=org.eclipse.store:storage-embedded-tools-storage-migrator:4.0.0-beta3 \
+  -Drewrite.recipeArtifactCoordinates=org.eclipse.store:storage-embedded-tools-storage-migrator:4.0.0 \
   -Drewrite.plainTextMasks=**/*.ptd \
   -DtypeDictionaryRelativeFilePath=src/main/resources/PersistenceTypeDictionary.ptd</code></pre>
 </div>
@@ -906,7 +906,7 @@ This is useful for:</p>
 	&lt;dependency&gt;
 		&lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
 		&lt;artifactId&gt;storage-embedded-tools-storage-converter&lt;/artifactId&gt;
-		&lt;version&gt;4.0.0-beta3&lt;/version&gt;
+		&lt;version&gt;4.0.0&lt;/version&gt;
 	&lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
@@ -927,7 +927,7 @@ This is useful for:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">java -jar storage-embedded-tools-storage-converter-4.0.0-beta3.jar sourceConfig.xml targetConfig.xml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">java -jar storage-embedded-tools-storage-converter-&lt;version&gt;-standalone.jar sourceConfig.xml targetConfig.xml</code></pre>
 </div>
 </div>
 </div>
@@ -997,7 +997,7 @@ new StorageConverter(source, target).start();</code></pre>
 <div class="listingblock">
 <div class="title">To use the supplied the BinaryConverterBitmapLevel2 converter:</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">java -jar storage-embedded-tools-storage-converter-{maven-version}.jar src.ini dst.ini -c org.eclipse.store.storage.embedded.tools.storage.converter.BinaryConverterBitmapLevel2</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">java -jar storage-embedded-tools-storage-converter-&lt;version&gt;-standalone.jar src.ini dst.ini -c org.eclipse.store.storage.embedded.tools.storage.converter.BinaryConverterBitmapLevel2</code></pre>
 </div>
 </div>
 <div class="paragraph">
