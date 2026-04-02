@@ -792,13 +792,25 @@ If you want to use <em>value equality</em>, just use a different <code>Equalator
 <h2 id="_locking"><a class="anchor" href="#_locking"></a>Locking</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The GigaMap employs internal read-write locking, making it thread-safe.</p>
+<p>The GigaMap employs internal read-write locking, making it thread-safe for its own operations (<code>add</code>, <code>remove</code>, <code>update</code>, <code>get</code>, etc.).</p>
 </div>
 <div class="paragraph">
 <p>However, all reading operations must be closed at the end to determine when the read locks should be released.</p>
 </div>
 <div class="paragraph">
 <p>Most of the default reading methods, like <code>get</code>, are atomic read operations that are closed by default internally. Only when using iterators should you remember to close them, best by using a try-with-resources block.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The internal locking covers GigaMap operations, but <strong>not</strong> the store operation when using <code>storageManager.store(gigaMap)</code>. Use <code>gigaMap.store()</code> instead, which acquires the internal lock during storing. See <a href="persistence.html#_why_not_storagemanager_store_gigamap" class="xref page">Persistence</a> for details.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

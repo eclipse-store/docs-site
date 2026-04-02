@@ -761,6 +761,18 @@
 If a stored object is not reachable anymore its data will be deleted from the storage later.
 This behavior is comparable to Java&#8217;s garbage collector.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In a multi-threaded application, removing references and calling <code>store()</code> <strong>must be done under the same lock</strong> to prevent other threads from observing inconsistent state. This is the application&#8217;s responsibility. See <a href="../misc/locking/index.html" class="xref page">Locking</a> for details.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">

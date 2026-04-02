@@ -771,8 +771,26 @@ Any problem during the IO-operation causes the whole block to be deleted (rolled
 <div class="sectionbody">
 <div class="paragraph">
 <p>Yes.
-The storing and loading process can be parallelized by using multiple threads and thus be strongly accelerated.
-There is no limitation on how many threads can be used, apart from the mathematical constraint that the thread count must be a power of 2 (1, 2, 4, 8, 16, etc.).</p>
+Internally, EclipseStore uses multiple threads (called <em>channels</em>) to parallelize its own storing and loading operations, which can strongly accelerate IO performance.
+The number of channels must be a power of 2 (1, 2, 4, 8, 16, etc.).
+See <a href="../configuration/using-channels.html" class="xref page">Using Channels</a> for configuration details.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This internal multi-threading does <strong>not</strong> protect your application&#8217;s access to the shared object graph.
+In a multi-threaded application, modifying the object graph and storing the changes <strong>must be done under the same lock</strong>.
+EclipseStore cannot provide this synchronization on the application level — it is the application&#8217;s responsibility.
+See <a href="../../misc/locking/index.html" class="xref page">Locking</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

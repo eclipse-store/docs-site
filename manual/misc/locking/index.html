@@ -760,6 +760,23 @@
 <div class="paragraph">
 <p>Therefore, the application must handle concurrency if it is multi-threaded.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Modifying the object graph and storing the changes <strong>must always be done under the same lock</strong>.
+EclipseStore cannot provide this synchronization on the application level — it is the application&#8217;s responsibility.
+If the modification and the <code>store()</code> call are not protected by the same lock, other threads may read partially modified state or the persisted data may become inconsistent with the in-memory object graph.
+See the examples below for how to achieve this.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>The easiest way is to synchronize all affected code, but this makes your application effectively single-threaded.
 This is not advisable if performance is important.</p>

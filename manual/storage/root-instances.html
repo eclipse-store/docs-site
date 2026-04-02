@@ -853,6 +853,23 @@ storageManager.storeRoot();</code></pre>
 <div class="paragraph">
 <p>When using standard frameworks, you often work in a multi-threaded environment. If you are using the older JDBC approach, you create a copy of your data that you work with within a single thread, modify the data, and then save it back in a database trace. EclipseStore works with data directly, allowing it to achieve significantly better performance parameters. However, for developers, this means that any reading and writing to this shared object graph must be synchronized.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Modifying the object graph and storing the changes <strong>must be done under the same lock</strong>.
+EclipseStore cannot provide this synchronization on the application level — it is the application&#8217;s responsibility to ensure that the mutation and the corresponding <code>store()</code> call are executed atomically with respect to other threads.
+If they are not protected by the same lock, other threads may observe a partially modified object graph, or the stored data may not reflect the intended change.
+See <a href="../misc/locking/index.html" class="xref page">Locking</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>To make it easier to use within your application, we have prepared a simple way for you to do so.</p>
 </div>
@@ -863,6 +880,9 @@ storageManager.storeRoot();</code></pre>
     storageManager.store(root);
 });</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Note that both the modification (<code>changeData()</code>) and the <code>store()</code> call are inside the same synchronized block. This is essential — <strong>never</strong> modify the object graph outside the lock or defer the <code>store()</code> to a later, unsynchronized point.</p>
 </div>
 <div class="paragraph">
 <p>This approach will immediately provide you with several benefits:</p>
@@ -876,7 +896,7 @@ storageManager.storeRoot();</code></pre>
 <p>Avoid Deadlocks</p>
 </li>
 <li>
-<p>In principle, you prevent the object graph from being modified at the same time it is saved.</p>
+<p>The object graph cannot be modified by another thread while it is being saved.</p>
 </li>
 </ol>
 </div>

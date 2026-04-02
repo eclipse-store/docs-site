@@ -765,6 +765,23 @@ While storing your data most of the work EclipseStore performs for you.
 You only need to call the store method on the correct object.
 The rule is: "The Object that has been modified has to be stored!".</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In a multi-threaded application, modifying the object graph and storing the changes <strong>must be done under the same lock</strong>.
+EclipseStore cannot enforce this on the application level — it is <strong>your responsibility</strong> to ensure that no other thread can read or modify the affected objects between the mutation and the corresponding <code>store()</code> call.
+Without this guarantee, other threads may observe inconsistent in-memory state or the stored data may not reflect the intended change.
+See <a href="../../misc/locking/index.html" class="xref page">Locking</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Storing objects that are not part of an object graph is most likely pointless.</p>
 </div>

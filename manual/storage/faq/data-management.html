@@ -820,6 +820,12 @@ Since EclipseStore stores plain Java objects that live in memory, the same concu
 Without proper synchronization, concurrent reads and writes to the same objects can cause race conditions and inconsistent state — just like with any in-memory data structure.</p>
 </div>
 <div class="paragraph">
+<p>In particular, modifying the object graph and calling <code>store()</code> <strong>must be done under the same lock</strong>.
+EclipseStore cannot enforce this on the application level.
+If the modification and the store call are not in the same synchronized scope, other threads may read intermediate state or the persisted data may diverge from what is in memory.
+See <a href="../../misc/locking/index.html" class="xref page">Locking</a> for details.</p>
+</div>
+<div class="paragraph">
 <p>Use <a href="../../misc/locking/index.html" class="xref page">locking</a> or other synchronization strategies to protect your data during concurrent access.</p>
 </div>
 <div class="admonitionblock important">

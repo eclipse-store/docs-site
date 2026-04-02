@@ -981,7 +981,23 @@ org.eclipse.store.second.root=org.eclipse.store.integrations.spring.boot.types.s
 <h2 id="_mutex_locking"><a class="anchor" href="#_mutex_locking"></a>Mutex Locking</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>EclipseStore supports mutex locking. This is useful if you have multiple processes that need to access the same objects. Easiest way to use it is to use the annotation <code>@read</code> and <code>@write</code> on the methods that need to be locked. The annotation @read is used for methods that only read data and @write is used for methods that modify data.</p>
+<p>EclipseStore supports mutex locking. This is useful if you have multiple processes that need to access the same objects. Easiest way to use it is to use the annotation <code>@Read</code> and <code>@Write</code> on the methods that need to be locked. The annotation <code>@Read</code> is used for methods that only read data and <code>@Write</code> is used for methods that modify data.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A <code>@Write</code> method <strong>must</strong> contain both the object graph modification and the corresponding <code>store()</code> call.
+If the mutation and the store happen in separate methods (or outside the lock), other threads may observe inconsistent state.
+This is the same principle described in <a href="../locking/index.html" class="xref page">Locking</a>: modifying the object graph and storing the changes must always be done under the same lock.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>To activate  mutex locking, you need to add the following dependency to Maven pom.xml of your SpringBoot application:</p>
@@ -1012,7 +1028,9 @@ public class SomeStorageImpl implements SomeStorage
     @Write
     public void addSomething(String something)
     {
-        // Add something to the storage
+        // Modify the object graph AND store — both inside the @Write method
+        this.root.getSomethings().add(something);
+        this.storageManager.store(this.root.getSomethings());
     }
 }</code></pre>
 </div>

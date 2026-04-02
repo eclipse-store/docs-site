@@ -773,20 +773,15 @@
 <h2 id="_storing"><a class="anchor" href="#_storing"></a>Storing</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>After updating the contents of the GigaMap, simply call <code>store</code>, just like usual.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">storageManager.store(gigaMap);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>or this way:</p>
+<p>After updating the contents of the GigaMap, call <code>gigaMap.store()</code> to persist the changes:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">gigaMap.store();</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>This is the <strong>recommended</strong> way to store. <code>gigaMap.store()</code> is synchronized internally — it acquires the GigaMap&#8217;s lock, ensuring that no other thread can modify the GigaMap while the store operation is running.</p>
 </div>
 <div class="paragraph">
 <p>The GigaMap monitors changes internally, ensuring that only the modified parts are written to the storage.</p>
@@ -818,22 +813,28 @@ Changes made to entities directly (outside of <code>update</code> or <code>apply
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_concurrency"><a class="anchor" href="#_concurrency"></a>Concurrency</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_why_not_storagemanager_storegigamap"><a class="anchor" href="#_why_not_storagemanager_storegigamap"></a>Why not <code>storageManager.store(gigaMap)</code>?</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>When using GigaMap in a multi-threaded environment, it is important to understand how storing interacts with the GigaMap&#8217;s internal locking.</p>
+<p>Storing the GigaMap through <code>storageManager.store(gigaMap)</code> or <code>storageConnection.storeAll(&#8230;&#8203;)</code> does <strong>not</strong> acquire the GigaMap&#8217;s internal lock.
+This means other threads can modify the GigaMap (e.g. by calling <code>add</code>, <code>remove</code>, or <code>update</code>) while it is being serialized, leading to errors such as <code>BinaryPersistenceException: Inconsistent element count</code>.</p>
 </div>
 <div class="paragraph">
-<p><code>gigaMap.store()</code> is the <strong>recommended</strong> way to store. It is synchronized on the GigaMap instance, which guarantees that no other thread can modify the GigaMap while the store operation is running.</p>
+<p>Always prefer <code>gigaMap.store()</code>.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Storing the GigaMap through any other path, such as <code>storageManager.store(gigaMap)</code> or <code>storageConnection.storeAll(&#8230;&#8203;)</code>, does <strong>not</strong> acquire the GigaMap&#8217;s lock. If another thread modifies the GigaMap concurrently (e.g. by calling <code>add</code>, <code>remove</code>, or <code>update</code>), the internal data structures can be modified while they are being serialized, leading to errors such as <code>BinaryPersistenceException: Inconsistent element count</code>.</p>
-</div>
-<div class="paragraph">
-<p>If you need to store the GigaMap through an external path, you must synchronize on the GigaMap instance yourself:</p>
+<p>If you must store the GigaMap through an external path, you need to synchronize on the GigaMap instance yourself:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -844,6 +845,20 @@ Changes made to entities directly (outside of <code>update</code> or <code>apply
 </div>
 <div class="paragraph">
 <p>This is the same principle as the classic problem with synchronized JDK collections like <code>Vector</code>: synchronizing individual methods is not sufficient when multiple operations need to be atomic. In this case, the entire store traversal must be protected from concurrent modifications.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_concurrency"><a class="anchor" href="#_concurrency"></a>Concurrency</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As with any EclipseStore application, modifying the object graph and storing the changes <strong>must be done under the same lock</strong>.
+The <code>gigaMap.store()</code> method handles this for you by acquiring the GigaMap&#8217;s internal lock.</p>
+</div>
+<div class="paragraph">
+<p>However, if your application modifies other parts of the object graph alongside the GigaMap, you are responsible for synchronizing those modifications and their corresponding <code>store()</code> calls as well.
+See <a href="../misc/locking/index.html" class="xref page">Locking</a> for details on application-level synchronization strategies.</p>
 </div>
 </div>
 </div>
