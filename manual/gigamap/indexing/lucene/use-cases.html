@@ -334,6 +334,9 @@
     <a class="nav-link" href="../../../storage/storing-data/best-practice.html">Best Practice</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../storage/storing-data/batch-storer.html">Batch Storer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../../storage/storing-data/deep-copy.html">Deep Copy Utility</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -712,6 +715,9 @@
           <a href="../../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
+          <a href="../../../4.1.0-beta/intro/welcome.html">Preview</a>
+        </li>
+        <li class="version">
           <a href="../../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -743,6 +749,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="use-cases.html">V4</a>
+    <a class="version" href="../../../4.1.0-beta/gigamap/indexing/lucene/use-cases.html">Preview</a>
     <a class="version is-missing" href="../../../3/intro/welcome.html">V3</a>
     <a class="version is-missing" href="../../../2/intro/welcome.html">V2</a>
     <a class="version is-missing" href="../../../1/intro/welcome.html">V1</a>
@@ -1119,7 +1126,7 @@ LuceneContext&lt;Article&gt; germanContext = LuceneContext.New(
 <h2 id="_combining_with_bitmap_index"><a class="anchor" href="#_combining_with_bitmap_index"></a>Combining with Bitmap Index</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use Lucene for full-text search and Bitmap for exact filtering.</p>
+<p>Use Lucene for full-text search and Bitmap for exact filtering. <code>LuceneIndex.search(&#8230;&#8203;)</code> returns a <code>LuceneSearchResult</code> that is itself a <a href="../../queries/defining.html#_sub_queries" class="xref page"><code>GigaMap.SubQuery</code></a>, so the two can be intersected directly.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1132,18 +1139,23 @@ LuceneIndex&lt;Product&gt; textSearch = products.index().register(
 );
 
 // Bitmap for exact filtering
-IndexerString&lt;Product&gt; categoryIndexer = new IndexerString&lt;&gt;()
+IndexerString&lt;Product&gt; categoryIndexer = new IndexerString.Abstract&lt;&gt;()
 {
     @Override
     protected String getString(Product p) { return p.getCategory(); }
 };
 products.index().bitmap().add(categoryIndexer);
 
-// Query: Full-text search + category filter
-List&lt;Product&gt; textResults = textSearch.query("name:wireless");
+// Full-text search intersected with category filter — scores dropped
+LuceneSearchResult&lt;Product&gt; textHits = textSearch.search("name:wireless", 100);
 List&lt;Product&gt; filtered = products.query(categoryIndexer.is("Electronics"))
-    .filter(textResults::contains)
-    .toList();</code></pre>
+    .and(textHits)
+    .toList();
+
+// Or from the scored side — keep iterating with relevance scores
+ScoredSearchResult&lt;Product&gt; ranked = textHits.and(
+    products.query(categoryIndexer.is("Electronics"))
+);</code></pre>
 </div>
 </div>
 </div>

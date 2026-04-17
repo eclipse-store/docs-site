@@ -334,6 +334,9 @@
     <a class="nav-link" href="../../storage/storing-data/best-practice.html">Best Practice</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../storage/storing-data/batch-storer.html">Batch Storer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../storage/storing-data/deep-copy.html">Deep Copy Utility</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -712,6 +715,9 @@
           <a href="../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
+          <a href="../../4.1.0-beta/intro/welcome.html">Preview</a>
+        </li>
+        <li class="version">
           <a href="../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -742,6 +748,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="defining.html">V4</a>
+    <a class="version" href="../../4.1.0-beta/gigamap/queries/defining.html">Preview</a>
     <a class="version" href="../../3/gigamap/queries/defining.html">V3</a>
     <a class="version is-missing" href="../../2/intro/welcome.html">V2</a>
     <a class="version is-missing" href="../../1/intro/welcome.html">V1</a>
@@ -879,6 +886,97 @@ gigaMap.query(price.between(10, 100));</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">gigaMap.query(price.between(10, 100).and(category.is("Electronics")));</code></pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sub_queries"><a class="anchor" href="#_sub_queries"></a>Sub-Queries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <code>GigaMap.SubQuery</code> contributes a set of entity ids to a query. Any bitmap-backed <code>GigaQuery</code>, any <a href="../indexing/lucene/index.html" class="xref page">Lucene</a> or <a href="../indexing/jvector/index.html" class="xref page">vector</a> search result, and ad-hoc id sets are all sub-queries. Combining them lets a single query intersect across different index types.</p>
+</div>
+<div class="sect2">
+<h3 id="_combining_a_gigaquery_with_a_sub_query"><a class="anchor" href="#_combining_a_gigaquery_with_a_sub_query"></a>Combining a GigaQuery with a Sub-Query</h3>
+<div class="paragraph">
+<p>Use <code>query.and(subQuery)</code> to narrow a bitmap query by any other id source. The result is a <code>GigaQuery</code> — scores, if any, are dropped.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Lucene full-text hits narrowed by a bitmap status condition
+LuceneSearchResult&lt;Article&gt; hits = luceneIndex.search("content:eclipse", 100);
+List&lt;Article&gt; published = gigaMap.query(status.is("PUBLISHED"))
+    .and(hits)
+    .toList();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Vector similarity hits narrowed by a bitmap category condition
+VectorSearchResult&lt;Doc&gt; hits = vectorIndex.search(queryVector, 50);
+List&lt;Doc&gt; techDocs = gigaMap.query(category.is("tech"))
+    .and(hits)
+    .toList();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_narrowing_a_scored_search_result"><a class="anchor" href="#_narrowing_a_scored_search_result"></a>Narrowing a Scored Search Result</h3>
+<div class="paragraph">
+<p>A <code>ScoredSearchResult</code> (vector or Lucene) is itself a sub-query, and also exposes its own <code>and(SubQuery)</code>. Unlike the <code>GigaQuery</code> variant, this one keeps the scored iteration alive — the returned object is another <code>ScoredSearchResult</code>, preserving the original score-descending order on the surviving entries.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Narrow from the scored side; keep iterating with scores afterwards
+ScoredSearchResult&lt;Article&gt; top = luceneIndex.search("content:eclipse", 100)
+    .and(gigaMap.query(status.is("PUBLISHED")));
+
+for(var entry : top)
+{
+    System.out.println(entry.entity().title() + " (" + entry.score() + ")");
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_combining_queries"><a class="anchor" href="#_combining_queries"></a>Combining Queries</h3>
+<div class="paragraph">
+<p>A <code>GigaQuery</code> itself is a sub-query too, so two queries on the same <code>GigaMap</code> can be intersected directly.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">GigaQuery&lt;Person&gt; adults    = gigaMap.query(age.greaterThanEqual(18));
+GigaQuery&lt;Person&gt; berliners = gigaMap.query(city.is("Berlin"));
+
+long count = adults.and(berliners).count();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_combining_with_a_fixed_id_set"><a class="anchor" href="#_combining_with_a_fixed_id_set"></a>Combining with a Fixed Id Set</h3>
+<div class="paragraph">
+<p>For ad-hoc id sets — a pre-computed allow-list, an external system, a test fixture — use <code>EntityIdMatcher.Ascending(&#8230;&#8203;)</code>. It takes a sorted (or to-be-sorted) array of entity ids and exposes it as a <code>SubQuery</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">EntityIdMatcher allowed = EntityIdMatcher.Ascending(42L, 58L, 91L);
+
+List&lt;Person&gt; matches = gigaMap.query(firstName.is("John"))
+    .and(allowed)
+    .toList();</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Sub-query combination is always a logical <strong>AND</strong>: an entity is part of the result only if it matches <strong>both</strong> sides. Multiple <code>.and(&#8230;&#8203;)</code> calls chain: <code>query.and(subA).and(subB)</code> requires an entity to be present in the main query, <code>subA</code>, <strong>and</strong> <code>subB</code>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

@@ -334,6 +334,9 @@
     <a class="nav-link" href="../storing-data/best-practice.html">Best Practice</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storing-data/batch-storer.html">Batch Storer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storing-data/deep-copy.html">Deep Copy Utility</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -712,6 +715,9 @@
           <a href="../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
+          <a href="../../4.1.0-beta/intro/welcome.html">Preview</a>
+        </li>
+        <li class="version">
           <a href="../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -742,6 +748,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="troubleshooting.html">V4</a>
+    <a class="version" href="../../4.1.0-beta/storage/addendum/troubleshooting.html">Preview</a>
     <a class="version" href="../../3/storage/addendum/troubleshooting.html">V3</a>
     <a class="version is-missing" href="../../2/intro/welcome.html">V2</a>
     <a class="version is-missing" href="../../1/intro/welcome.html">V1</a>
@@ -924,6 +931,138 @@ if (!storage.isRunning())
 </li>
 <li>
 <p>Monitor memory usage via <a href="../../misc/monitoring/index.html" class="xref page">JMX monitoring</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_restoring_a_deleted_object_with_storageobjectrestorer"><a class="anchor" href="#_restoring_a_deleted_object_with_storageobjectrestorer"></a>Restoring a Deleted Object with StorageObjectRestorer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If an object was deleted from the storage (e.g. through garbage collection) and a deletion directory is configured, it may be possible to recover the object using <code>StorageObjectRestorer</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>StorageObjectRestorer</code> reads and writes the storage files directly.
+<strong>The storage must be shut down</strong> before running the restorer. Using it against a running storage will corrupt data.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>A deletion directory must have been configured <strong>before</strong> the object was deleted:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">EmbeddedStorage.Foundation()
+    .onConnectionFoundation(f -&gt; f.getStorageFoundation()
+        .getFileProvider()
+        .setDeletionDirectory(deletionDir));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Without a deletion directory, superseded data files are permanently deleted and cannot be recovered.</p>
+</div>
+</li>
+<li>
+<p>You need to know the <strong>persistence object id</strong> of the object to restore.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_basic_usage"><a class="anchor" href="#_basic_usage"></a>Basic Usage</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.eclipse.store.afs.nio.types.NioFileSystem;
+import org.eclipse.store.storage.types.StorageLiveFileProvider;
+import org.eclipse.store.storage.util.StorageObjectRestorer;
+
+import java.nio.file.Paths;
+
+// 1. Shut down the storage first!
+
+final NioFileSystem nioFs = NioFileSystem.New();
+
+final StorageLiveFileProvider fileProvider = StorageLiveFileProvider.Builder(nioFs)
+    .setDirectory(nioFs.ensureDirectoryPath(Paths.get("/path/to/storage").toString()))
+    .setDeletionDirectory(nioFs.ensureDirectoryPath(Paths.get("/path/to/deletions").toString()))
+    .createFileProvider();
+
+// channel count must match the value used when the storage was created (default: 1)
+final int channelCount = 1;
+
+final StorageObjectRestorer restorer =
+    new StorageObjectRestorer.Default(fileProvider, channelCount);
+
+final long objectId = 1000000000000068341L;
+final boolean restored = restorer.restoreObject(objectId);
+
+if (restored)
+{
+    System.out.println("Object " + objectId + " restored – restart storage to use it.");
+}
+else
+{
+    System.out.println("Object " + objectId + " not found in deletion directory.");
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, if you have a <code>StorageConfiguration</code> available:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final StorageConfiguration configuration = ...; // your existing configuration
+final StorageObjectRestorer restorer = new StorageObjectRestorer.Default(configuration);
+restorer.restoreObject(objectId);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_it_works"><a class="anchor" href="#_how_it_works"></a>How It Works</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The restorer scans the deletion directory for data files belonging to the channel that owns the given object id (<code>objectId % channelCount</code>).</p>
+</li>
+<li>
+<p>It parses every deleted data file and locates the most recent binary entity blob for the requested object id.</p>
+</li>
+<li>
+<p>The blob is appended as a new data file in the live storage directory of that channel.</p>
+</li>
+<li>
+<p>A matching entry is written to the channel&#8217;s transactions log so the storage engine recognises the new file on the next startup.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_limitations"><a class="anchor" href="#_limitations"></a>Limitations</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The object can only be restored if its binary blob is still present in the deletion directory.
+If no deletion directory was configured, or if the deletion directory was cleaned up, recovery is not possible.</p>
+</li>
+<li>
+<p>Only the <strong>object itself</strong> is restored. If the object references other missing objects, those must be restored separately or handled with <code>StorageEntityCollector.Creator.Unchecked()</code> (see above).</p>
+</li>
+<li>
+<p>The restorer does not verify type compatibility. Ensure the class definition still matches the stored binary layout.</p>
 </li>
 </ul>
 </div>

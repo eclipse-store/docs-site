@@ -334,6 +334,9 @@
     <a class="nav-link" href="../../../storage/storing-data/best-practice.html">Best Practice</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../storage/storing-data/batch-storer.html">Batch Storer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../../storage/storing-data/deep-copy.html">Deep Copy Utility</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -712,6 +715,9 @@
           <a href="../../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
+          <a href="../../../4.1.0-beta/intro/welcome.html">Preview</a>
+        </li>
+        <li class="version">
           <a href="../../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -743,6 +749,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="advanced.html">V4</a>
+    <a class="version" href="../../../4.1.0-beta/gigamap/indexing/jvector/advanced.html">Preview</a>
     <a class="version is-missing" href="../../../3/intro/welcome.html">V3</a>
     <a class="version is-missing" href="../../../2/intro/welcome.html">V2</a>
     <a class="version is-missing" href="../../../1/intro/welcome.html">V1</a>
@@ -1106,23 +1113,21 @@ VectorIndex&lt;Document&gt; contentIndex = vectorIndices.add("content", contentC
 <h2 id="_hybrid_search"><a class="anchor" href="#_hybrid_search"></a>Hybrid Search</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Combine vector similarity search with traditional bitmap index filtering.</p>
+<p>Combine vector similarity search with traditional bitmap index filtering. <code>VectorIndex.search(&#8230;&#8203;)</code> returns a <code>VectorSearchResult</code> that is itself a <a href="../../queries/defining.html#_sub_queries" class="xref page"><code>GigaMap.SubQuery</code></a>, so the two can be intersected directly — no manual id filtering required.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// First, filter by category using bitmap index
-List&lt;Long&gt; categoryIds = bitmapIndex.query(
-    categoryIndexer.is("technology")
-).toList();
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">VectorSearchResult&lt;Document&gt; hits = vectorIndex.search(queryVector, 10);
 
-// Then search within filtered results
-VectorSearchResult&lt;Document&gt; result = vectorIndex.search(queryVector, 10);
+// From the bitmap side — scores dropped
+List&lt;Document&gt; hybridResults = gigaMap.query(categoryIndexer.is("technology"))
+    .and(hits)
+    .toList();
 
-// Combine results
-List&lt;Document&gt; hybridResults = result.stream()
-    .filter(e -&gt; categoryIds.contains(e.entityId()))
-    .map(VectorSearchResult.Entry::entity)
-    .toList();</code></pre>
+// From the scored side — keep iterating with similarity scores
+ScoredSearchResult&lt;Document&gt; ranked = hits.and(
+    gigaMap.query(categoryIndexer.is("technology"))
+);</code></pre>
 </div>
 </div>
 </div>
