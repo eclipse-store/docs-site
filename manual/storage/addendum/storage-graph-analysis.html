@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: EclipseStore Reference Manual</title>
+    <title>Storage Graph Analysis :: EclipseStore Reference Manual</title>
     <link rel="canonical" href="https://docs.eclipsestore.io/manual/storage/addendum/storage-graph-analysis.html">
     <link rel="prev" href="specialized-type-handlers.html">
     <link rel="next" href="tools.html">
@@ -766,14 +766,17 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<div class="sect1">
-<h2 id="_storage_graph_analysis"><a class="anchor" href="#_storage_graph_analysis"></a>Storage Graph Analysis</h2>
+<h1 class="page">Storage Graph Analysis</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>With version 3.0.0 additional functionality to analyze the stored graph has been added. This includes an API to export the storage graphs structure without user data and an API to search that data for missing objects and objects' parents.</p>
 </div>
-<div class="sect2">
-<h3 id="_exporting_the_storage_object_graph"><a class="anchor" href="#_exporting_the_storage_object_graph"></a>Exporting the storage object graph</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exporting_the_storage_object_graph"><a class="anchor" href="#_exporting_the_storage_object_graph"></a>Exporting the storage object graph</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The storage adjacency data can be exported from a running storage to a local directory using:</p>
 </div>
@@ -786,8 +789,10 @@
 <p>After the data has been exported, the storage can be shut down. Further analysis requires only the exported data.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_searching_for_missing_objects"><a class="anchor" href="#_searching_for_missing_objects"></a>Searching for Missing Objects</h3>
+</div>
+<div class="sect1">
+<h2 id="_searching_for_missing_objects"><a class="anchor" href="#_searching_for_missing_objects"></a>Searching for Missing Objects</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>To find the IDs of missing objects, the exported data has to be preprocessed using a AdjacencyDataConverter implementation:</p>
 </div>
@@ -810,8 +815,10 @@ final MissingObjects missingEntities = analyser.searchMissingEntities();</code><
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_searching_object_parents"><a class="anchor" href="#_searching_object_parents"></a>Searching Object Parents</h3>
+</div>
+<div class="sect1">
+<h2 id="_searching_object_parents"><a class="anchor" href="#_searching_object_parents"></a>Searching Object Parents</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The ReverseObjectSearch allows to search for the reference path from any object identified by the ObjectID to the storage&#8217;s root object, the provided default implementation does not require the whole storage graph to be loaded in memory.</p>
 </div>
@@ -819,7 +826,6 @@ final MissingObjects missingEntities = analyser.searchMissingEntities();</code><
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final ReverseObjectSearch reverseObjectSearch = ReverseObjectSearch.New(exports, data);
 final ObjectParents reverseSearchResult = reverseObjectSearch.searchObjectIDs(missingEntities.getMissingObjectIDs());</code></pre>
-</div>
 </div>
 </div>
 </div>
