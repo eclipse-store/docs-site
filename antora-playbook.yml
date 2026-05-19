@@ -16,9 +16,6 @@ content:
   - url: https://github.com/eclipse-store/store.git
     branches: main
     start_path: docs
-  - url: https://github.com/eclipse-store/store.git
-    branches: 4.1.0-preview-docs
-    start_path: docs
 asciidoc:
   attributes:
     page-pagination: ''
