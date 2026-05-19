@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Persistence :: EclipseStore Reference Manual</title>
-    <link rel="canonical" href="https://docs.eclipsestore.io/manual/gigamap/persistence.html">
-    <link rel="prev" href="crud.html">
-    <link rel="next" href="../cache/index.html">
+    <title>Concurrent Access :: EclipseStore Reference Manual</title>
+    <link rel="canonical" href="https://docs.eclipsestore.io/manual/intro/concurrent-access.html">
+    <link rel="prev" href="architecture.html">
+    <link rel="next" href="system-requirements.html">
     <meta name="generator" content="Antora 3.1.4">
-    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../_/css/site.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-16x16.png">
-  <link rel="stylesheet" href="../../../_/css/site-extra.css">
+  <link rel="stylesheet" href="../../_/css/site-extra.css">
   </head>
   <body class="article">
 <header class="header">
@@ -186,30 +186,33 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="manual" data-version="4.1.0-beta">
+<div class="nav-container" data-component="manual" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
     <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
-    <h3 class="title"><a href="../intro/welcome.html">EclipseStore Reference Manual</a></h3>
+    <h3 class="title"><a href="welcome.html">EclipseStore Reference Manual</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../intro/welcome.html">Welcome</a>
+    <a class="nav-link" href="welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../intro/architecture.html">Architecture Overview</a>
+    <a class="nav-link" href="architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="concurrent-access.html">Concurrent Access</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../intro/system-requirements.html">System Requirements</a>
+    <a class="nav-link" href="system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../intro/changelog.html">Changelog</a>
+    <a class="nav-link" href="changelog.html">Changelog</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../intro/installation.html">Installation</a>
+    <a class="nav-link" href="installation.html">Installation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -492,88 +498,91 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">GigaMap</a>
+    <a class="nav-link" href="../gigamap/index.html">GigaMap</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="getting-started.html">Getting Started</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="indexing/index.html">Indexing</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="indexing/bitmap/index.html">Bitmap Index</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="indexing/bitmap/types.html">Index Types</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="indexing/bitmap/defining.html">Defining Indices</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="indexing/lucene/index.html">Lucene Index</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="indexing/lucene/configuration.html">Configuration</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="indexing/lucene/use-cases.html">Use Cases</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="indexing/lucene/advanced.html">Advanced Usage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="indexing/jvector/index.html">JVector Index</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="indexing/jvector/configuration.html">Configuration</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="indexing/jvector/use-cases.html">Use Cases</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="indexing/jvector/advanced.html">Advanced Usage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="indexing/spatial/index.html">Spatial Index</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="indexing/spatial/use-cases.html">Use Cases</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="indexing/spatial/advanced.html">Advanced Usage</a>
-  </li>
-</ul>
-  </li>
-</ul>
+    <a class="nav-link" href="../gigamap/getting-started.html">Getting Started</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="queries/index.html">Queries</a>
+    <a class="nav-link" href="../gigamap/indexing/index.html">Indexing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="queries/defining.html">Defining Queries</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/indexing/bitmap/index.html">Bitmap Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/bitmap/types.html">Index Types</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/bitmap/defining.html">Defining Indices</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="queries/executing.html">Executing Queries</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/indexing/lucene/index.html">Lucene Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/lucene/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/lucene/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/lucene/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/indexing/jvector/index.html">JVector Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/jvector/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/jvector/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="crud.html">CRUD</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../gigamap/queries/index.html">Queries</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../gigamap/queries/defining.html">Defining Queries</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="persistence.html">Persistence</a>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../gigamap/queries/executing.html">Executing Queries</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../gigamap/constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../gigamap/crud.html">CRUD</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../gigamap/persistence.html">Persistence</a>
   </li>
 </ul>
   </li>
@@ -705,26 +714,23 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">Preview</span>
+    <span class="version">V4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></div>
+      <div class="title"><a href="welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../intro/welcome.html">V4</a>
-        </li>
-        <li class="version is-current">
-          <a href="../intro/welcome.html">Preview</a>
+        <li class="version is-current is-latest">
+          <a href="welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../3/intro/welcome.html">V3</a>
+          <a href="../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
-          <a href="../../2/intro/welcome.html">V2</a>
+          <a href="../2/intro/welcome.html">V2</a>
         </li>
         <li class="version">
-          <a href="../../1/intro/welcome.html">V1</a>
+          <a href="../1/intro/welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -738,90 +744,83 @@
 <button class="nav-toggle"></button>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../intro/welcome.html">EclipseStore Reference Manual</a></li>
-    <li><a href="index.html">GigaMap</a></li>
-    <li><a href="persistence.html">Persistence</a></li>
+    <li><a href="welcome.html">EclipseStore Reference Manual</a></li>
+    <li><a href="concurrent-access.html">Concurrent Access</a></li>
   </ul>
 </nav>
 <div class="page-versions">
-  <button class="version-menu-toggle" title="Show other versions of page">Preview</button>
+  <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
-    <a class="version" href="../../gigamap/persistence.html">V4</a>
-    <a class="version is-current" href="persistence.html">Preview</a>
-    <a class="version" href="../../3/gigamap/persistence.html">V3</a>
-    <a class="version is-missing" href="../../2/intro/welcome.html">V2</a>
-    <a class="version is-missing" href="../../1/intro/welcome.html">V1</a>
+    <a class="version is-current" href="concurrent-access.html">V4</a>
+    <a class="version is-missing" href="../3/intro/welcome.html">V3</a>
+    <a class="version is-missing" href="../2/intro/welcome.html">V2</a>
+    <a class="version is-missing" href="../1/intro/welcome.html">V1</a>
   </div>
 </div>
-<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/4.1.0-preview-docs/docs/modules/gigamap/pages/persistence.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/intro/pages/concurrent-access.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Persistence</h1>
+<h1 class="page">Concurrent Access</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>GigaMap seamlessly integrates with EclipseStore. All required type handlers are registered automatically.</p>
+<p>Most applications that use EclipseStore are multi-threaded — web request handlers, scheduled jobs, background processors, UI events, and so on, all running concurrently against the same data.
+Because EclipseStore loads the application&#8217;s object graph directly into memory and does not interpose defensive copies, the developer is responsible for synchronizing concurrent access.
+This page is the canonical treatment of that responsibility: what it means, why EclipseStore cannot do it for you, what already is and is not thread-safe, and which strategies and helpers are available.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_loading"><a class="anchor" href="#_loading"></a>Loading</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The loading process is fully automatic, as usual. Even the lazy loading is handled internally.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_storing"><a class="anchor" href="#_storing"></a>Storing</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>After updating the contents of the GigaMap, call <code>gigaMap.store()</code> to persist the changes:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">gigaMap.store();</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This is the <strong>recommended</strong> way to store. <code>gigaMap.store()</code> is synchronized internally — it acquires the GigaMap&#8217;s lock, ensuring that no other thread can modify the GigaMap while the store operation is running.</p>
-</div>
-<div class="paragraph">
-<p>The GigaMap monitors changes internally, ensuring that only the modified parts are written to the storage.</p>
-</div>
-<div class="paragraph">
-<p>This applies to all internal changes of the GigaMap as well as to added and removed entities.</p>
-</div>
-<div class="paragraph">
-<p>Entities modified through the <code>update</code> or <code>apply</code> methods are automatically included in the store operation. There is no need to store them separately.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">gigaMap.update(person, p -&gt; {
-    p.setLastName("Smith"),
-    p.setAddress(newAddress)
-});
-gigaMap.store();</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Changes made to entities directly (outside of <code>update</code> or <code>apply</code>) are not tracked by the GigaMap and must be stored manually.
+<div class="title">TL;DR</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The object graph lives in your JVM&#8217;s heap and is shared between application threads.</p>
+</li>
+<li>
+<p>The application is responsible for synchronizing concurrent access — EclipseStore cannot do it for you.</p>
+</li>
+<li>
+<p>The single invariant to respect: <strong>modifying the object graph and storing the changes must happen under the same lock</strong>.</p>
+</li>
+</ol>
+</div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_why_not_storagemanager_storegigamap"><a class="anchor" href="#_why_not_storagemanager_storegigamap"></a>Why not <code>storageManager.store(gigaMap)</code>?</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_this_is_different_from_jdbc_jpa_and_other_orms"><a class="anchor" href="#_why_this_is_different_from_jdbc_jpa_and_other_orms"></a>Why this is different from JDBC, JPA, and other ORMs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Most persistence frameworks insulate the application from the data store by copying values across a boundary.
+JDBC returns a <code>ResultSet</code> of primitive values; JPA hydrates entities into a session-scoped first-level cache; ORMs hand back fresh proxies for each request.
+The application mutates a <strong>copy</strong>, the framework persists it, and concurrency between threads is mostly mediated by the database&#8217;s transaction isolation.</p>
+</div>
+<div class="paragraph">
+<p>EclipseStore works differently.
+The graph you load is the same graph you mutate, and the same graph you persist — there is no copy step.
+This is the architectural choice that makes EclipseStore fast, because nothing has to be marshalled, mapped, or proxied.
+It is also the reason your application owns the concurrency story: the framework has nothing to lock around because the framework is not in the read/write path.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_core_principle"><a class="anchor" href="#_the_core_principle"></a>The core principle</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The single rule to remember:</p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -830,48 +829,413 @@ Changes made to entities directly (outside of <code>update</code> or <code>apply
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Storing the GigaMap through <code>storageManager.store(gigaMap)</code> or <code>storageConnection.storeAll(&#8230;&#8203;)</code> does <strong>not</strong> acquire the GigaMap&#8217;s internal lock.
-This means other threads can modify the GigaMap (e.g. by calling <code>add</code>, <code>remove</code>, or <code>update</code>) while it is being serialized, leading to errors such as <code>BinaryPersistenceException: Inconsistent element count</code>.</p>
-</div>
-<div class="paragraph">
-<p>Always prefer <code>gigaMap.store()</code>.</p>
+<p>Modifying the object graph and the corresponding <code>store()</code> call <strong>must happen under the same lock</strong>.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>If you must store the GigaMap through an external path, you need to synchronize on the GigaMap instance yourself:</p>
+<p>Concretely, this means a thread that mutates the graph must hold a lock that spans:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">synchronized (gigaMap) {
-    storageManager.store(gigaMap);
-}</code></pre>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>the mutation itself (the assignment, the <code>add()</code>, the <code>remove()</code>, the field update), and</p>
+</li>
+<li>
+<p>the call to <code>store(&#8230;&#8203;)</code> that persists it.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>This is the same principle as the classic problem with synchronized JDK collections like <code>Vector</code>: synchronizing individual methods is not sufficient when multiple operations need to be atomic. In this case, the entire store traversal must be protected from concurrent modifications.</p>
+<p>No other thread may execute either step on the same affected objects until both have completed.</p>
+</div>
+<div class="paragraph">
+<p>This is the same atomicity guarantee that any in-memory shared data structure requires in Java.
+The only difference is that with EclipseStore the second step — <code>store()</code> — is part of the critical section, not an afterthought handed off to a transaction manager.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_goes_wrong_without_it"><a class="anchor" href="#_what_goes_wrong_without_it"></a>What goes wrong without it</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are three concrete failure modes when the rule is broken.
+Recognising them in incident logs is half the battle.</p>
+</div>
+<div class="sect2">
+<h3 id="_partial_reads"><a class="anchor" href="#_partial_reads"></a>Partial reads</h3>
+<div class="paragraph">
+<p>Thread A is halfway through a multi-step mutation.
+Thread B reads the graph and sees an internally inconsistent intermediate state — a <code>Customer</code> whose address has been updated but whose audit log has not, an order whose line items no longer sum to its total, a tree node whose parent and child pointers disagree.
+The application appears to work most of the time and produces baffling reports occasionally.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_persisted_graph_divergence"><a class="anchor" href="#_persisted_graph_divergence"></a>Persisted-graph divergence</h3>
+<div class="paragraph">
+<p>Thread A mutates the graph but has not yet called <code>store()</code>.
+Thread B grabs the lock, makes its own mutation, and calls <code>store()</code>.
+Thread A then resumes and calls its own <code>store()</code> — but the graph it persists already includes Thread B&#8217;s changes, even though Thread A&#8217;s logic was not designed for them.
+The persisted state diverges from what either thread "intended".</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gigamap_stored_in_an_inconsistent_state"><a class="anchor" href="#_gigamap_stored_in_an_inconsistent_state"></a>GigaMap stored in an inconsistent state</h3>
+<div class="paragraph">
+<p>If you call <code>storageManager.store(gigaMap)</code> while another thread is mutating the GigaMap, the serializer walks a structure that is changing under it and the store fails.
+This is a special case of the previous failure mode that EclipseStore can detect, because the GigaMap&#8217;s internal state becomes inconsistent with what the serializer actually traverses.</p>
+</div>
+<div class="paragraph">
+<p>Note that this covers only the GigaMap&#8217;s own structure.
+Stored <strong>elements</strong> (the values held in the GigaMap, and any objects they reference) can still be mutated by another thread during the store walk — the GigaMap&#8217;s internal lock does not extend to them.
+The GigaMap itself remains fine, but the persisted element graph may be inconsistent.
+Application-level synchronization is still required around mutation and storing of those objects.</p>
+</div>
+<div class="paragraph">
+<p>Always prefer <code>gigaMap.store()</code> — see <a href="#gigamap-concurrency">GigaMap concurrency</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_concurrency"><a class="anchor" href="#_concurrency"></a>Concurrency</h2>
+<h2 id="_what_is_already_thread_safe_and_what_is_not"><a class="anchor" href="#_what_is_already_thread_safe_and_what_is_not"></a>What is already thread-safe — and what is not</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As with any EclipseStore application, modifying the object graph and storing the changes <strong>must be done under the same lock</strong>.
-The <code>gigaMap.store()</code> method handles this for you by acquiring the GigaMap&#8217;s internal lock.</p>
+<p>The most common source of confusion is <strong>which</strong> parts of EclipseStore are thread-safe and which are the application&#8217;s responsibility.
+The boundary is at the object graph.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Component</th>
+<th class="tableblock halign-left valign-top">Thread-safe?</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>EmbeddedStorageManager</code> (persistence I/O)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The manager handles channel I/O, housekeeping, and file locking internally.
+The application&#8217;s view of the <strong>object graph</strong> it persists is <strong>not</strong> thread-safe — that is the developer&#8217;s job.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Storage channels</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Channels are internal I/O threads that parallelize file reads and writes.
+They are <strong>not</strong> an application-level concurrency primitive — they do not synchronize access from your application threads. See <a href="../storage/configuration/using-channels.html" class="xref page">Using Channels</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>EmbeddedStorageManager.store(&#8230;&#8203;)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes (atomic at the persistence level)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each <code>store()</code> call is an atomic all-or-nothing operation on disk: either everything is written or nothing is.
+"Atomic" here means <strong>durability</strong> atomicity — not a CPU-level atomic operation, and not isolation in RAM.
+The in-memory graph the store traverses is <strong>not</strong> protected from concurrent mutation; the application must still serialize access to it. See <a href="../storage/storing-data/transactions.html" class="xref page">Transactions</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GigaMap</code> operations (<code>add</code>, <code>remove</code>, <code>update</code>, <code>get</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The GigaMap acquires an internal read-write lock for each operation.
+Iterators must be closed (use try-with-resources) so that read locks are released. See <a href="../gigamap/crud.html#_locking" class="xref page">GigaMap — Locking</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gigaMap.store()</code> vs. <code>storageManager.store(gigaMap)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">only <code>gigaMap.store()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gigaMap.store()</code> acquires the GigaMap&#8217;s internal lock during storing. <code>storageManager.store(gigaMap)</code> does <strong>not</strong> — using it concurrently with mutations can leave the GigaMap in an inconsistent state and cause the store to fail. See <a href="../gigamap/persistence.html" class="xref page">GigaMap — Persistence</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Lazy&lt;T&gt;.get()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Concurrent calls are safe. The lazy-clearing background thread uses <code>WeakReference</code> and cannot reclaim a reference still held by application code.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Cache&lt;K, V&gt;</code> (cache module)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The EclipseStore JCache implementation is thread-safe by JSR-107 contract.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Serializer</code> instances</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Serializer instances must be confined to a single thread.
+The <code>SerializerFoundation</code> is safe to share. See <a href="../serializer/performance.html" class="xref page">Serializer — Performance and Thread Safety</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Storer</code> instances (<code>createStorer()</code>, <code>createLazyStorer()</code>, <code>createEagerStorer()</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Storer</code> is a per-thread unit of work: register objects with <code>store(&#8230;&#8203;)</code>, then call <code>commit()</code>.
+Each thread that wants to store concurrently must obtain its own <code>Storer</code> from the storage manager — they must not be shared across threads. See <a href="../storage/storing-data/lazy-eager-full.html" class="xref page">Lazy and Eager Storing</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application&#8217;s object graph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Plain Java objects in the heap. Concurrent access must be synchronized by the application — see <a href="#strategies">Strategies, from simple to advanced</a>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The lock file (<a href="../storage/configuration/lock-file.html" class="xref page">Lock File</a>) is unrelated to application-level concurrency.
+It prevents two <strong>processes</strong> from opening the same storage simultaneously, not two threads in the same JVM.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="strategies"><a class="anchor" href="#strategies"></a>Strategies, from simple to advanced</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Several strategies are available, with different trade-offs between simplicity and concurrency.
+Pick one and apply it consistently — mixing strategies in the same application is a common source of subtle bugs.</p>
+</div>
+<div class="sect2">
+<h3 id="_coarse_grained_synchronization"><a class="anchor" href="#_coarse_grained_synchronization"></a>Coarse-grained synchronization</h3>
+<div class="paragraph">
+<p>The simplest approach is to wrap every read and every write in the same lock.
+EclipseStore provides <code>XThreads.executeSynchronized(&#8230;&#8203;)</code> for this; the equivalent JDK construct is <code>synchronized</code> on a shared monitor.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">XThreads.executeSynchronized(() -&gt; {
+    root.changeData();
+    storageManager.store(root);
+});</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>However, if your application modifies other parts of the object graph alongside the GigaMap, you are responsible for synchronizing those modifications and their corresponding <code>store()</code> calls as well.
-See <a href="../misc/locking/index.html" class="xref page">Locking</a> for details on application-level synchronization strategies.</p>
+<p>This guarantees correctness at the cost of throughput: only one thread runs at a time, regardless of whether it is reading or writing.
+For applications with low contention, simple data models, or read patterns that do not dominate the workload, this is often the right choice.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_read_write_locking"><a class="anchor" href="#_read_write_locking"></a>Read-write locking</h3>
+<div class="paragraph">
+<p>Most applications read far more often than they write.
+A <code>ReentrantReadWriteLock</code> (or its JDK relatives) lets multiple readers proceed in parallel while still serialising writers.</p>
+</div>
+<div class="paragraph">
+<p>This is the lowest-friction step up from coarse-grained synchronization, and it is what most EclipseStore applications end up using.
+The classic acquire/release pattern is verbose but transparent; see the example in <a href="../misc/locking/index.html" class="xref page">Locking</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lockedexecutor_and_lockscope"><a class="anchor" href="#_lockedexecutor_and_lockscope"></a><code>LockedExecutor</code> and <code>LockScope</code></h3>
+<div class="paragraph">
+<p>For more concise code, EclipseStore provides two helpers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>LockedExecutor</code> — a wrapper that exposes <code>read(&#8230;&#8203;)</code> and <code>write(&#8230;&#8203;)</code> methods, which run the supplied lambda under the appropriate lock.</p>
+</li>
+<li>
+<p><code>LockScope</code> — a base class with <code>read(&#8230;&#8203;)</code> and <code>write(&#8230;&#8203;)</code> methods inherited directly into the domain class.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Both encapsulate a <code>ReentrantReadWriteLock</code> and remove the manual <code>try</code>/<code>finally</code> boilerplate.
+See <a href="../misc/locking/index.html" class="xref page">Locking</a> for the full examples.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_striped_locking"><a class="anchor" href="#_striped_locking"></a>Striped locking</h3>
+<div class="paragraph">
+<p>If your object graph naturally partitions into independent regions (for example, customer-scoped data, tenant-scoped data, shard-scoped data), striped locking lets threads operating on different regions run in parallel even when they all hold write locks.</p>
+</div>
+<div class="paragraph">
+<p><code>StripeLockedExecutor</code> and <code>StripeLockScope</code> are the EclipseStore-provided helpers; see <a href="../misc/locking/index.html" class="xref page">Locking</a>.
+Striped locking is more complex than read-write locking and does not help if your hot path crosses stripes — measure before reaching for it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot_annotations_read_write_mutex"><a class="anchor" href="#_spring_boot_annotations_read_write_mutex"></a>Spring Boot annotations: <code>@Read</code>, <code>@Write</code>, <code>@Mutex</code></h3>
+<div class="paragraph">
+<p>The Spring Boot integration provides a declarative locking layer based on AOP.
+Annotate service methods with <code>@Read</code> and <code>@Write</code>, optionally with <code>@Mutex("name")</code> to partition locks across the application.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Component
+public class CustomerService
+{
+    @Write
+    public void register(Customer customer)
+    {
+        // Modify the object graph AND store — both inside the @Write method
+        this.root.getCustomers().add(customer);
+        this.storageManager.store(this.root.getCustomers());
+    }
+
+    @Read
+    public Customer findById(int id)
+    {
+        return this.root.getCustomers().get(id);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the most concise option for Spring applications.
+See <a href="../misc/integrations/spring-boot.html#_mutex_locking" class="xref page">Spring Boot — Mutex Locking</a> for setup and the full annotation reference.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gigamap-concurrency"><a class="anchor" href="#gigamap-concurrency"></a>GigaMap concurrency</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>GigaMap has its own concurrency story because it is itself a thread-safe data structure.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each GigaMap operation (<code>add</code>, <code>remove</code>, <code>update</code>, <code>get</code>) acquires the GigaMap&#8217;s internal read-write lock.
+You do <strong>not</strong> need to wrap individual GigaMap operations in your own lock for them to be atomic.</p>
+</li>
+<li>
+<p><strong>Always prefer <code>gigaMap.store()</code> over <code>storageManager.store(gigaMap)</code>.</strong>
+The former acquires the GigaMap&#8217;s internal lock for the duration of the store; the latter does not, and concurrent mutations during the store can leave the GigaMap in an inconsistent state and cause the store to fail.</p>
+</li>
+<li>
+<p>Iterators must be closed so that the underlying read lock is released.
+Use try-with-resources for any iterator returned from a GigaMap.</p>
+</li>
+<li>
+<p>The GigaMap&#8217;s internal lock covers GigaMap operations only.
+If your business operation modifies a GigaMap <strong>and</strong> other parts of the object graph atomically, you still need an application-level lock that spans both — the GigaMap&#8217;s internal lock does not extend to non-GigaMap state.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This is the classic problem that synchronized JDK collections like <code>Vector</code> cannot solve: per-method synchronization is not enough when a logical operation needs to span multiple calls.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="../gigamap/crud.html#_locking" class="xref page">GigaMap — Locking</a> and <a href="../gigamap/persistence.html" class="xref page">GigaMap — Persistence</a> for the canonical reference.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common_pitfalls"><a class="anchor" href="#_common_pitfalls"></a>Common pitfalls</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Even with a strategy chosen, the same handful of mistakes recur.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Mutation in one method, <code>store()</code> in another.</strong>
+The lock has to span both.
+A <code>void update()</code> method that mutates and returns, followed by a separate <code>void persist()</code> that calls <code>store()</code>, is broken even if both methods are individually synchronized — another thread can mutate between them.</p>
+</li>
+<li>
+<p><strong>Holding a lock across slow operations.</strong>
+Network calls, UI callbacks, blocking I/O, and human input must not happen inside the critical section.
+The lock should bracket the mutation and the <code>store()</code>, nothing more.</p>
+</li>
+<li>
+<p><strong>Returning a mutable collection from inside the lock.</strong>
+If a <code>@Read</code> method returns the live <code>List</code> of customers, the caller can mutate it after the read lock has been released.
+Return an unmodifiable view, a defensive copy, or a snapshot.</p>
+</li>
+<li>
+<p><strong>Forgetting to close GigaMap iterators.</strong>
+A leaked iterator holds the read lock open and starves writers.
+Always use try-with-resources.</p>
+</li>
+<li>
+<p><strong>Using <code>storageManager.store(gigaMap)</code>.</strong>
+This bypasses the GigaMap&#8217;s internal lock; use <code>gigaMap.store()</code>. See <a href="#gigamap-concurrency">GigaMap concurrency</a>.</p>
+</li>
+<li>
+<p><strong>Wrapping every method in <code>synchronized</code>.</strong>
+Correct, but degenerates to single-threaded throughput.
+If the profiler shows lock contention everywhere, switch to read-write locking before reaching for striped locks.</p>
+</li>
+<li>
+<p><strong>Mixing locking strategies.</strong>
+A <code>synchronized</code> block on the root and a separate <code>LockedExecutor</code> covering the same data do not serialise against each other.
+Pick one strategy per protected region and stick with it.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testing_for_concurrency_correctness"><a class="anchor" href="#_testing_for_concurrency_correctness"></a>Testing for concurrency correctness</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Concurrency bugs are notoriously hard to reproduce in single-threaded unit tests.
+A practical pattern that catches most regressions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Spin up a fixed number of writer and reader threads against a real <code>EmbeddedStorageManager</code>.</p>
+</li>
+<li>
+<p>Run them for tens of seconds, performing thousands of mutations and reads each.</p>
+</li>
+<li>
+<p>After the run, assert <strong>invariants</strong> on the in-memory graph — totals match line items, parent/child references are consistent, no duplicate keys, etc.</p>
+</li>
+<li>
+<p>Restart the storage and re-assert the invariants on the persisted state to confirm the lock also covers the <code>store()</code> call.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Stress tests should run as part of CI, not just on a developer&#8217;s machine.
+For deterministic exploration of interleavings, frameworks like <a href="https://openjdk.org/projects/code-tools/jcstress/">JCStress</a> are available, but the simple stress-test pattern above catches the overwhelming majority of real-world bugs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../misc/locking/index.html" class="xref page">Locking</a> — helpers reference (<code>LockedExecutor</code>, <code>LockScope</code>, <code>StripeLockedExecutor</code>, <code>ReentrantReadWriteLock</code> patterns).</p>
+</li>
+<li>
+<p><a href="../misc/integrations/spring-boot.html#_mutex_locking" class="xref page">Spring Boot — Mutex Locking</a> — declarative <code>@Read</code>/<code>@Write</code>/<code>@Mutex</code> annotations.</p>
+</li>
+<li>
+<p><a href="../storage/storing-data/transactions.html" class="xref page">Storing Data — Transactions</a> — <code>store()</code> atomicity at the persistence level.</p>
+</li>
+<li>
+<p><a href="../gigamap/crud.html#_locking" class="xref page">GigaMap — Locking</a> and <a href="../gigamap/persistence.html" class="xref page">GigaMap — Persistence</a> — GigaMap&#8217;s internal locking and the <code>gigaMap.store()</code> rule.</p>
+</li>
+<li>
+<p><a href="../serializer/performance.html" class="xref page">Serializer — Performance and Thread Safety</a> — per-thread serializer pattern.</p>
+</li>
+<li>
+<p><a href="../storage/configuration/lock-file.html" class="xref page">Lock File</a> — <strong>process</strong>-level locking (unrelated to application-level concurrency).</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="crud.html">CRUD</a></span>
-  <span class="next"><a href="../cache/index.html">Cache</a></span>
+  <span class="prev"><a href="architecture.html">Architecture Overview</a></span>
+  <span class="next"><a href="system-requirements.html">System Requirements</a></span>
 </nav>
 </article>
   </div>
@@ -880,10 +1244,10 @@ See <a href="../misc/locking/index.html" class="xref page">Locking</a> for detai
 <footer class="footer">
 © 2023-2026 MicroStream Software. All rights reserved.
 </footer>
-<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
-<script async src="../../../_/js/vendor/highlight.js"></script>
-<script src="../../../_/js/vendor/lunr.js"></script>
-<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
   </body>
 </html>

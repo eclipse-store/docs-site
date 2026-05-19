@@ -203,6 +203,9 @@
     <a class="nav-link" href="../../../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../../storage/configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../storage/configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="../../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -749,7 +755,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="types.html">V4</a>
-    <a class="version" href="../../../4.1.0-beta/gigamap/indexing/bitmap/types.html">Preview</a>
     <a class="version" href="../../../3/gigamap/indexing/bitmap/types.html">V3</a>
     <a class="version is-missing" href="../../../2/intro/welcome.html">V2</a>
     <a class="version is-missing" href="../../../1/intro/welcome.html">V1</a>
@@ -795,28 +800,6 @@ gigaMap.index().bitmap().ensure(PersonIndices.lastName);
 </div>
 </div>
 <div class="sect1">
-<h2 id="_unique_index"><a class="anchor" href="#_unique_index"></a>Unique Index</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Index with a unique constraint.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// use the builder
-final GigaMap&lt;Person&gt; gigaMap = GigaMap.&lt;Person&gt;Builder()
-    .withBitmapUniqueIndex(PersonIndices.id)
-    ...
-    .build();
-
-// or register it after creating
-GigaMap&lt;Person&gt; gigaMap = GigaMap.New();
-gigaMap.index().bitmap().addUniqueConstraint(PersonIndices.id);
-...</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_identity_index"><a class="anchor" href="#_identity_index"></a>Identity Index</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -832,7 +815,7 @@ gigaMap.index().bitmap().addUniqueConstraint(PersonIndices.id);
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-An identity index is <strong>not</strong> a unique index. It only defines which fields are used to identify entities — it does not enforce uniqueness. If you need to ensure that no two entities share the same identity value, you must add a unique constraint separately.
+An identity index is <strong>not</strong> a unique index. It only defines which fields are used to identify entities — it does not enforce uniqueness. To enforce uniqueness, add a unique constraint as described in <a href="../../constraints.html#_unique_constraints" class="xref page">Constraints</a>.
 </td>
 </tr>
 </table>
@@ -845,21 +828,16 @@ final GigaMap&lt;Person&gt; gigaMap = GigaMap.&lt;Person&gt;Builder()
     ...
     .build();
 
-// identity index with unique constraint
-final GigaMap&lt;Person&gt; gigaMap = GigaMap.&lt;Person&gt;Builder()
-    .withBitmapIdentityIndex(PersonIndices.id)
-    .withBitmapUniqueIndex(PersonIndices.id) // enforce uniqueness at runtime
-    ...
-    .build();
-
 // or register it after creating
 GigaMap&lt;Person&gt; gigaMap = GigaMap.New();
 final BitmapIndices&lt;E&gt; bitmap = this.gigaMap.index().bitmap();
-bitmap.ensure(PersonIndices.id); // add index first
+bitmap.ensure(PersonIndices.id);             // add index first
 bitmap.setIdentityIndices(PersonIndices.id); // set as identity
-bitmap.addUniqueConstraint(PersonIndices.id); // enforce uniqueness
 ...</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>To make an identity index also enforce uniqueness, see <a href="../../constraints.html#_unique_constraints" class="xref page">Unique Constraints</a>.</p>
 </div>
 </div>
 </div>

@@ -203,6 +203,9 @@
     <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../gigamap/constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../gigamap/crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -748,7 +754,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="lazy-eager-full.html">V4</a>
-    <a class="version" href="../../4.1.0-beta/storage/storing-data/lazy-eager-full.html">Preview</a>
     <a class="version" href="../../3/storage/storing-data/lazy-eager-full.html">V3</a>
     <a class="version" href="../../2/storage/storing-data/lazy-eager-full.html">V2</a>
     <a class="version" href="../../1/storage/storing-data/lazy-eager-full.html">V1</a>
@@ -765,23 +770,161 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The EclipseStore engine supports two general storing strategies: lazy and eager storing.
-By default, EclipseStore uses the lazy storing strategy.</p>
+<p>When you call <code>store(&#8230;&#8203;)</code>, EclipseStore walks the object graph reachable from the passed instance and writes objects to disk.
+<strong>How</strong> it walks — specifically, what it does when it encounters an object that is already known to the persistent context — is the <strong>storing strategy</strong>.
+EclipseStore ships two: <strong>lazy</strong> and <strong>eager</strong>.
+The default is lazy.</p>
 </div>
-<div class="paragraph">
-<p>These storing strategies differ in the way how objects, referenced by the object to be stored are handled if those referenced objects had already been stored.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">TL;DR</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The object you pass to <code>store(&#8230;&#8203;)</code> is <strong>always re-written</strong>, regardless of strategy. The lazy/eager distinction only governs how <strong>referenced child</strong> objects are handled.</p>
+</li>
+<li>
+<p><strong>Lazy storing</strong> (default) — for child references, skip any object that is already registered in storage. Fast and minimal I/O, but modified-but-not-explicitly-stored sub-objects are silently <strong>not</strong> re-written.</p>
+</li>
+<li>
+<p><strong>Eager storing</strong> — for child references, re-traverse and re-write <strong>every</strong> reachable object, whether already registered or not. Safe by default, more bytes per commit.</p>
+</li>
+<li>
+<p>The strategy is chosen <strong>per <code>Storer</code> instance</strong>, not globally. The convenience methods on <code>EmbeddedStorageManager</code> (<code>store</code>, <code>storeAll</code>, <code>storeRoot</code>) all use the lazy strategy.</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_lazy_storing"><a class="anchor" href="#_lazy_storing"></a>Lazy Storing</h2>
+<h2 id="_how_eclipsestore_decides_what_to_write"><a class="anchor" href="#_how_eclipsestore_decides_what_to_write"></a>How EclipseStore decides what to write</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Lazy storing is the default storing mode of the EclipseStore engine.</p>
+<p>Every object that EclipseStore has ever persisted is assigned an <code>objectId</code> and tracked in the <strong>persistent context</strong> (a <code>PersistenceObjectRegistry</code>).
+A <code>Storer</code> carries out one logical store as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The application calls <code>storer.store(instance)</code>, where <code>instance</code> is any object — typically a sub-graph entry point, not necessarily the storage root.</p>
+</li>
+<li>
+<p>The storer <strong>always re-serializes the explicitly passed <code>instance</code></strong>, regardless of whether it is already registered. This is true for both lazy and eager storers.</p>
+</li>
+<li>
+<p>The storer then walks references reachable from <code>instance</code> and consults the registry for each <strong>referenced child</strong> object. If the child has <strong>no</strong> <code>objectId</code> (never persisted), it is always written and assigned a new id. If the child <strong>does</strong> have an <code>objectId</code>, the lazy and eager strategies diverge — see below.</p>
+</li>
+<li>
+<p>The application calls <code>storer.commit()</code>. Up until this call, the serialized bytes are buffered in memory; <code>commit()</code> flushes them to the storage targets and makes the change durable.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A <code>Storer</code> is <strong>not</strong> <code>AutoCloseable</code>. Do not wrap it in try-with-resources.
+If <code>commit()</code> is never called, the buffered data is discarded — the store had no effect on disk.
+The exception is <a href="batch-storer.html" class="xref page">BatchStorer</a>, which is <code>AutoCloseable</code> and flushes on close.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lazy_storing_the_default"><a class="anchor" href="#_lazy_storing_the_default"></a>Lazy storing — the default</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The lazy storer always re-writes the object you pass to <code>store(&#8230;&#8203;)</code>.
+What it skips are <strong>child references</strong> into objects that storage already knows about: it records the reference itself, but does not descend into that child&#8217;s fields.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// One-time setup: store creates the initial graph
+Customer alice = new Customer("Alice", new Address("1 Main St"));
+root.customers.add(alice);
+storageManager.store(root.customers);
+
+// Later: mutate Alice's address in place
+alice.address().setStreet("2 Main St");
+
+// The list itself IS re-written (it is the explicit argument), but Alice and
+// her address are skipped — both are already registered, and the lazy walk
+// stops at Alice. The mutation to the address is therefore NOT persisted.
+storageManager.store(root.customers);
+
+// To persist the change, you have to store the object you actually changed:
+storageManager.store(alice.address());</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Referenced instances are stored only if they have not been stored yet.
-If a referenced instance has been stored previously it is not stored again even if it has been modified.</p>
+<p>This is the rule of thumb: <strong>with lazy storing, you must explicitly store the object whose state actually changed.</strong>
+Storing a parent does not implicitly re-store its already-known children.</p>
+</div>
+<div class="paragraph">
+<p>The pay-off is throughput.
+Subsequent stores write only the deltas, which is why EclipseStore can keep large object graphs in memory and persist incremental changes cheaply.</p>
+</div>
+<div class="sect2">
+<h3 id="_collections_only_new_elements_are_written"><a class="anchor" href="#_collections_only_new_elements_are_written"></a>Collections — only new elements are written</h3>
+<div class="paragraph">
+<p>The most common place this rule pays off is collections.
+Re-storing a collection after appending an element does <strong>not</strong> re-write every element — only the collection&#8217;s own state (its internal reference array, size, etc.) and any <strong>new</strong> elements it now contains.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Initial state: list with three already-stored customers
+List&lt;Customer&gt; customers = root.customers;          // size = 3, all registered
+storageManager.store(customers);                    // baseline
+
+// Add one new customer
+Customer dave = new Customer("Dave");
+customers.add(dave);
+
+// Lazy walk:
+//   - the list itself is re-written (explicit argument), so the new size and
+//     the updated reference array hit disk;
+//   - the three existing customers are skipped (already in the registry);
+//   - dave is written (newly encountered).
+//
+// Bytes written: list shell + dave. NOT all four customers.
+storageManager.store(customers);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is what makes lazy storing scale: a list of one million customers with one new element costs roughly one customer&#8217;s worth of payload per store, not one million.</p>
+</div>
+<div class="paragraph">
+<p>The same logic applies to mutating an element&#8217;s reference (e.g. <code>customers.set(0, newAlice)</code>) — the list is re-written so the new reference is recorded, the <strong>new</strong> <code>newAlice</code> is written, and the other existing customers are skipped.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Mutating an element&#8217;s <strong>fields</strong> in place (e.g. <code>customers.get(0).setName("Bob")</code>) is the case the lazy walk does <strong>not</strong> catch — see the example above. Store the mutated element directly, not the list.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -790,61 +933,258 @@ If a referenced instance has been stored previously it is not stored again even 
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-That&#8217;s why modified objects must be stored explicitly.
+<div class="title">GigaMap goes one step further</div>
+<div class="paragraph">
+<p>If your large dataset lives in a <a href="../../gigamap/persistence.html" class="xref page">GigaMap</a> instead of a plain collection, you do not even need to remember which entities changed.
+GigaMap tracks modifications internally, and <code>gigaMap.store()</code> writes only the modified parts — including entities you mutated via <code>gigaMap.update(&#8230;&#8203;)</code> or <code>gigaMap.apply(&#8230;&#8203;)</code>.
+It also acquires its own internal lock during the store, so the GigaMap itself does not need application-level synchronization (other parts of the object graph still do).</p>
+</div>
+<div class="paragraph">
+<p>The one case GigaMap cannot track is a field mutation made <strong>outside</strong> <code>update</code>/<code>apply</code> — for those, you must store the entity yourself, just as with a plain collection.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="eager-storing"><a class="anchor" href="#eager-storing"></a>Eager Storing</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In eager storing mode referenced instances are stored even if they had been stored before.
-Contrary to Lazy storing this will also store modified child objects at the cost of performance.</p>
-</div>
-</div>
 </div>
 <div class="sect1">
-<h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
+<h2 id="_eager_storing"><a class="anchor" href="#_eager_storing"></a>Eager storing</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To use lazy or eager storing explicitly, get an instance of the required <code>Storer</code> and use it&#8217;s store methods:</p>
+<p>The eager storer re-traverses every reference and re-writes every reachable object, registered or not.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Storer storer = storage.createEagerStorer();
-storer.store(myData);
-storer.commit();</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Storer eager = storageManager.createEagerStorer();
+eager.store(root.customers);
+eager.commit();
+
+// Same scenario as above:
+alice.address().setStreet("2 Main St");
+
+// The eager storer re-writes Alice, her address, every other Customer, and
+// every Address — whether they changed or not.
+Storer eager2 = storageManager.createEagerStorer();
+eager2.store(root.customers);
+eager2.commit();</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Available <code>Storer</code>s are:</p>
+<p>Eager storing is correct by construction: you cannot forget to store a child, because the walk does not skip anything reachable.
+The cost is paid in bytes-per-commit: every reachable object is re-serialized and re-written, even if its state is identical to what is on disk.</p>
 </div>
 <div class="paragraph">
-<p><code>storage.createLazyStorer()</code></p>
+<p>Use it when one of the following applies:</p>
 </div>
-<div class="paragraph">
-<p><code>storage.createEagerStorer()</code></p>
-</div>
-<div class="paragraph">
-<p>Standard storing:</p>
-</div>
-<div class="paragraph">
-<p><code>storage.createStorer()</code></p>
-</div>
-<div class="paragraph">
-<p>will provide corresponding <code>Storer</code> instances.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>You cannot reliably enumerate which sub-objects changed (for example, the data model exposes only a coarse-grained root and you do not have getters for the modified internals — see <a href="best-practice.html" class="xref page">Best Practice — Storing Hidden Encapsulated Objects</a>).</p>
+</li>
+<li>
+<p>You are storing an immutable sub-graph that must be persisted as a coherent snapshot — see <a href="best-practice.html" class="xref page">Best Practice — Use Immutable data models</a>.</p>
+</li>
+<li>
+<p>You are doing a one-shot bulk write where correctness matters more than I/O cost.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_custom_handling"><a class="anchor" href="#_custom_handling"></a>Custom Handling</h2>
+<h2 id="_how_the_walk_differs_visual"><a class="anchor" href="#_how_the_walk_differs_visual"></a>How the walk differs — visual</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Beside the 'global' lazy or eager storing strategies EclipseStore allows to implement an individual handling for the storing behavior.
-See <a href="../customizing/custom-storing-behavior.html" class="xref page">PersistenceEagerStoringFieldEvaluator</a> for details.</p>
+<p>Given an entry point passed to <code>storer.store(&#8230;&#8203;)</code> that references two customers, where Customer A and her address are already registered (<code>objectId</code> assigned), and Customer B has just been added in memory:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>                      Root  &lt;-- explicit arg to store(...)
+                       |
+              +--------+--------+
+              |                 |
+          Customer A         Customer B
+        (in registry,       (NEW — not in
+         objectId=42)        registry)
+              |                 |
+           Address           Address
+        (in registry)         (NEW)
+
+
+  Lazy walk:   Root             ALWAYS written (explicit argument)
+                \-&gt; Customer A   STOP (child, already in registry)
+                \-&gt; Customer B   write B (child, new)
+                                  \-&gt; Address(B)  write Address(B)
+
+               Bytes written: Root + Customer B + Address(B).
+
+
+  Eager walk:  Root             ALWAYS written (explicit argument)
+                \-&gt; Customer A   re-write A (child, in registry)
+                                  \-&gt; Address(A)  re-write Address(A)
+                \-&gt; Customer B   write B (child, new)
+                                  \-&gt; Address(B)  write Address(B)
+
+               Bytes written: every reachable object.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If Customer A&#8217;s address was mutated in place, the lazy walk above persists nothing for it.
+The eager walk persists the new value as a side effect of re-writing everything.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_choosing_between_them"><a class="anchor" href="#_choosing_between_them"></a>Choosing between them</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scenario</th>
+<th class="tableblock halign-left valign-top">Pick</th>
+<th class="tableblock halign-left valign-top">Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mutate one object, store <strong>that</strong> object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lazy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The default convenience methods do this. Fast, minimal I/O, correct because you stored exactly what changed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mutate a deeply nested object you cannot reach with a clean accessor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eager (or per-field — see below)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The lazy walk would skip the change. Eager storing or per-field eager evaluation guarantees the write.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Re-attach a freshly-built immutable sub-graph to an existing root</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eager</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The sub-graph contains a mix of new and reused references. Eager storing makes the snapshot atomic and unambiguous.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bulk import or migration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eager</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Correctness over I/O cost; you do not want to debug a missed lazy edge case in a one-shot job.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_convenience_methods_always_use_lazy"><a class="anchor" href="#_convenience_methods_always_use_lazy"></a>Convenience methods always use lazy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every <code>store(&#8230;&#8203;)</code> and <code>storeAll(&#8230;&#8203;)</code> method on <code>EmbeddedStorageManager</code>, including <code>storeRoot()</code>, internally creates a default (lazy) storer and commits it for you.
+There is no flag to make these methods eager.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Lazy: convenience method
+storageManager.store(root.customers);
+
+// Eager: explicit storer + commit
+Storer eager = storageManager.createEagerStorer();
+eager.store(root.customers);
+eager.commit();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you need eager semantics for a single store, you must create the storer explicitly.
+There is no eager equivalent to <code>storeAll(&#8230;&#8203;)</code> on the manager.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_per_field_control_the_escape_hatch"><a class="anchor" href="#_per_field_control_the_escape_hatch"></a>Per-field control — the escape hatch</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Switching the <strong>whole</strong> application to eager storing is a heavy hammer.
+If only a few fields are problematic — for example, a hidden collection that mutates in place but is not externally accessible — you can mark <strong>those fields</strong> as eager and leave the rest of the graph on lazy.</p>
+</div>
+<div class="paragraph">
+<p>This is configured globally on the foundation by registering a <code>PersistenceEagerStoringFieldEvaluator</code>, typically annotation-driven:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">EmbeddedStorageManager storage = EmbeddedStorage.Foundation()
+    .onConnectionFoundation(cf -&gt;
+        cf.setReferenceFieldEagerEvaluator(new MyEagerEvaluator()))
+    .createEmbeddedStorageManager()
+    .start();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The evaluator is consulted once per field during traversal.
+Returning <code>true</code> for a given <code>(declaringClass, field)</code> forces eager traversal through that field even when the rest of the storer is lazy.</p>
+</div>
+<div class="paragraph">
+<p>For the full implementation pattern (interface, custom annotation, evaluator class) see <a href="../customizing/custom-storing-behavior.html" class="xref page">Custom Storing Behavior</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common_pitfalls"><a class="anchor" href="#_common_pitfalls"></a>Common pitfalls</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>"I changed a deeply-nested object, but the next load shows the old value."</strong><br>
+You stored an ancestor of the changed object. The ancestor itself was re-written (the explicit argument always is), but the lazy walk did not descend into the changed child because the child is already in the registry. Either store the changed object directly, or use eager / per-field eager for that subtree.</p>
+</li>
+<li>
+<p><strong>"`store()` ran and nothing was persisted."</strong><br>
+You created a <code>Storer</code> explicitly but forgot to call <code>commit()</code>. The data sat in the storer&#8217;s buffer and was discarded. Convenience methods (<code>storageManager.store(&#8230;&#8203;)</code>) commit for you; explicit storers do not.</p>
+</li>
+<li>
+<p><strong>"My eager storer&#8217;s commits are slow and the file keeps growing."</strong><br>
+Eager storing re-writes the entire reachable graph on every commit. If only a couple of fields are the actual problem, switch back to lazy and use a <code>PersistenceEagerStoringFieldEvaluator</code> to mark only those fields.</p>
+</li>
+<li>
+<p><strong>"Lazy loading is broken."</strong><br>
+Lazy <strong>loading</strong> is unrelated to lazy <strong>storing</strong>. Loading defers reading objects from disk into RAM; storing controls how <code>store()</code> walks the graph when writing. See <a href="../loading-data/lazy-loading/index.html" class="xref page">Lazy Loading</a> for the loading concept.</p>
+</li>
+<li>
+<p><strong>Sharing a <code>Storer</code> across threads.</strong><br>
+A <code>Storer</code> is single-threaded state — it must be confined to the thread that created it. See <a href="../../intro/concurrent-access.html" class="xref page">Concurrent Access</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="transactions.html" class="xref page">Convenience Methods and Explicit Storing (Transactions)</a> — how <code>store()</code>/<code>storeAll()</code> map to a single durable transaction.</p>
+</li>
+<li>
+<p><a href="batch-storer.html" class="xref page">Batch Storer</a> — accumulates many stores and flushes in batches; uses lazy traversal semantics for child objects.</p>
+</li>
+<li>
+<p><a href="../../gigamap/persistence.html" class="xref page">GigaMap — Persistence</a> — tracks modifications internally so <code>gigaMap.store()</code> writes only the changed parts; preferred over <code>storageManager.store(gigaMap)</code>.</p>
+</li>
+<li>
+<p><a href="../customizing/custom-storing-behavior.html" class="xref page">Custom Storing Behavior</a> — <code>PersistenceEagerStoringFieldEvaluator</code> reference.</p>
+</li>
+<li>
+<p><a href="best-practice.html" class="xref page">Best Practice</a> — <strong>Storing Hidden Encapsulated Objects</strong> and <strong>Use Immutable data models</strong> both depend on this page.</p>
+</li>
+<li>
+<p><a href="../../intro/concurrent-access.html" class="xref page">Concurrent Access</a> — <code>Storer</code> instances are not thread-safe.</p>
+</li>
+<li>
+<p><a href="../loading-data/lazy-loading/index.html" class="xref page">Lazy Loading</a> — the unrelated <strong>loading</strong> concept that is often confused with lazy storing.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

@@ -203,6 +203,9 @@
     <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../gigamap/constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../gigamap/crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -748,7 +754,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="rest-api.html">V4</a>
-    <a class="version" href="../../4.1.0-beta/storage/rest-interface/rest-api.html">Preview</a>
     <a class="version" href="../../3/storage/rest-interface/rest-api.html">V3</a>
     <a class="version" href="../../2/storage/rest-interface/rest-api.html">V2</a>
     <a class="version" href="../../1/storage/rest-interface/rest-api.html">V1</a>
@@ -762,6 +767,149 @@
 </aside>
 <article class="doc">
 <h1 class="page">REST API</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The REST API exposes a read-only view of an EclipseStore Storage instance.
+It is intended for inspection, monitoring, and tooling — not as a query language.
+All endpoints are HTTP <code>GET</code> and return <code>application/json</code> by default.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_base_url_and_instance_name"><a class="anchor" href="#_base_url_and_instance_name"></a>Base URL and instance name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every endpoint is mounted below a base URL whose shape depends on the chosen service
+implementation (see <a href="setup.html" class="xref page">Setup</a>):</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Implementation</th>
+<th class="tableblock halign-left valign-top">Default base URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Javalin (recommended for standalone applications)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>http://&lt;host&gt;:4567/store-data</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spring Boot (recommended for Spring Boot applications)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>http://&lt;host&gt;:&lt;port&gt;/store-data/&lt;storage-name&gt;</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In the route tables below, <code>[instance-name]</code> is the placeholder for the storage
+instance segment of the URL.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For Javalin, this is a single configurable name (<code>store-data</code> by default; see
+<a href="setup.html" class="xref page">Setup</a> for the environment variables that
+override the port and name).</p>
+</li>
+<li>
+<p>For Spring Boot, this is the bean name of the storage manager, or <code>default</code> when
+the auto-configured manager is used. Multiple storage managers are exposed side
+by side under their respective bean names.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+All numeric <code>objectId</code> and length fields are emitted as JSON strings, not
+JSON numbers, to preserve full 64-bit precision in JavaScript clients.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_endpoint_overview"><a class="anchor" href="#_endpoint_overview"></a>Endpoint overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 42.8571%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Method</th>
+<th class="tableblock halign-left valign-top">Route</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List all available routes of the service.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[instance-name]/root</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return name and object id of the storage root.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[instance-name]/object/{objectId}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return type information and member values of a single object.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[instance-name]/dictionary</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return the persistent type dictionary.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[instance-name]/maintenance/filesStatistics</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return statistics of storage files and channels.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_get_routes"><a class="anchor" href="#_get_routes"></a>GET Routes</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns the list of all routes registered by the service. Useful for discovering the
+available endpoints at runtime.</p>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[
+  { "url": "/store-data/default/",                            "httpMethod": "get" },
+  { "url": "/store-data/default/root",                        "httpMethod": "get" },
+  { "url": "/store-data/default/dictionary",                  "httpMethod": "get" },
+  { "url": "/store-data/default/object/:oid",                 "httpMethod": "get" },
+  { "url": "/store-data/default/maintenance/filesStatistics", "httpMethod": "get" }
+]</code></pre>
+</div>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_get_root"><a class="anchor" href="#_get_root"></a>GET Root</h2>
 <div class="sectionbody">
@@ -771,17 +919,50 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Returns the name and object id of the current storage root element.</p>
+<p>Returns the name and object id of the storage root element. The returned <code>objectId</code>
+is the entry point for traversing the object graph through the
+<a href="#_get_object">GET Object</a> endpoint.</p>
 </div>
 <div class="listingblock">
 <div class="title">Response</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-	"name": "ROOT",
-	"objectId": "1000000000000000028"
+    "name": "ROOT",
+    "objectId": "1000000000000000028"
 }</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Response fields</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The registered name of the root object (e.g. <code>ROOT</code> for the default root).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">objectId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The object id of the root object.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
@@ -789,11 +970,19 @@
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">[instance-name]/object/:objectid</code></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">[instance-name]/object/{objectId}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Returns description and values of a distinct object.</p>
+<p>Returns the description and values of a single persisted object identified by its
+object id. The response contains type information together with the object&#8217;s
+fixed-size and variable-size members.</p>
+</div>
+<div class="paragraph">
+<p>For container-like objects (collections, arrays, maps, &#8230;&#8203;) the response can be
+paginated using the <code>fixedOffset</code>, <code>fixedLength</code>, <code>variableOffset</code>, and
+<code>variableLength</code> query parameters. For value-bearing members (e.g. long strings or
+byte arrays) the size of each emitted value can be capped via <code>valueLength</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Path parameters</caption>
@@ -814,7 +1003,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">objectId</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The requested object&#8217;s id</p>
+<p>The requested object&#8217;s id.</p>
 </div></div></td>
 </tr>
 </tbody>
@@ -840,7 +1029,9 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">valueLength</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Limit size of returned value elements, e.g. String values.</p>
+<p>Maximum length of each emitted value. Applies to variable-length values such as
+ <code>String</code>, <code>byte[]</code>, and <code>char[]</code>. Values longer than this limit are truncated in
+ the response.</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unlimited</p></td>
 </tr>
@@ -848,7 +1039,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">fixedOffset</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Fixed size members start offset.</p>
+<p>Index of the first fixed-size member to include in the response.</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
 </tr>
@@ -856,7 +1047,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">fixedLength</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Amount of returned fixed size members.</p>
+<p>Maximum number of fixed-size members to return, starting at <code>fixedOffset</code>.</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unlimited</p></td>
 </tr>
@@ -864,7 +1055,8 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">variableOffset</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Variable size members start offset.</p>
+<p>Index of the first element to include for each variable-size member (e.g. the
+ entries of a list).</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
 </tr>
@@ -872,7 +1064,8 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">variableLength</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Amount of returned variable size members.</p>
+<p>Maximum number of elements to return for each variable-size member, starting at
+ <code>variableOffset</code>.</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unlimited</p></td>
 </tr>
@@ -880,9 +1073,19 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">references</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Determines if top-level references of the object should be returned as well.</p>
+<p>If <code>true</code>, top-level references of the object are resolved and included in the
+ <code>references</code> array of the response.</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">format</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Requested response format. Currently <code>json</code> (alias <code>application/json</code>) is
+ supported.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">json</p></td>
 </tr>
 </tbody>
 </table>
@@ -890,23 +1093,107 @@
 <div class="title">Response</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-	"objectId": "1000000000000000028",
-	"typeId": "110",
-	"length": "0",
-	"variableLength": [
-	"3"
-	],
-	"simplified": false,
-	"data": [
-		[
-			"1000000000000000029",
-			"1000000000000000030",
-			"1000000000000000031"
-		]
-	],
-	"references": null
+    "objectId": "1000000000000000028",
+    "typeId": "110",
+    "length": "0",
+    "variableLength": [
+        "3"
+    ],
+    "simplified": false,
+    "data": [
+        [
+            "1000000000000000029",
+            "1000000000000000030",
+            "1000000000000000031"
+        ]
+    ],
+    "references": null
 }</code></pre>
 </div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Response fields</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">objectId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Object id of the described object.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">typeId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Type id of the object. Resolves against the
+ <a href="#_get_type_dictionary">type dictionary</a>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Number of fixed-size members of the object as defined by its type. <code>0</code> if the
+ type has no fixed-size members.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">variableLength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string[]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>For each variable-size member, the total number of elements available — independent
+ of <code>variableOffset</code> / <code>variableLength</code>. Use this to drive pagination.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">simplified</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>true</code> for primitive wrapper objects whose value is reported in <code>data</code> directly
+ instead of as a member array. <code>false</code> for ordinary objects.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The collected members. Fixed-size members are emitted first, in declared order,
+ followed by variable-size members. Each variable-size member is itself a JSON
+ array. References to other persisted objects are emitted as their object id
+ (string).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">references</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>null</code> unless <code>references=true</code> was requested. When present, contains a fully
+ nested object description for every top-level reference held by the object,
+ using the same shape as this response.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">Pagination example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">[instance-name]/object/1000000000000000028?variableOffset=100&amp;variableLength=50</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns elements 100..149 of each variable-size member of the object.</p>
 </div>
 </div>
 </div>
@@ -919,18 +1206,32 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Returns the type dictionary as text output.</p>
+<p>Returns the persistent type dictionary of the storage as plain text. The dictionary
+maps type ids (as returned in the <code>typeId</code> field of object descriptions) to fully
+qualified Java type names and their persisted member layout.</p>
+</div>
+<div class="paragraph">
+<p>The response is the textual representation produced by the underlying serializer and
+is intended to be consumed by tooling rather than parsed ad hoc.</p>
 </div>
 <div class="listingblock">
-<div class="title">Response</div>
+<div class="title">Response (excerpt)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[Type dictionary contents]</code></pre>
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">1:java.lang.Object
+{
+}
+
+110:java.util.ArrayList
+{
+    int                                            size            ;
+    [java.lang.Object]                             elementData     ;
+}</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_get_statistics"><a class="anchor" href="#_get_statistics"></a>GET Statistics</h2>
+<h2 id="_get_files_statistics"><a class="anchor" href="#_get_files_statistics"></a>GET Files Statistics</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -938,35 +1239,177 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Returns statistics of the used storage files and channels.</p>
+<p>Returns statistics about the storage&#8217;s data files broken down per channel. Use this
+endpoint to monitor storage size, channel balance, and the ratio of live to total
+data.</p>
 </div>
 <div class="listingblock">
 <div class="title">Response</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-	"creationTime": "2020-04-15T13:32:26.003Z",
-	"channelStatistics": {
-		"0": {
-			"channelIndex": 0,
-			"files": [
-				{
-					"fileNumber": "1",
-					"file": "storage\\channel_0\\channel_0_1.dat",
-					"fileCount": "1",
-					"liveDataLength": "2898",
-					"totalDataLength": "2930"
-				}
-			],
-			"fileCount": "1",
-			"liveDataLength": "2898",
-			"totalDataLength": "2930"
-		}
-	},
-	"fileCount": "1",
-	"liveDataLength": "2898",
-	"totalDataLength": "2930"
+    "creationTime": "2020-04-15T13:32:26.003Z",
+    "channelStatistics": {
+        "0": {
+            "channelIndex": 0,
+            "files": [
+                {
+                    "fileNumber": "1",
+                    "file": "storage/channel_0/channel_0_1.dat",
+                    "fileCount": "1",
+                    "liveDataLength": "2898",
+                    "totalDataLength": "2930"
+                }
+            ],
+            "fileCount": "1",
+            "liveDataLength": "2898",
+            "totalDataLength": "2930"
+        }
+    },
+    "fileCount": "1",
+    "liveDataLength": "2898",
+    "totalDataLength": "2930"
 }</code></pre>
 </div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Top-level fields</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">creationTime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string (ISO-8601)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Time at which the statistics were computed.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">channelStatistics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Map of channel index (as string) to the statistics of that channel.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fileCount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Total number of data files across all channels.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">liveDataLength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Sum of live (still referenced) data bytes across all channels.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">totalDataLength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Sum of total data bytes (live + garbage) across all channels.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Per-channel and per-file fields</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">channelIndex</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Zero-based index of the channel.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Per-file statistics for this channel.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fileNumber</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Sequence number of the data file within its channel.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Storage-relative path of the data file.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">liveDataLength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Live data bytes in this file.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">totalDataLength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Total data bytes in this file (live + garbage). The difference between
+ <code>totalDataLength</code> and <code>liveDataLength</code> represents space that can be reclaimed by
+ housekeeping.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_error_responses"><a class="anchor" href="#_error_responses"></a>Error responses</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All endpoints return HTTP <code>404 Not Found</code> with a plain-text body when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a path or query parameter has an invalid type (e.g. a non-numeric <code>objectId</code>,
+a negative offset / length, or an unsupported <code>format</code>),</p>
+</li>
+<li>
+<p>the requested object id does not exist,</p>
+</li>
+<li>
+<p>the requested storage name is not registered (Spring Boot only — multiple storage
+managers are addressed by bean name).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The body of the response contains a short human-readable description of the failing
+parameter or condition.</p>
 </div>
 </div>
 </div>

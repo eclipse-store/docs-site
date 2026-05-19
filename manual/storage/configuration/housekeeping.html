@@ -203,6 +203,9 @@
     <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../gigamap/constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../gigamap/crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -748,7 +754,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="housekeeping.html">V4</a>
-    <a class="version" href="../../4.1.0-beta/storage/configuration/housekeeping.html">Preview</a>
     <a class="version" href="../../3/storage/configuration/housekeeping.html">V3</a>
     <a class="version" href="../../2/storage/configuration/housekeeping.html">V2</a>
     <a class="version" href="../../1/storage/configuration/housekeeping.html">V1</a>
@@ -814,6 +819,18 @@
 <div class="sect1">
 <h2 id="_enabling_adaptive_housekeeping_for_write_intensive_data_applications"><a class="anchor" href="#_enabling_adaptive_housekeeping_for_write_intensive_data_applications"></a>Enabling Adaptive Housekeeping for Write-Intensive Data Applications</h2>
 <div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+See <a href="best-practices.html" class="xref page">Best Practices: Dev / Test / Prod</a> for guidance on when to switch from fixed to adaptive housekeeping.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>EclipseStore is designed to write data as soon as it is requested. If there is a high volume of consecutive data writes, the housekeeping process does not start, resulting in an increased number of open files and significant disk space consumption. One possible solution is to use the Adaptive Housekeeping Controller, which, based on its configuration, allocates time for cleaning and reorganizing data files on the disk.</p>
 </div>

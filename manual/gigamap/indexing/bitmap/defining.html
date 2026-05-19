@@ -203,6 +203,9 @@
     <a class="nav-link" href="../../../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../../storage/configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../storage/configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="../../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -749,7 +755,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="defining.html">V4</a>
-    <a class="version" href="../../../4.1.0-beta/gigamap/indexing/bitmap/defining.html">Preview</a>
     <a class="version" href="../../../3/gigamap/indexing/bitmap/defining.html">V3</a>
     <a class="version is-missing" href="../../../2/intro/welcome.html">V2</a>
     <a class="version is-missing" href="../../../1/intro/welcome.html">V1</a>
@@ -829,6 +834,18 @@ public enum Interest
 </div>
 <div class="paragraph">
 <p>The <code>Indexer</code> implementations must at least override the method that extracts the key value. By default, the name of the index is derived from its declaration; for example, when written as a constant, the fully qualified name of the constant will be used. If you want to provide a name yourself, simply override the <code>name()</code> method.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Indexer names must be unique within a <code>GigaMap</code>. Registering a second indexer under a name that is already taken throws a <code>RuntimeException</code> at registration time. This is rarely an issue when names come from the default derivation, since declaration-based names are naturally distinct, but it can bite when you override <code>name()</code> manually or use anonymous <code>Indexer</code> instances whose derived names collide. Give each indexer an explicit, unique <code>name()</code> in those cases.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The predefined indexers are usually sufficient; just extend from their <code>Abstract</code> base type.</p>
@@ -1029,6 +1046,51 @@ IndexerGenerator.AnnotationBased(Person.class).generateIndices(bitmapIndices);</
 IndexerString&lt;Person&gt; firstNameIndex = bitmapIndices.getStringIndex("firstName");
 // ...</code></pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_persistence"><a class="anchor" href="#_persistence"></a>Persistence</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Indexer instances are part of the GigaMap&#8217;s persistent object graph: when storage is reopened, each registered indexer is restored alongside its bitmap data and remains attached. Plain field-accessor indexers — the common case — need no special treatment. If a custom indexer holds non-configuration state such as a cache, a derived equator, or a service handle, mark those fields <code>transient</code> and reinitialize them lazily on first use, the same way <a href="../jvector/index.html#computed-vectorizers-and-lazy-initialization" class="xref page">computed vectorizers</a> handle their embedding models.</p>
+</div>
+<div class="sect2">
+<h3 id="_determining_the_index_name"><a class="anchor" href="#_determining_the_index_name"></a>Determining the index name</h3>
+<div class="paragraph">
+<p>Each indexer is stored under a unique name. By default the name is derived from the declaring <code>static</code> field — <code>{outer class FQCN}.{fieldName}</code> — so an indexer like <code>PersonIndices.maritalStatus</code> is registered as <code>org.example.PersonIndices.maritalStatus</code>. The same name is reproduced reliably across JVM runs, which is what makes the index findable after reload. For indexers that are <strong>not</strong> assigned to a <code>static</code> field (anonymous inner classes created inline, instances created in a method) the fallback name is class-based and may collide with other anonymous instances of the same indexer type.</p>
+</div>
+<div class="paragraph">
+<p>You can always take full control of the name by overriding the <code>name()</code> method on the indexer itself. This works for any indexer regardless of how it is declared, and is the way to decouple the persisted index name from the Java identifier — useful when refactoring (you can rename or move the constant without invalidating persisted indices), or when you need a name shorter / friendlier than the auto-derived FQCN, or to ensure stability for anonymous instances:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public final static Indexer&lt;Person, MaritalStatus&gt; maritalStatus = new Indexer.Abstract&lt;&gt;()
+{
+    @Override public String name() { return "person.maritalStatus"; }
+    // ...
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For annotation-based indexers, the name is the annotated property — <code>@Index</code> on <code>firstName</code> registers the index as <code>firstName</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_looking_up_an_index_after_load"><a class="anchor" href="#_looking_up_an_index_after_load"></a>Looking up an index after load</h3>
+<div class="paragraph">
+<p>After the GigaMap is loaded from existing storage, indexers are owned and managed by GigaMap — you do not re-register them. If you kept your indexers as <code>static</code> constants you can keep referring to them directly in queries (<code>gigaMap.query(PersonIndices.maritalStatus.is(MARRIED))</code>); GigaMap matches the constant to its persisted index by name. Otherwise, look the index up via <code>BitmapIndices</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">BitmapIndices&lt;Person&gt; bitmapIndices = gigaMap.index().bitmap();
+BitmapIndex&lt;Person, MaritalStatus&gt; idx = bitmapIndices.get(MaritalStatus.class, "person.maritalStatus");
+IndexerString&lt;Person&gt;              firstNameIndex = bitmapIndices.getStringIndex("firstName");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>get(&#8230;&#8203;)</code> returns <code>null</code> if no index with that name is registered.</p>
 </div>
 </div>
 </div>

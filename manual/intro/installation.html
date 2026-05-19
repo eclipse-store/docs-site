@@ -203,6 +203,9 @@
     <a class="nav-link" href="architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../gigamap/constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../gigamap/crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -746,7 +752,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="installation.html">V4</a>
-    <a class="version" href="../4.1.0-beta/intro/installation.html">Preview</a>
     <a class="version" href="../3/intro/installation.html">V3</a>
     <a class="version" href="../2/intro/installation.html">V2</a>
     <a class="version" href="../1/intro/installation.html">V1</a>
@@ -772,7 +777,7 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
 	&lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
 	&lt;artifactId&gt;storage-embedded&lt;/artifactId&gt;
-	&lt;version&gt;4.0.1&lt;/version&gt;
+	&lt;version&gt;4.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
@@ -780,7 +785,7 @@
 <div class="title">Gradle (Groovy) [build.gradle]</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
-	implementation 'org.eclipse.store:storage-embedded:4.0.1'
+	implementation 'org.eclipse.store:storage-embedded:4.1.0'
 }</code></pre>
 </div>
 </div>
@@ -788,14 +793,14 @@
 <div class="title">Gradle (Kotlin) [build.gradle.kts]</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">dependencies {
-	implementation("org.eclipse.store:storage-embedded:4.0.1")
+	implementation("org.eclipse.store:storage-embedded:4.1.0")
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Scala SBT [build.sbt]</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">libraryDependencies += "org.eclipse.store" % "storage-embedded" % "4.0.1"</code></pre>
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">libraryDependencies += "org.eclipse.store" % "storage-embedded" % "4.1.0"</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -804,7 +809,7 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
 	&lt;dependency org="org.eclipse.store"
 		name="storage-embedded"
-		rev="4.0.1" /&gt;
+		rev="4.1.0" /&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
 </div>
@@ -812,7 +817,7 @@
 <div class="title">Apache Buildr [Buildfile]</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-ruby hljs" data-lang="ruby">define 'my-app' do
-	compile.with 'org.eclipse.store:storage-embedded:4.0.1'
+	compile.with 'org.eclipse.store:storage-embedded:4.1.0'
 end</code></pre>
 </div>
 </div>
@@ -835,7 +840,7 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
 	artifacts = [
-		"org.eclipse.store:storage-embedded:4.0.1"
+		"org.eclipse.store:storage-embedded:4.1.0"
 	],
 )</code></pre>
 </div>
@@ -845,7 +850,7 @@ maven_install(
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">maven_jar(
 	name = "eclipsestore",
-	artifact = "org.eclipse.store:storage-embedded:4.0.1"
+	artifact = "org.eclipse.store:storage-embedded:4.1.0"
 )</code></pre>
 </div>
 </div>
@@ -1059,10 +1064,6 @@ maven_install(
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">storage-restservice-javalin</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">REST service implementation which utilizes Javalin and provides REST endpoints.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">storage-restservice-sparkjava (deprecated)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">REST service implementation which utilizes SparkJava and provides REST endpoints. (Deprecated, use storage-restservice-javalin instead.)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">storage-restservice-springboot</p></td>

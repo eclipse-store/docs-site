@@ -203,6 +203,9 @@
     <a class="nav-link" href="../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="crud.html">CRUD</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -747,7 +753,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="persistence.html">V4</a>
-    <a class="version" href="../4.1.0-beta/gigamap/persistence.html">Preview</a>
     <a class="version" href="../3/gigamap/persistence.html">V3</a>
     <a class="version is-missing" href="../2/intro/welcome.html">V2</a>
     <a class="version is-missing" href="../1/intro/welcome.html">V1</a>
@@ -859,6 +864,18 @@ This means other threads can modify the GigaMap (e.g. by calling <code>add</code
 <div class="sect1">
 <h2 id="_concurrency"><a class="anchor" href="#_concurrency"></a>Concurrency</h2>
 <div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+See <a href="../intro/concurrent-access.html" class="xref page">Concurrent Access</a> for the full conceptual treatment.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>As with any EclipseStore application, modifying the object graph and storing the changes <strong>must be done under the same lock</strong>.
 The <code>gigaMap.store()</code> method handles this for you by acquiring the GigaMap&#8217;s internal lock.</p>

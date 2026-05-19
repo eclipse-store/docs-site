@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Storage Files and Directories :: EclipseStore Reference Manual</title>
-    <link rel="canonical" href="https://docs.eclipsestore.io/manual/storage/configuration/storage-files-and-directories.html">
-    <link rel="prev" href="properties.html">
-    <link rel="next" href="using-channels.html">
+    <title>Constraints :: EclipseStore Reference Manual</title>
+    <link rel="canonical" href="https://docs.eclipsestore.io/manual/gigamap/constraints.html">
+    <link rel="prev" href="queries/executing.html">
+    <link rel="next" href="crud.html">
     <meta name="generator" content="Antora 3.1.4">
-    <link rel="stylesheet" href="../../../../_/css/site.css">
+    <link rel="stylesheet" href="../../_/css/site.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-16x16.png">
-  <link rel="stylesheet" href="../../../../_/css/site-extra.css">
+  <link rel="stylesheet" href="../../_/css/site-extra.css">
   </head>
   <body class="article">
 <header class="header">
@@ -186,99 +186,105 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="manual" data-version="4.1.0-beta">
+<div class="nav-container" data-component="manual" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
     <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
-    <h3 class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></h3>
+    <h3 class="title"><a href="../intro/welcome.html">EclipseStore Reference Manual</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../intro/welcome.html">Welcome</a>
+    <a class="nav-link" href="../intro/welcome.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
+    <a class="nav-link" href="../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
+    <a class="nav-link" href="../intro/concurrent-access.html">Concurrent Access</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../intro/changelog.html">Changelog</a>
+    <a class="nav-link" href="../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../intro/installation.html">Installation</a>
+    <a class="nav-link" href="../intro/changelog.html">Changelog</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../intro/installation.html">Installation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../index.html">Storage</a>
+    <a class="nav-link" href="../storage/index.html">Storage</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../getting-started.html">Getting Started</a>
+    <a class="nav-link" href="../storage/getting-started.html">Getting Started</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../root-instances.html">Root Instances</a>
+    <a class="nav-link" href="../storage/root-instances.html">Root Instances</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Configuration</a>
+    <a class="nav-link" href="../storage/configuration/index.html">Configuration</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="properties.html">Properties</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="storage-files-and-directories.html">Storage Files and Directories</a>
+    <a class="nav-link" href="../storage/configuration/properties.html">Properties</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="using-channels.html">Using Channels</a>
+    <a class="nav-link" href="../storage/configuration/storage-files-and-directories.html">Storage Files and Directories</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="housekeeping.html">Houskeeping</a>
+    <a class="nav-link" href="../storage/configuration/using-channels.html">Using Channels</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="readonly.html">Read-only Manager</a>
+    <a class="nav-link" href="../storage/configuration/housekeeping.html">Houskeeping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/configuration/readonly.html">Read-only Manager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Backup</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="backup/continuous-backup.html">Continuous Backup</a>
+    <a class="nav-link" href="../storage/configuration/backup/continuous-backup.html">Continuous Backup</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="backup/full-backup.html">Full Backup</a>
+    <a class="nav-link" href="../storage/configuration/backup/full-backup.html">Full Backup</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="lock-file.html">Lock File</a>
+    <a class="nav-link" href="../storage/configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../storage-targets/index.html">Storage Targets</a>
+    <a class="nav-link" href="../storage/storage-targets/index.html">Storage Targets</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storage-targets/file-system.html">File System</a>
+    <a class="nav-link" href="../storage/storage-targets/file-system.html">File System</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">SQL Databases</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/sql-databases/mariadb.html">MariaDB</a>
+    <a class="nav-link" href="../storage/storage-targets/sql-databases/mariadb.html">MariaDB</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/sql-databases/oracle.html">Oracle</a>
+    <a class="nav-link" href="../storage/storage-targets/sql-databases/oracle.html">Oracle</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/sql-databases/postgresql.html">Postgres</a>
+    <a class="nav-link" href="../storage/storage-targets/sql-databases/postgresql.html">Postgres</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/sql-databases/sqlite.html">Sqlite</a>
+    <a class="nav-link" href="../storage/storage-targets/sql-databases/sqlite.html">Sqlite</a>
   </li>
 </ul>
   </li>
@@ -291,27 +297,27 @@
     <span class="nav-text">AWS</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="../storage-targets/blob-stores/aws-dynamodb.html">DynamoDB</a>
+    <a class="nav-link" href="../storage/storage-targets/blob-stores/aws-dynamodb.html">DynamoDB</a>
   </li>
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="../storage-targets/blob-stores/aws-s3.html">S3</a>
+    <a class="nav-link" href="../storage/storage-targets/blob-stores/aws-s3.html">S3</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/blob-stores/azure-storage.html">Azure Storage</a>
+    <a class="nav-link" href="../storage/storage-targets/blob-stores/azure-storage.html">Azure Storage</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/blob-stores/google-cloud-firestore.html">Google Cloud Firestore</a>
+    <a class="nav-link" href="../storage/storage-targets/blob-stores/google-cloud-firestore.html">Google Cloud Firestore</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/blob-stores/kafka.html">Kafka</a>
+    <a class="nav-link" href="../storage/storage-targets/blob-stores/kafka.html">Kafka</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/blob-stores/oracle-cloud-object-storage.html">Oracle Cloud Object Storage</a>
+    <a class="nav-link" href="../storage/storage-targets/blob-stores/oracle-cloud-object-storage.html">Oracle Cloud Object Storage</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../storage-targets/blob-stores/redis.html">Redis</a>
+    <a class="nav-link" href="../storage/storage-targets/blob-stores/redis.html">Redis</a>
   </li>
 </ul>
   </li>
@@ -319,106 +325,106 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../storing-data/index.html">Storing Data</a>
+    <a class="nav-link" href="../storage/storing-data/index.html">Storing Data</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/transactions.html">Convenience Methods and Explicit Storing (Transactions)</a>
+    <a class="nav-link" href="../storage/storing-data/transactions.html">Convenience Methods and Explicit Storing (Transactions)</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/lazy-eager-full.html">Lazy and Eager Storing</a>
+    <a class="nav-link" href="../storage/storing-data/lazy-eager-full.html">Lazy and Eager Storing</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/transient-fields.html">Transient Fields</a>
+    <a class="nav-link" href="../storage/storing-data/transient-fields.html">Transient Fields</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/best-practice.html">Best Practice</a>
+    <a class="nav-link" href="../storage/storing-data/best-practice.html">Best Practice</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/batch-storer.html">Batch Storer</a>
+    <a class="nav-link" href="../storage/storing-data/batch-storer.html">Batch Storer</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/deep-copy.html">Deep Copy Utility</a>
+    <a class="nav-link" href="../storage/storing-data/deep-copy.html">Deep Copy Utility</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../storing-data/reloader.html">Reloading</a>
+    <a class="nav-link" href="../storage/storing-data/reloader.html">Reloading</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../loading-data/index.html">Loading Data</a>
+    <a class="nav-link" href="../storage/loading-data/index.html">Loading Data</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../loading-data/lazy-loading/index.html">Lazy Loading</a>
+    <a class="nav-link" href="../storage/loading-data/lazy-loading/index.html">Lazy Loading</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../loading-data/lazy-loading/lazy-collections.html">Lazy Collections</a>
+    <a class="nav-link" href="../storage/loading-data/lazy-loading/lazy-collections.html">Lazy Collections</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../loading-data/lazy-loading/touched-timestamp-null-safe-variant.html">Touched Timestamp, Null-Safe Variant</a>
+    <a class="nav-link" href="../storage/loading-data/lazy-loading/touched-timestamp-null-safe-variant.html">Touched Timestamp, Null-Safe Variant</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../loading-data/lazy-loading/clearing-lazy-references.html">Clearing Lazy References</a>
+    <a class="nav-link" href="../storage/loading-data/lazy-loading/clearing-lazy-references.html">Clearing Lazy References</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../deleting-data.html">Deleting Data</a>
+    <a class="nav-link" href="../storage/deleting-data.html">Deleting Data</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../queries.html">Queries</a>
+    <a class="nav-link" href="../storage/queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../application-life-cycle.html">Application Life-Cycle</a>
+    <a class="nav-link" href="../storage/application-life-cycle.html">Application Life-Cycle</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../legacy-type-mapping/index.html">Legacy Type Mapping</a>
+    <a class="nav-link" href="../storage/legacy-type-mapping/index.html">Legacy Type Mapping</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../legacy-type-mapping/user-interaction.html">User Interaction</a>
+    <a class="nav-link" href="../storage/legacy-type-mapping/user-interaction.html">User Interaction</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../import-export.html">Import / Export</a>
+    <a class="nav-link" href="../storage/import-export.html">Import / Export</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../housekeeping.html">Housekeeping</a>
+    <a class="nav-link" href="../storage/housekeeping.html">Housekeeping</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Customizing</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../customizing/custom-type-handler.html">Custom Type Handler</a>
+    <a class="nav-link" href="../storage/customizing/custom-type-handler.html">Custom Type Handler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../customizing/custom-legacy-type-handler.html">Custom Legacy Type Handler</a>
+    <a class="nav-link" href="../storage/customizing/custom-legacy-type-handler.html">Custom Legacy Type Handler</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../customizing/custom-class-loader.html">Custom Class Loader</a>
+    <a class="nav-link" href="../storage/customizing/custom-class-loader.html">Custom Class Loader</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../customizing/custom-storing-behavior.html">Custom Storing Behavior</a>
+    <a class="nav-link" href="../storage/customizing/custom-storing-behavior.html">Custom Storing Behavior</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../customizing/optional-storage-manager-reference-in-entities.html">Optional Storage Manager Reference in Entities</a>
+    <a class="nav-link" href="../storage/customizing/optional-storage-manager-reference-in-entities.html">Optional Storage Manager Reference in Entities</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../rest-interface/index.html">REST Interface</a>
+    <a class="nav-link" href="../storage/rest-interface/index.html">REST Interface</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rest-interface/setup.html">Setup</a>
+    <a class="nav-link" href="../storage/rest-interface/setup.html">Setup</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rest-interface/rest-api.html">REST API</a>
+    <a class="nav-link" href="../storage/rest-interface/rest-api.html">REST API</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../rest-interface/client-gui.html">Client GUI</a>
+    <a class="nav-link" href="../storage/rest-interface/client-gui.html">Client GUI</a>
   </li>
 </ul>
   </li>
@@ -427,19 +433,19 @@
     <span class="nav-text">FAQ</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../faq/data-model.html">Data Model</a>
+    <a class="nav-link" href="../storage/faq/data-model.html">Data Model</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../faq/data-management.html">Data Management</a>
+    <a class="nav-link" href="../storage/faq/data-management.html">Data Management</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../faq/file-storage.html">File Storage</a>
+    <a class="nav-link" href="../storage/faq/file-storage.html">File Storage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../faq/java-features.html">Java Features</a>
+    <a class="nav-link" href="../storage/faq/java-features.html">Java Features</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../faq/miscellaneous.html">Miscellaneous</a>
+    <a class="nav-link" href="../storage/faq/miscellaneous.html">Miscellaneous</a>
   </li>
 </ul>
   </li>
@@ -448,19 +454,19 @@
     <span class="nav-text">Addendum</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../addendum/supported-java-features.html">Supported Java Features</a>
+    <a class="nav-link" href="../storage/addendum/supported-java-features.html">Supported Java Features</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
+    <a class="nav-link" href="../storage/addendum/specialized-type-handlers.html">Specialized Type Handlers</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../addendum/storage-graph-analysis.html">Storage Graph Analysis</a>
+    <a class="nav-link" href="../storage/addendum/storage-graph-analysis.html">Storage Graph Analysis</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../addendum/tools.html">Tools</a>
+    <a class="nav-link" href="../storage/addendum/tools.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../addendum/troubleshooting.html">Troubleshooting</a>
+    <a class="nav-link" href="../storage/addendum/troubleshooting.html">Troubleshooting</a>
   </li>
 </ul>
   </li>
@@ -468,131 +474,134 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../serializer/index.html">Serializer</a>
+    <a class="nav-link" href="../serializer/index.html">Serializer</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../serializer/getting-started.html">Getting Started</a>
+    <a class="nav-link" href="../serializer/getting-started.html">Getting Started</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../serializer/type-handling.html">Type Handling</a>
+    <a class="nav-link" href="../serializer/type-handling.html">Type Handling</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../serializer/typed-serializer.html">TypedSerializer</a>
+    <a class="nav-link" href="../serializer/typed-serializer.html">TypedSerializer</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../serializer/custom-type-handlers.html">Custom Type Handlers</a>
+    <a class="nav-link" href="../serializer/custom-type-handlers.html">Custom Type Handlers</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../serializer/configuration.html">Configuration</a>
+    <a class="nav-link" href="../serializer/configuration.html">Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../serializer/performance.html">Performance and Thread Safety</a>
+    <a class="nav-link" href="../serializer/performance.html">Performance and Thread Safety</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../gigamap/index.html">GigaMap</a>
+    <a class="nav-link" href="index.html">GigaMap</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../gigamap/getting-started.html">Getting Started</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../gigamap/indexing/index.html">Indexing</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../gigamap/indexing/bitmap/index.html">Bitmap Index</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../gigamap/indexing/bitmap/types.html">Index Types</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../gigamap/indexing/bitmap/defining.html">Defining Indices</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../gigamap/indexing/lucene/index.html">Lucene Index</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../gigamap/indexing/lucene/configuration.html">Configuration</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../gigamap/indexing/lucene/use-cases.html">Use Cases</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../gigamap/indexing/lucene/advanced.html">Advanced Usage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../gigamap/indexing/jvector/index.html">JVector Index</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../gigamap/indexing/jvector/configuration.html">Configuration</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../gigamap/indexing/jvector/use-cases.html">Use Cases</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../gigamap/indexing/jvector/advanced.html">Advanced Usage</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../gigamap/indexing/spatial/index.html">Spatial Index</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../gigamap/indexing/spatial/use-cases.html">Use Cases</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../../gigamap/indexing/spatial/advanced.html">Advanced Usage</a>
-  </li>
-</ul>
-  </li>
-</ul>
+    <a class="nav-link" href="getting-started.html">Getting Started</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../gigamap/queries/index.html">Queries</a>
+    <a class="nav-link" href="indexing/index.html">Indexing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../gigamap/queries/defining.html">Defining Queries</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="indexing/bitmap/index.html">Bitmap Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/bitmap/types.html">Index Types</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/bitmap/defining.html">Defining Indices</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../gigamap/queries/executing.html">Executing Queries</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="indexing/lucene/index.html">Lucene Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/lucene/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/lucene/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/lucene/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="indexing/jvector/index.html">JVector Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/jvector/configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/jvector/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/jvector/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="indexing/spatial/index.html">Spatial Index</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/spatial/use-cases.html">Use Cases</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="indexing/spatial/advanced.html">Advanced Usage</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../gigamap/crud.html">CRUD</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="queries/index.html">Queries</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="queries/defining.html">Defining Queries</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="queries/executing.html">Executing Queries</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="constraints.html">Constraints</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../gigamap/persistence.html">Persistence</a>
+    <a class="nav-link" href="crud.html">CRUD</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="persistence.html">Persistence</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../cache/index.html">Cache</a>
+    <a class="nav-link" href="../cache/index.html">Cache</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../cache/getting-started.html">Getting Started</a>
+    <a class="nav-link" href="../cache/getting-started.html">Getting Started</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../cache/configuration/index.html">Configuration</a>
+    <a class="nav-link" href="../cache/configuration/index.html">Configuration</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../cache/configuration/properties.html">Properties</a>
+    <a class="nav-link" href="../cache/configuration/properties.html">Properties</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../cache/configuration/storage.html">Storage</a>
+    <a class="nav-link" href="../cache/configuration/storage.html">Storage</a>
   </li>
 </ul>
   </li>
@@ -601,10 +610,10 @@
     <span class="nav-text">Use Cases</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../cache/use-cases/hibernate-second-level-cache.html">Hibernate Second Level Cache</a>
+    <a class="nav-link" href="../cache/use-cases/hibernate-second-level-cache.html">Hibernate Second Level Cache</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../cache/use-cases/spring-cache.html">Spring Cache</a>
+    <a class="nav-link" href="../cache/use-cases/spring-cache.html">Spring Cache</a>
   </li>
 </ul>
   </li>
@@ -612,19 +621,19 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../communication/index.html">Communication</a>
+    <a class="nav-link" href="../communication/index.html">Communication</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../communication/getting-started.html">Getting Started</a>
+    <a class="nav-link" href="../communication/getting-started.html">Getting Started</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../communication/configuration.html">Configuration</a>
+    <a class="nav-link" href="../communication/configuration.html">Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../communication/tls.html">TLS</a>
+    <a class="nav-link" href="../communication/tls.html">TLS</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../communication/error-handling.html">Error Handling and Reconnection</a>
+    <a class="nav-link" href="../communication/error-handling.html">Error Handling and Reconnection</a>
   </li>
 </ul>
   </li>
@@ -633,65 +642,65 @@
     <span class="nav-text">Miscellaneous</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../misc/logging/index.html">Logging</a>
+    <a class="nav-link" href="../misc/logging/index.html">Logging</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../misc/locking/index.html">Locking</a>
+    <a class="nav-link" href="../misc/locking/index.html">Locking</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../misc/monitoring/index.html">Monitoring</a>
+    <a class="nav-link" href="../misc/monitoring/index.html">Monitoring</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../misc/integrations/index.html">Integrations</a>
+    <a class="nav-link" href="../misc/integrations/index.html">Integrations</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/integrations/spring-boot.html">Spring-Boot</a>
+    <a class="nav-link" href="../misc/integrations/spring-boot.html">Spring-Boot</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/integrations/micronaut.html">Micronaut</a>
+    <a class="nav-link" href="../misc/integrations/micronaut.html">Micronaut</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/integrations/cdi.html">CDI</a>
+    <a class="nav-link" href="../misc/integrations/cdi.html">CDI</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../misc/layered-entities/index.html">Layered Entities</a>
+    <a class="nav-link" href="../misc/layered-entities/index.html">Layered Entities</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/layered-entities/configuration.html">Configuration</a>
+    <a class="nav-link" href="../misc/layered-entities/configuration.html">Configuration</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/layered-entities/defining-entities.html">Defining Entities</a>
+    <a class="nav-link" href="../misc/layered-entities/defining-entities.html">Defining Entities</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/layered-entities/creating-entities.html">Creating Entities</a>
+    <a class="nav-link" href="../misc/layered-entities/creating-entities.html">Creating Entities</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/layered-entities/updating-entities.html">Updating Entities</a>
+    <a class="nav-link" href="../misc/layered-entities/updating-entities.html">Updating Entities</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/layered-entities/versioning.html">Versioning</a>
+    <a class="nav-link" href="../misc/layered-entities/versioning.html">Versioning</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/layered-entities/logging.html">Logging</a>
+    <a class="nav-link" href="../misc/layered-entities/logging.html">Logging</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/layered-entities/multiple-layers.html">Multiple Layers</a>
+    <a class="nav-link" href="../misc/layered-entities/multiple-layers.html">Multiple Layers</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../misc/wrapping/index.html">Wrapping</a>
+    <a class="nav-link" href="../misc/wrapping/index.html">Wrapping</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/wrapping/configuration.html">Configuration</a>
+    <a class="nav-link" href="../misc/wrapping/configuration.html">Configuration</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../misc/wrapping/usage.html">Usage</a>
+    <a class="nav-link" href="../misc/wrapping/usage.html">Usage</a>
   </li>
 </ul>
   </li>
@@ -705,26 +714,23 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">Preview</span>
+    <span class="version">V4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../../intro/welcome.html">EclipseStore Reference Manual</a></div>
+      <div class="title"><a href="../intro/welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../../intro/welcome.html">V4</a>
-        </li>
-        <li class="version is-current">
-          <a href="../../intro/welcome.html">Preview</a>
+        <li class="version is-current is-latest">
+          <a href="../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../../3/intro/welcome.html">V3</a>
+          <a href="../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
-          <a href="../../../2/intro/welcome.html">V2</a>
+          <a href="../2/intro/welcome.html">V2</a>
         </li>
         <li class="version">
-          <a href="../../../1/intro/welcome.html">V1</a>
+          <a href="../1/intro/welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -738,112 +744,366 @@
 <button class="nav-toggle"></button>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></li>
-    <li><a href="../index.html">Storage</a></li>
-    <li><a href="index.html">Configuration</a></li>
-    <li><a href="storage-files-and-directories.html">Storage Files and Directories</a></li>
+    <li><a href="../intro/welcome.html">EclipseStore Reference Manual</a></li>
+    <li><a href="index.html">GigaMap</a></li>
+    <li><a href="constraints.html">Constraints</a></li>
   </ul>
 </nav>
 <div class="page-versions">
-  <button class="version-menu-toggle" title="Show other versions of page">Preview</button>
+  <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
-    <a class="version" href="../../../storage/configuration/storage-files-and-directories.html">V4</a>
-    <a class="version is-current" href="storage-files-and-directories.html">Preview</a>
-    <a class="version" href="../../../3/storage/configuration/storage-files-and-directories.html">V3</a>
-    <a class="version" href="../../../2/storage/configuration/storage-files-and-directories.html">V2</a>
-    <a class="version" href="../../../1/storage/configuration/storage-files-and-directories.html">V1</a>
+    <a class="version is-current" href="constraints.html">V4</a>
+    <a class="version is-missing" href="../3/intro/welcome.html">V3</a>
+    <a class="version is-missing" href="../2/intro/welcome.html">V2</a>
+    <a class="version is-missing" href="../1/intro/welcome.html">V1</a>
   </div>
 </div>
-<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/4.1.0-preview-docs/docs/modules/storage/pages/configuration/storage-files-and-directories.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/gigamap/pages/constraints.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Storage Files and Directories</h1>
+<h1 class="page">Constraints</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>Using a Storage Live File Provider (<code>org.eclipse.store.storage.types.StorageLiveFileProvider</code>) allows to specify the location and naming rules for all storage related files.</p>
+<p>The GigaMap can validate every write operation (<code>add</code>, <code>set</code>, <code>update</code>, &#8230;&#8203;) against a set of constraints. If any constraint is violated, a <code>ConstraintViolationException</code> is thrown and the operation is rolled back, so the map is never left in an invalid state.</p>
 </div>
 <div class="paragraph">
-<p>Available properties are:</p>
+<p>Constraints are accessed through <code>gigaMap.constraints()</code>, which returns a <code>GigaConstraints</code> instance with two categories:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">gigaMap.constraints().unique(); // UniqueConstraints&lt;E&gt;
+gigaMap.constraints().custom(); // CustomConstraints&lt;E&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_unique_constraints"><a class="anchor" href="#_unique_constraints"></a>Unique Constraints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A unique constraint ensures that the indexed value of a property is unique across all entities in the map. It is backed by a bitmap index, so adding one always implies that a corresponding bitmap index exists.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// use the builder
+final GigaMap&lt;Person&gt; gigaMap = GigaMap.&lt;Person&gt;Builder()
+    .withBitmapUniqueIndex(PersonIndices.id)
+    ...
+    .build();
+
+// or register it after creating
+GigaMap&lt;Person&gt; gigaMap = GigaMap.New();
+gigaMap.index().bitmap().addUniqueConstraint(PersonIndices.id);</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_combining_with_an_identity_index"><a class="anchor" href="#_combining_with_an_identity_index"></a>Combining With an Identity Index</h3>
+<div class="paragraph">
+<p>A unique constraint and an <a href="indexing/bitmap/types.html#_identity_index" class="xref page">identity index</a> are independent concerns: the identity index defines how entities are looked up, the unique constraint enforces uniqueness at write time. Combine both to get an identifying field that is also guaranteed unique:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// use the builder — the same indexer can be passed to both methods
+final GigaMap&lt;Person&gt; gigaMap = GigaMap.&lt;Person&gt;Builder()
+    .withBitmapIdentityIndex(PersonIndices.id)
+    .withBitmapUniqueIndex(PersonIndices.id) // enforce uniqueness at runtime
+    ...
+    .build();
+
+// or register it after creating: addUniqueConstraint creates the backing
+// bitmap index, then setIdentityIndices promotes it to identity
+GigaMap&lt;Person&gt; gigaMap = GigaMap.New();
+final BitmapIndices&lt;Person&gt; bitmap = gigaMap.index().bitmap();
+bitmap.addUniqueConstraint(PersonIndices.id); // creates index + unique constraint
+bitmap.setIdentityIndices(PersonIndices.id);  // promote it to identity</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_custom_constraints"><a class="anchor" href="#_custom_constraints"></a>Custom Constraints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Custom constraints let you express arbitrary validation logic — anything from a simple per-entity predicate to a check that consults the rest of the map.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Custom constraints are <strong>persisted with the GigaMap</strong>: when the map is stored, the registered constraint instances are written along with it and are restored when the map is loaded again.</p>
+</div>
+<div class="paragraph">
+<p>Because of this, every constraint must be implemented as a <strong>named, top-level (or static nested) class</strong>. EclipseStore cannot persist:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>lambdas — their synthetic class names are generated by the JVM and not stable across compilations or runs;</p>
+</li>
+<li>
+<p>anonymous inner classes — their <code>$1</code>, <code>$2</code>, &#8230;&#8203; names depend on the declaration order in the enclosing class.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In practice this means: only use <code>CustomConstraint.Wrapper</code> / <code>CustomConstraint.WrapperSimple</code> for short-lived, in-memory GigaMaps that you will never store. For any persisted GigaMap, write a named subclass of <code>CustomConstraint.AbstractSimple</code> or <code>CustomConstraint.Abstract</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A custom constraint implements <code>CustomConstraint&lt;E&gt;</code>. There are four ready-made base types, ordered from simplest to most flexible:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">When to use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">storage-directory</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The EclipseStore storages location base directory. Contains channel directories and type dictionary file.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AbstractSimple&lt;E&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validation depends only on the new entity itself.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">deletion-directory</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If configured, the storage will not delete files. Instead of deleting a file it will be moved to this directory.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Abstract&lt;E&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validation also needs the <code>entityId</code> and/or the entity being replaced. Throws the exception directly.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">truncation-directory</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If configured, files that will get truncated are copied into this directory.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>WrapperSimple&lt;E&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Same as <code>AbstractSimple</code> but using a <code>Predicate&lt;E&gt;</code> lambda.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">channel-directory-prefix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Channel directory prefix string</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">storage-file-prefix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Storage file prefix string</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">storage-file-suffix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">storage file extension</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transactions-file-prefix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transactions file prefix</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transactions-file-suffix</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">transaction file extension</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">type-dictionary-file-name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">filename of the type dictionary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Wrapper&lt;E&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Same as <code>Abstract</code> but using a <code>CustomConstraint.Logic&lt;E&gt;</code> lambda. Most flexible — also receives the <code>GigaMap</code> itself, so it can cross-check against other entities.</p></td>
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="_adding_constraints"><a class="anchor" href="#_adding_constraints"></a>Adding Constraints</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">StorageFileNameProvider fileNameProvider = StorageFileNameProvider.Builder()
-	.setChannelDirectoryPrefix("canal_")
-	.setDataFilePrefix        ("canal_")
-	.setDataFileSuffix        ("bin")
-	.setTransactionsFilePrefix("events_")
-	.setTransactionsFileSuffix("bin")
-	.setTypeDictionaryFileName("typeDictionary.txt")
-	.createFileNameProvider   ()
-;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// use the builder
+final GigaMap&lt;Person&gt; gigaMap = GigaMap.&lt;Person&gt;Builder()
+    .withCustomConstraint(new NoBlankNames())
+    ...
+    .build();
 
-NioFileSystem           fileSystem   = NioFileSystem.New();
-StorageLiveFileProvider fileProvider = Storage
-	.FileProviderBuilder   (fileSystem)
-	.setDirectory          (fileSystem.ensureDirectoryPath(WORKINGDIR))
-	.setDeletionDirectory  (fileSystem.ensureDirectoryPath(DELETIONDIR))
-	.setTruncationDirectory(fileSystem.ensureDirectoryPath(TRUNCATIONDIR))
-	.setFileNameProvider   (fileNameProvider)
-	.createFileProvider    ()
-;</code></pre>
+// or register one or more after creating
+gigaMap.constraints().custom().addConstraint(new NoBlankNames());
+gigaMap.constraints().custom().addConstraints(constraint1, constraint2);</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When a custom constraint is added to a non-empty GigaMap, it is immediately checked against every existing entity. If any current entity already violates it, the call fails with a <code>ConstraintViolationException</code> and the constraint is not registered.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_abstractsimple"><a class="anchor" href="#_example_abstractsimple"></a>Example: AbstractSimple</h3>
+<div class="paragraph">
+<p>The most common case — a per-entity rule:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class NoBlankNames extends CustomConstraint.AbstractSimple&lt;Person&gt;
+{
+    @Override
+    public boolean isViolated(final Person person)
+    {
+        return person.getFirstName() == null || person.getFirstName().isBlank();
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_wrappersimple_lambda"><a class="anchor" href="#_example_wrappersimple_lambda"></a>Example: WrapperSimple (lambda)</h3>
+<div class="paragraph">
+<p>Same logic, expressed as a predicate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">gigaMap.constraints().custom().addConstraint(
+    new CustomConstraint.WrapperSimple&lt;Person&gt;(
+        person -&gt; person.getFirstName() == null || person.getFirstName().isBlank()
+    )
+);</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The wrapped <code>Predicate</code> is a lambda and cannot be persisted by EclipseStore. Use this form only for in-memory GigaMaps. For persisted maps, port the logic to a named subclass of <code>AbstractSimple</code> (see above).
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_abstract"><a class="anchor" href="#_example_abstract"></a>Example: Abstract</h3>
+<div class="paragraph">
+<p>When the check needs the entity id or the replaced entity, declare a named subclass:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class NoLevelDowngrade extends CustomConstraint.Abstract&lt;Person&gt;
+{
+    @Override
+    public void check(final long entityId, final Person replaced, final Person entity)
+    {
+        if(replaced != null &amp;&amp; entity.getLevel() &lt; replaced.getLevel())
+        {
+            throw new ConstraintViolationException(entityId, replaced, entity);
+        }
+    }
+}
+
+gigaMap.constraints().custom().addConstraint(new NoLevelDowngrade());</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For persisted GigaMaps, prefer named classes over the <code>new CustomConstraint.Abstract&lt;&gt;() { &#8230;&#8203; }</code> anonymous-class shorthand. Anonymous-inner-class names (<code>&#8230;&#8203;$1</code>, <code>&#8230;&#8203;$2</code>) depend on declaration order in the enclosing class and are fragile across refactors.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_wrapper_full_logic_lambda"><a class="anchor" href="#_example_wrapper_full_logic_lambda"></a>Example: Wrapper (full Logic lambda)</h3>
+<div class="paragraph">
+<p>When the check needs to consult the rest of the map:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final CustomConstraint.Wrapper&lt;Person&gt; singleAdmin = new CustomConstraint.Wrapper&lt;&gt;(
+    (map, entityId, replaced, entity, createException) -&gt;
+    {
+        if(!entity.isAdmin())
+        {
+            return null;
+        }
+        final long admins = map.query(PersonIndices.admin.is(true)).count();
+        if(admins == 0 || (replaced != null &amp;&amp; replaced.isAdmin()))
+        {
+            return null;
+        }
+        return createException
+            ? new ConstraintViolationException(entityId, replaced, entity)
+            : org.eclipse.serializer.util.X.BREAK();
+    }
+);
+gigaMap.constraints().custom().addConstraint(singleAdmin);</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The wrapped <code>Logic</code> is a lambda and cannot be persisted by EclipseStore. Use this form only for in-memory GigaMaps. For persisted maps, port the logic to a named subclass of <code>Abstract</code> (see above) — the <code>check</code> method has access to the same <code>entityId</code> and <code>replaced</code> parameters; if you also need the surrounding <code>GigaMap</code>, implement <code>CustomConstraint&lt;E&gt;</code> directly.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_constraint_names"><a class="anchor" href="#_constraint_names"></a>Constraint Names</h3>
+<div class="paragraph">
+<p>Each <code>CustomConstraint</code> has a <code>name()</code> used as its registry key — duplicate names are rejected with an <code>IllegalArgumentException</code>. The default <code>name()</code> in <code>AbstractBase</code> returns the simple class name, which is sufficient for named subclasses (the recommended form, see the persistence note above). Anonymous subclasses fall back to an empty simple name, so registering more than one without overriding <code>name()</code> will fail.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_constraint_violations"><a class="anchor" href="#_constraint_violations"></a>Constraint Violations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All violations are signalled by <code>ConstraintViolationException</code> (or its subclass <code>UniqueConstraintViolationException</code> for unique-index violations). The exception carries:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>entityId</code> — the id of the offending entity</p>
+</li>
+<li>
+<p><code>replacedEntity</code> — the previous entity for <code>set</code> / <code>update</code>, <code>null</code> for <code>add</code></p>
+</li>
+<li>
+<p><code>violatingEntity</code> — the entity that triggered the violation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>What happens to the map on violation depends on the operation:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Operation</th>
+<th class="tableblock halign-left valign-top">Effect on the map</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>add</code> / <code>addAll</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The map is unchanged. For batch operations none of the entities in the batch are added.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>set</code> / <code>replace</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The map is unchanged. Constraints are checked before the entry is mutated, so the previous entity stays in place.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>update</code> / <code>apply</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The offending entity is <strong>removed</strong> from the map. The provided logic mutates the entity in place, so a constraint failure cannot be rolled back to the previous state — the only consistent option is to drop the entry. The removed entity and its id are carried by the <code>ConstraintViolationException</code> (<code>violatingEntity</code>, <code>entityId</code>), so the caller can recover or re-add it after fixing the violation.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="properties.html">Properties</a></span>
-  <span class="next"><a href="using-channels.html">Using Channels</a></span>
+  <span class="prev"><a href="queries/executing.html">Executing Queries</a></span>
+  <span class="next"><a href="crud.html">CRUD</a></span>
 </nav>
 </article>
   </div>
@@ -852,10 +1112,10 @@ StorageLiveFileProvider fileProvider = Storage
 <footer class="footer">
 © 2023-2026 MicroStream Software. All rights reserved.
 </footer>
-<script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
-<script async src="../../../../_/js/vendor/highlight.js"></script>
-<script src="../../../../_/js/vendor/lunr.js"></script>
-<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
-<script async src="../../../../search-index.js"></script>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
   </body>
 </html>

@@ -203,6 +203,9 @@
     <a class="nav-link" href="../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../gigamap/constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../gigamap/crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -747,7 +753,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="queries.html">V4</a>
-    <a class="version" href="../4.1.0-beta/storage/queries.html">Preview</a>
     <a class="version" href="../3/storage/queries.html">V3</a>
     <a class="version" href="../2/storage/queries.html">V2</a>
     <a class="version" href="../1/storage/queries.html">V1</a>
@@ -761,27 +766,276 @@
 </aside>
 <article class="doc">
 <h1 class="page">Queries</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>The EclipseStore engine takes care of persisting your object graph.
-When you do queries, they are not run on the data stored by EclipseStore, queries run on your data in the local system memory.
-There is no need to use special query languages like SQL.
-All operations can be done with plain Java.
-EclipseStore does not restrict you in the way you query your object graph.
-You are totally free to choose the best method fitting to your application.</p>
+Queries do not run on the data stored on disk — they run on your data in the local JVM heap.
+There is no query language, no SQL dialect, no DSL, no annotations.
+Anything you can express in plain Java against your collections is a query.</p>
 </div>
 <div class="paragraph">
-<p>One possibility may be Streams if you use the standard Java collections.</p>
+<p>That means you keep full control over how your data is shaped, indexed and traversed.
+The fastest "query" is the one you do not write at all, because the data is already where you need it: a field on a parent object, an entry in a <code>HashMap</code>, an item in a sorted <code>List</code>.
+For everything else, the standard library — primarily Streams — is usually all you need.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_model"><a class="anchor" href="#_example_model"></a>Example model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The examples on this page assume the following small model.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public List&lt;Article&gt; getUnAvailableArticles()
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Shop
 {
-	return shop.getArticles().stream()
-		.filter(a -&gt; !a.available())
-		.collect(Collectors.toList())
-	;
+    private List&lt;Article&gt;  articles  = new ArrayList&lt;&gt;();
+    private List&lt;Customer&gt; customers = new ArrayList&lt;&gt;();
+    private List&lt;Order&gt;    orders    = new ArrayList&lt;&gt;();
+    // getters ...
+}
+
+public class Article
+{
+    private String  name;
+    private String  category;
+    private double  price;
+    private boolean available;
+}
+
+public class Customer
+{
+    private long   id;
+    private String name;
+    private String city;
+}
+
+public class Order
+{
+    private Customer        customer;
+    private List&lt;OrderLine&gt; lines;
+    private LocalDate       date;
+}
+
+public class OrderLine
+{
+    private Article article;
+    private int     quantity;
 }</code></pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_streams_over_collections"><a class="anchor" href="#_streams_over_collections"></a>Streams over collections</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The most common pattern is a <code>stream()</code> over the collection you already hold a reference to.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// All articles that are currently out of stock
+List&lt;Article&gt; unavailable = shop.getArticles().stream()
+    .filter(a -&gt; !a.isAvailable())
+    .toList();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Find a specific article by name
+Optional&lt;Article&gt; coffee = shop.getArticles().stream()
+    .filter(a -&gt; "Coffee".equals(a.getName()))
+    .findFirst();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Count available articles
+long availableCount = shop.getArticles().stream()
+    .filter(Article::isAvailable)
+    .count();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The same works on <code>Set</code>, <code>Map.values()</code>, <code>Map.entrySet()</code> or any <code>Iterable</code> via <code>StreamSupport.stream(&#8230;&#8203;)</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_compared_to_sql_and_cypher"><a class="anchor" href="#_compared_to_sql_and_cypher"></a>Compared to SQL and Cypher</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you come from SQL, JPQL, HQL or Cypher, you might expect a dedicated query syntax — and miss it for about a day.
+Once the data is an object graph in your own JVM, the language <strong>is</strong> Java.
+That alone gives you four things a query language cannot:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Compile-time type safety</strong> — rename <code>Article.price</code> and every "query" that touches it either updates or fails to compile.</p>
+</li>
+<li>
+<p><strong>Real IDE support</strong> — autocomplete, jump-to-definition, find-usages, refactor, all the way through the query.</p>
+</li>
+<li>
+<p><strong>Step-through debugging</strong> — set a breakpoint inside the lambda; inspect the entity that just failed the predicate.</p>
+</li>
+<li>
+<p><strong>No mapping layer</strong> — the result is already domain objects in the right types. No <code>ResultSet</code>, no <code>Object[]</code>, no DTO mapper.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The side-by-sides below are not "Java is shorter than SQL" trophies (sometimes it&#8217;s longer).
+The point is what each line <strong>means</strong>: in the SQL/Cypher version it&#8217;s a string the database parses; in the Java version it&#8217;s code your compiler and IDE already understand.</p>
+</div>
+<div class="sect2">
+<h3 id="_filter"><a class="anchor" href="#_filter"></a>Filter</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sql hljs" data-lang="sql">SELECT * FROM article WHERE available = FALSE;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">shop.getArticles().stream()
+    .filter(a -&gt; !a.isAvailable())
+    .toList();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aggregate_per_group"><a class="anchor" href="#_aggregate_per_group"></a>Aggregate per group</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sql hljs" data-lang="sql">SELECT category, AVG(price)
+FROM   article
+GROUP  BY category;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">shop.getArticles().stream()
+    .collect(Collectors.groupingBy(
+        Article::getCategory,
+        Collectors.averagingDouble(Article::getPrice)));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The SQL returns rows of <code>(VARCHAR, DOUBLE)</code> that you still have to map.
+The Java returns a typed <code>Map&lt;String, Double&gt;</code>, ready to use.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_join"><a class="anchor" href="#_join"></a>Join</h3>
+<div class="paragraph">
+<p>This is where the gap really opens up.
+"All distinct articles ordered by customers from Berlin" needs four tables, three joins and a <code>WHERE</code> in SQL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sql hljs" data-lang="sql">SELECT DISTINCT a.*
+FROM   customer    c
+JOIN   "order"     o ON o.customer_id = c.id
+JOIN   order_line  l ON l.order_id    = o.id
+JOIN   article     a ON a.id          = l.article_id
+WHERE  c.city = 'Berlin';</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In Java the relationships <strong>are</strong> references, so the join is just dereferencing them in order:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">shop.getCustomers().stream()
+    .filter(c -&gt; "Berlin".equals(c.getCity()))
+    .flatMap(c -&gt; c.getOrders().stream())
+    .flatMap(o -&gt; o.getLines().stream())
+    .map(OrderLine::getArticle)
+    .distinct()
+    .toList();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>No join keys, no aliases, no foreign-key direction to reason about.
+If the relationship is bidirectional in your model, you can start from the article side and the query mirrors that — without rewriting any join clauses.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_existence_check"><a class="anchor" href="#_existence_check"></a>Existence check</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sql hljs" data-lang="sql">SELECT c.*
+FROM   customer c
+WHERE  EXISTS (
+    SELECT 1
+    FROM   "order"    o
+    JOIN   order_line l ON l.order_id = o.id
+    JOIN   article    a ON a.id       = l.article_id
+    WHERE  o.customer_id = c.id
+      AND  a.name = 'Coffee'
+);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">shop.getCustomers().stream()
+    .filter(c -&gt; c.getOrders().stream()
+        .flatMap(o -&gt; o.getLines().stream())
+        .anyMatch(l -&gt; "Coffee".equals(l.getArticle().getName())))
+    .toList();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The SQL needs a correlated subquery; the Java just nests the predicates the same way the data is nested.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_graph_traversal_cypher"><a class="anchor" href="#_graph_traversal_cypher"></a>Graph traversal (Cypher)</h3>
+<div class="paragraph">
+<p>Cypher is closer in spirit, because it pattern-matches on a graph — but the pattern still lives in a separate language whose runtime is not your JVM.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">MATCH (c:Customer {city: 'Berlin'})-[:PLACED]-&gt;(:Order)
+      -[:CONTAINS]-&gt;(:OrderLine)-[:OF]-&gt;(a:Article)
+RETURN DISTINCT a;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Java version is the join example above — same shape, no pattern syntax, no driver, no separate result mapper.</p>
+</div>
+<div class="paragraph">
+<p>For variable-length traversals (Cypher&#8217;s <code>-[:KNOWS*1..3]&#8594;</code>), a small recursive method walks the references with full control over depth, cycle detection and pruning:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Set&lt;Person&gt; withinDistance(Person start, int maxDepth)
+{
+    Set&lt;Person&gt; visited = new HashSet&lt;&gt;();
+    visit(start, maxDepth, visited);
+    return visited;
+}
+
+void visit(Person p, int depthLeft, Set&lt;Person&gt; visited)
+{
+    if(depthLeft &lt; 0 || !visited.add(p))
+    {
+        return;
+    }
+    for(Person friend : p.getFriends())
+    {
+        visit(friend, depthLeft - 1, visited);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Cypher pattern is more concise when it fits.
+When it doesn&#8217;t — branching depth, conditional pruning, custom scoring — pattern syntax tends to hit a wall.
+Plain Java has no such wall.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -790,10 +1044,560 @@ You are totally free to choose the best method fitting to your application.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Of course you must care about <a href="loading-data/lazy-loading/index.html" class="xref page">lazy loading</a> if you use that feature.
+<div class="paragraph">
+<p>This is not a claim that SQL or Cypher are bad — they are excellent at what they do, particularly across a network boundary against a dataset and a process you do not own.
+The point is narrower: if your data is already a Java object graph in your own JVM, introducing a query language buys you very little and costs you the compile-time safety, IDE support and debugability you get for free in Java.</p>
+</div>
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sorting_and_paging"><a class="anchor" href="#_sorting_and_paging"></a>Sorting and paging</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>sorted</code> takes any <code>Comparator</code>; chain <code>thenComparing</code> for tie-breakers, and use <code>skip</code> + <code>limit</code> for paging.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">List&lt;Article&gt; byPriceThenName = shop.getArticles().stream()
+    .sorted(Comparator.comparingDouble(Article::getPrice)
+        .thenComparing(Article::getName))
+    .toList();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">int pageSize  = 50;
+int pageIndex = 2; // zero-based
+
+List&lt;Article&gt; page = shop.getArticles().stream()
+    .sorted(Comparator.comparing(Article::getName))
+    .skip((long) pageIndex * pageSize)
+    .limit(pageSize)
+    .toList();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For descending order, use <code>Comparator.reversed()</code> or <code>Comparator.comparing(&#8230;&#8203;).reversed()</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mapping_and_aggregation"><a class="anchor" href="#_mapping_and_aggregation"></a>Mapping and aggregation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The primitive stream specializations (<code>mapToInt</code>, <code>mapToLong</code>, <code>mapToDouble</code>) and <code>Collectors.summarizing*</code> cover the typical SQL aggregates.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Sum: total value of all available articles
+double inStockValue = shop.getArticles().stream()
+    .filter(Article::isAvailable)
+    .mapToDouble(Article::getPrice)
+    .sum();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Average price across all articles
+OptionalDouble averagePrice = shop.getArticles().stream()
+    .mapToDouble(Article::getPrice)
+    .average();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// All aggregates in one pass
+DoubleSummaryStatistics stats = shop.getArticles().stream()
+    .collect(Collectors.summarizingDouble(Article::getPrice));
+
+double min     = stats.getMin();
+double max     = stats.getMax();
+double avg     = stats.getAverage();
+long   count   = stats.getCount();
+double sum     = stats.getSum();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_projections_with_records"><a class="anchor" href="#_projections_with_records"></a>Projections with records</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you only need a subset of fields, a <code>record</code> is a one-line typed shape that doubles as a DTO.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">record ArticleSummary(String name, double price) {}
+
+List&lt;ArticleSummary&gt; summaries = shop.getArticles().stream()
+    .filter(Article::isAvailable)
+    .map(a -&gt; new ArticleSummary(a.getName(), a.getPrice()))
+    .toList();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That&#8217;s the SQL <code>SELECT name, price FROM article WHERE available</code> — except the result is a list of typed, immutable objects, not a <code>ResultSet</code>, and the same record can flow straight into a controller, a test or a cache without any mapping layer.</p>
+</div>
+<div class="paragraph">
+<p>Records are also the cleanest way to build composite group-by keys.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">record CategoryYear(String category, int year) {}
+
+Map&lt;CategoryYear, Long&gt; ordersPerCategoryAndYear = shop.getOrders().stream()
+    .flatMap(o -&gt; o.getLines().stream()
+        .map(l -&gt; new CategoryYear(
+            l.getArticle().getCategory(),
+            o.getDate().getYear())))
+    .collect(Collectors.groupingBy(k -&gt; k, Collectors.counting()));</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_grouping_and_partitioning"><a class="anchor" href="#_grouping_and_partitioning"></a>Grouping and partitioning</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>Collectors.groupingBy</code> covers SQL&#8217;s <code>GROUP BY</code>; <code>partitioningBy</code> is the boolean special case.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Number of articles per category
+Map&lt;String, Long&gt; countByCategory = shop.getArticles().stream()
+    .collect(Collectors.groupingBy(
+        Article::getCategory,
+        Collectors.counting()));</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Average price per category
+Map&lt;String, Double&gt; avgPriceByCategory = shop.getArticles().stream()
+    .collect(Collectors.groupingBy(
+        Article::getCategory,
+        Collectors.averagingDouble(Article::getPrice)));</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Split into available / unavailable in one pass
+Map&lt;Boolean, List&lt;Article&gt;&gt; byAvailability = shop.getArticles().stream()
+    .collect(Collectors.partitioningBy(Article::isAvailable));</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_top_n_per_group"><a class="anchor" href="#_top_n_per_group"></a>Top-N per group</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>SQL needs a window function for "the three most expensive articles per category":</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sql hljs" data-lang="sql">SELECT *
+FROM (
+    SELECT a.*,
+           ROW_NUMBER() OVER (PARTITION BY category ORDER BY price DESC) AS rn
+    FROM   article a
+)
+WHERE rn &lt;= 3;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In Java, a <code>groupingBy</code> whose downstream collector trims each group is enough.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Map&lt;String, List&lt;Article&gt;&gt; topThreePerCategory = shop.getArticles().stream()
+    .collect(Collectors.groupingBy(
+        Article::getCategory,
+        Collectors.collectingAndThen(
+            Collectors.toList(),
+            list -&gt; list.stream()
+                .sorted(Comparator.comparingDouble(Article::getPrice).reversed())
+                .limit(3)
+                .toList())));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The result is a typed <code>Map&lt;String, List&lt;Article&gt;&gt;</code> ready to render — no row-number column, no subquery wrapper, no result-set mapping.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_multiple_criteria"><a class="anchor" href="#_multiple_criteria"></a>Multiple criteria</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Compose <code>Predicate`s with `and</code>, <code>or</code> and <code>negate</code> instead of building one giant lambda.
+Reusable predicates make the call site read like a sentence and keep test coverage simple.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Predicate&lt;Article&gt; available = Article::isAvailable;
+Predicate&lt;Article&gt; cheap     = a -&gt; a.getPrice() &lt; 10.0;
+Predicate&lt;Article&gt; drink     = a -&gt; "Drinks".equals(a.getCategory());
+
+List&lt;Article&gt; cheapAvailableDrinks = shop.getArticles().stream()
+    .filter(available.and(cheap).and(drink))
+    .toList();
+
+List&lt;Article&gt; expensiveOrUnavailable = shop.getArticles().stream()
+    .filter(available.negate().or(cheap.negate()))
+    .toList();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_traversing_relationships"><a class="anchor" href="#_traversing_relationships"></a>Traversing relationships</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>What SQL solves with a <code>JOIN</code>, plain Java solves by following references.
+<code>flatMap</code> flattens nested collections; <code>anyMatch</code> / <code>allMatch</code> / <code>noneMatch</code> express "exists" / "for all" without materialising results.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// All articles that have ever been ordered (with duplicates)
+List&lt;Article&gt; everOrdered = shop.getOrders().stream()
+    .flatMap(o -&gt; o.getLines().stream())
+    .map(OrderLine::getArticle)
+    .toList();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Distinct customers who ever bought "Coffee"
+Set&lt;Customer&gt; coffeeBuyers = shop.getOrders().stream()
+    .filter(o -&gt; o.getLines().stream()
+        .anyMatch(l -&gt; "Coffee".equals(l.getArticle().getName())))
+    .map(Order::getCustomer)
+    .collect(Collectors.toSet());</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Revenue per customer
+Map&lt;Customer, Double&gt; revenuePerCustomer = shop.getOrders().stream()
+    .collect(Collectors.groupingBy(
+        Order::getCustomer,
+        Collectors.summingDouble(o -&gt; o.getLines().stream()
+            .mapToDouble(l -&gt; l.getArticle().getPrice() * l.getQuantity())
+            .sum())));</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Customers who placed an order in 2026
+LocalDate from = LocalDate.of(2026, 1, 1);
+LocalDate to   = LocalDate.of(2027, 1, 1);
+
+Set&lt;Customer&gt; activeIn2026 = shop.getOrders().stream()
+    .filter(o -&gt; !o.getDate().isBefore(from) &amp;&amp; o.getDate().isBefore(to))
+    .map(Order::getCustomer)
+    .collect(Collectors.toSet());</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_encapsulate_queries_as_domain_methods"><a class="anchor" href="#_encapsulate_queries_as_domain_methods"></a>Encapsulate queries as domain methods</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Most "queries" are about a specific entity — a customer&#8217;s revenue, an article&#8217;s stock level.
+Put the query on the class instead of repeating it in every caller.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Customer
+{
+    private List&lt;Order&gt; orders = new ArrayList&lt;&gt;();
+
+    public double totalRevenue()
+    {
+        return this.orders.stream()
+            .flatMap(o -&gt; o.getLines().stream())
+            .mapToDouble(l -&gt; l.getArticle().getPrice() * l.getQuantity())
+            .sum();
+    }
+
+    public boolean hasEverBought(String articleName)
+    {
+        return this.orders.stream()
+            .flatMap(o -&gt; o.getLines().stream())
+            .anyMatch(l -&gt; articleName.equals(l.getArticle().getName()));
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The call site becomes the readable version of the question:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">double revenue = customer.totalRevenue();
+
+List&lt;Customer&gt; coffeeBuyers = shop.getCustomers().stream()
+    .filter(c -&gt; c.hasEverBought("Coffee"))
+    .toList();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is what SQL views and Cypher procedures <strong>try</strong> to be — except here the method is part of the same compiled type, refactor-safe, debuggable and indistinguishable from any other piece of your domain model.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_maps_as_indexes"><a class="anchor" href="#_maps_as_indexes"></a>Maps as indexes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Streams scan; maps look up.
+When a query is on the hot path and you know the access pattern, store the right map at the root and the query collapses to a single <code>get</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Shop
+{
+    // ...
+    private final Map&lt;Long,   Customer&gt;      customersById      = new HashMap&lt;&gt;();
+    private final Map&lt;String, List&lt;Article&gt;&gt; articlesByCategory = new HashMap&lt;&gt;();
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Customer c = shop.customersById.get(42L);
+
+List&lt;Article&gt; drinks = shop.articlesByCategory
+    .getOrDefault("Drinks", List.of());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You populate and maintain these maps yourself in the methods that add or change entities, and you store the map alongside the entity that changed.
+This is the same trade-off any database makes between a sequential scan and a secondary index — only here the index is just a regular Java field.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For collections that are too large to keep fully resident, see <a href="loading-data/lazy-loading/lazy-collections.html" class="xref page">Lazy Collections</a> (<code>LazyHashMap</code>, <code>LazyArrayList</code>, <code>LazyHashSet</code>).
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_range_queries_with_navigablemap"><a class="anchor" href="#_range_queries_with_navigablemap"></a>Range queries with <code>NavigableMap</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For range-based lookups — date windows, price bands, score thresholds — <code>TreeMap</code> (or any <code>NavigableMap</code>) covers the SQL <code>BETWEEN</code> / <code>&gt;=</code> / <code>&#8656;</code> cases without any scan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">NavigableMap&lt;LocalDate, List&lt;Order&gt;&gt; ordersByDate = new TreeMap&lt;&gt;();
+// populate / maintain this alongside writes ...
+
+// All orders in March 2026
+// SQL: WHERE date &gt;= '2026-03-01' AND date &lt; '2026-04-01'
+NavigableMap&lt;LocalDate, List&lt;Order&gt;&gt; march = ordersByDate.subMap(
+    LocalDate.of(2026, 3, 1), true,
+    LocalDate.of(2026, 4, 1), false);
+
+// Most recent order at or before today
+// SQL: SELECT ... WHERE date &lt;= ? ORDER BY date DESC LIMIT 1
+Map.Entry&lt;LocalDate, List&lt;Order&gt;&gt; latest = ordersByDate.floorEntry(LocalDate.now());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>subMap</code>, <code>headMap</code> and <code>tailMap</code> return <strong>live views</strong> that walk only the matching range, not copies.
+For multidimensional ranges (e.g. price <strong>and</strong> date), nest two `NavigableMap`s, or fall back to a <a href="../gigamap/queries/index.html" class="xref page">GigaMap</a> with the appropriate indices.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_materialized_aggregates"><a class="anchor" href="#_materialized_aggregates"></a>Materialized aggregates</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When an aggregate is queried often and only changes on specific writes, store it as a field and update it where the write happens.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Shop
+{
+    private final List&lt;Order&gt;             orders             = new ArrayList&lt;&gt;();
+    private       long                    orderCount         = 0;
+    private       double                  revenueTotal       = 0.0;
+    private final Map&lt;Customer, Double&gt;   revenuePerCustomer = new HashMap&lt;&gt;();
+
+    public void addOrder(Order order)
+    {
+        this.orders.add(order);
+
+        double value = order.totalValue();
+        this.orderCount++;
+        this.revenueTotal += value;
+        this.revenuePerCustomer.merge(order.getCustomer(), value, Double::sum);
+
+        // store the changed entities in one transaction ...
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now <code>shop.orderCount</code>, <code>shop.revenueTotal</code> and <code>shop.revenuePerCustomer.get(c)</code> are all O(1) reads — no stream, no scan.
+This is the same idea as a SQL materialized view, except the "refresh" runs synchronously inside the same method that performs the write, so the aggregate is always exactly consistent with the data.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Keep the derived state and the underlying entities under the same lock, and store them in the same transaction.
+A crash mid-method must not be able to leave the aggregate out of sync with its source — see <a href="storing-data/transactions.html" class="xref page">Convenience Methods and Explicit Storing</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lazy_references_inside_queries"><a class="anchor" href="#_lazy_references_inside_queries"></a>Lazy references inside queries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If part of the graph sits behind an <a href="loading-data/lazy-loading/index.html" class="xref page"><code>Lazy&lt;T&gt;</code></a> reference, you have to ask for it before you can stream it.
+Use the static <code>Lazy.get(&#8230;&#8203;)</code> to stay null-safe.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class BusinessYear
+{
+    private Lazy&lt;List&lt;Order&gt;&gt; orders;
+    // ...
+}
+
+// Triggers load on first access; transparent on subsequent calls
+List&lt;Order&gt; orders = Lazy.get(year.getOrders());
+
+double yearRevenue = orders.stream()
+    .flatMap(o -&gt; o.getLines().stream())
+    .mapToDouble(l -&gt; l.getArticle().getPrice() * l.getQuantity())
+    .sum();</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Streaming over a <code>Lazy&lt;List&lt;&#8230;&#8203;&gt;&gt;</code> loads the whole list into memory.
+If the list is large and you only want a subset, design for it: split the data into multiple smaller lazy partitions (e.g. one <code>Lazy&lt;List&lt;Order&gt;&gt;</code> per year), or use <a href="loading-data/lazy-loading/lazy-collections.html" class="xref page">Lazy Collections</a> which only load the segments you actually touch.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_parallel_streams"><a class="anchor" href="#_parallel_streams"></a>Parallel streams</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Parallel streams are useful when the predicate or mapping does real CPU work over data that is <strong>already</strong> loaded.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">double total = shop.getArticles().parallelStream()
+    .filter(Article::isAvailable)
+    .mapToDouble(Article::getPrice)
+    .sum();</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Do not parallelise across <code>Lazy.get(&#8230;&#8203;)</code> boundaries.
+A parallel stream over a list of <code>Lazy</code> references will trigger many concurrent storage loads — at best it just shifts the bottleneck to I/O, at worst it produces unpredictable latency spikes.
+Load first, parallelise second.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_concurrency_and_consistency"><a class="anchor" href="#_concurrency_and_consistency"></a>Concurrency and consistency</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Queries see the live object graph, including changes made by other threads.
+If your application updates entities concurrently with read-only queries, you have to coordinate that yourself — EclipseStore does not introduce hidden snapshots or transactions for queries.</p>
+</div>
+<div class="paragraph">
+<p>Two pragmatic patterns:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Synchronise reads and writes through a single lock or a <code>ReadWriteLock</code> around the affected sub-graph.
+See <a href="../misc/locking/index.html" class="xref page">Locking</a> for ready-made utilities.</p>
+</li>
+<li>
+<p>Take a defensive copy at the start of a long-running query (<code>new ArrayList&lt;&gt;(shop.getArticles())</code>) so concurrent mutations cannot affect the iteration.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For most read-heavy workloads, the second pattern is enough and avoids any contention with writers.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_when_you_outgrow_plain_java_gigamap"><a class="anchor" href="#_when_you_outgrow_plain_java_gigamap"></a>When you outgrow plain Java: GigaMap</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Plain-Java queries assume the data you query against is loaded.
+Once a single collection grows beyond what is sensible to keep on the heap — millions of entities, frequent equality / range / full-text lookups, or a need to query before loading — switch that collection to a <a href="../gigamap/index.html" class="xref page"><code>GigaMap</code></a>.</p>
+</div>
+<div class="paragraph">
+<p>A <code>GigaMap</code> keeps an off-heap bitmap index, executes the query against the index, and only loads the segments that match.
+The query API is fluent and composable, but conceptually still operates on Java objects.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">GigaMap&lt;Person&gt; people = ...;
+
+List&lt;Person&gt; berliners = people.query()
+    .and(PersonIndices.city.is("Berlin"))
+    .and(PersonIndices.age.greaterThanEqual(18))
+    .toList();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the full surface — defining indices, condition methods, executing queries, multithreaded execution — see <a href="../gigamap/queries/index.html" class="xref page">GigaMap Queries</a>.</p>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="deleting-data.html">Deleting Data</a></span>

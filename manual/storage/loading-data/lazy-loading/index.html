@@ -203,6 +203,9 @@
     <a class="nav-link" href="../../../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../gigamap/constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../../gigamap/crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="../../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -748,7 +754,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="index.html">V4</a>
-    <a class="version" href="../../../4.1.0-beta/storage/loading-data/lazy-loading/index.html">Preview</a>
     <a class="version" href="../../../3/storage/loading-data/lazy-loading/index.html">V3</a>
     <a class="version" href="../../../2/storage/loading-data/lazy-loading/index.html">V2</a>
     <a class="version" href="../../../1/storage/loading-data/lazy-loading/index.html">V1</a>
@@ -764,6 +769,21 @@
 <h1 class="page">Lazy Loading</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Lazy loading</strong> (this page) defers reading objects from storage into RAM until they are accessed.
+It is unrelated to <a href="../../storing-data/lazy-eager-full.html" class="xref page"><strong>lazy storing</strong></a>, a separate concept that controls how <code>store()</code> traverses the object graph when writing.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>In this chapter it is explained how <a href="https://en.wikipedia.org/wiki/Lazy_loading">Lazy Loading</a> is done with EclipseStore.</p>
 </div>

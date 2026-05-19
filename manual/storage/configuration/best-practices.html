@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Data Management :: EclipseStore Reference Manual</title>
-    <link rel="canonical" href="https://docs.eclipsestore.io/manual/storage/faq/data-management.html">
-    <link rel="prev" href="data-model.html">
-    <link rel="next" href="file-storage.html">
+    <title>Best Practices: Dev / Test / Staging / Prod :: EclipseStore Reference Manual</title>
+    <link rel="canonical" href="https://docs.eclipsestore.io/manual/storage/configuration/best-practices.html">
+    <link rel="prev" href="lock-file.html">
+    <link rel="next" href="../storage-targets/index.html">
     <meta name="generator" content="Antora 3.1.4">
-    <link rel="stylesheet" href="../../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/site.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-16x16.png">
-  <link rel="stylesheet" href="../../../../_/css/site-extra.css">
+  <link rel="stylesheet" href="../../../_/css/site-extra.css">
   </head>
   <body class="article">
 <header class="header">
@@ -186,7 +186,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="manual" data-version="4.1.0-beta">
+<div class="nav-container" data-component="manual" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -201,6 +201,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/concurrent-access.html">Concurrent Access</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
@@ -223,37 +226,40 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../configuration/index.html">Configuration</a>
+    <a class="nav-link" href="index.html">Configuration</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../configuration/properties.html">Properties</a>
+    <a class="nav-link" href="properties.html">Properties</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../configuration/storage-files-and-directories.html">Storage Files and Directories</a>
+    <a class="nav-link" href="storage-files-and-directories.html">Storage Files and Directories</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../configuration/using-channels.html">Using Channels</a>
+    <a class="nav-link" href="using-channels.html">Using Channels</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../configuration/housekeeping.html">Houskeeping</a>
+    <a class="nav-link" href="housekeeping.html">Houskeeping</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../configuration/readonly.html">Read-only Manager</a>
+    <a class="nav-link" href="readonly.html">Read-only Manager</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Backup</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../configuration/backup/continuous-backup.html">Continuous Backup</a>
+    <a class="nav-link" href="backup/continuous-backup.html">Continuous Backup</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../configuration/backup/full-backup.html">Full Backup</a>
+    <a class="nav-link" href="backup/full-backup.html">Full Backup</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../configuration/lock-file.html">Lock File</a>
+    <a class="nav-link" href="lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -427,19 +433,19 @@
     <span class="nav-text">FAQ</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="data-model.html">Data Model</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="data-management.html">Data Management</a>
+    <a class="nav-link" href="../faq/data-model.html">Data Model</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="file-storage.html">File Storage</a>
+    <a class="nav-link" href="../faq/data-management.html">Data Management</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="java-features.html">Java Features</a>
+    <a class="nav-link" href="../faq/file-storage.html">File Storage</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="miscellaneous.html">Miscellaneous</a>
+    <a class="nav-link" href="../faq/java-features.html">Java Features</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../faq/miscellaneous.html">Miscellaneous</a>
   </li>
 </ul>
   </li>
@@ -568,6 +574,9 @@
     <a class="nav-link" href="../../gigamap/queries/executing.html">Executing Queries</a>
   </li>
 </ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../gigamap/constraints.html">Constraints</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../gigamap/crud.html">CRUD</a>
@@ -705,26 +714,23 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">EclipseStore Reference Manual</span>
-    <span class="version">Preview</span>
+    <span class="version">V4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../../intro/welcome.html">EclipseStore Reference Manual</a></div>
+      <div class="title"><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></div>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../../intro/welcome.html">V4</a>
-        </li>
-        <li class="version is-current">
-          <a href="../../intro/welcome.html">Preview</a>
+        <li class="version is-current is-latest">
+          <a href="../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../../3/intro/welcome.html">V3</a>
+          <a href="../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
-          <a href="../../../2/intro/welcome.html">V2</a>
+          <a href="../../2/intro/welcome.html">V2</a>
         </li>
         <li class="version">
-          <a href="../../../1/intro/welcome.html">V1</a>
+          <a href="../../1/intro/welcome.html">V1</a>
         </li>
       </ul>
     </li>
@@ -740,100 +746,50 @@
   <ul>
     <li><a href="../../intro/welcome.html">EclipseStore Reference Manual</a></li>
     <li><a href="../index.html">Storage</a></li>
-    <li>FAQ</li>
-    <li><a href="data-management.html">Data Management</a></li>
+    <li><a href="index.html">Configuration</a></li>
+    <li><a href="best-practices.html">Best Practices: Dev / Test / Prod</a></li>
   </ul>
 </nav>
 <div class="page-versions">
-  <button class="version-menu-toggle" title="Show other versions of page">Preview</button>
+  <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
-    <a class="version" href="../../../storage/faq/data-management.html">V4</a>
-    <a class="version is-current" href="data-management.html">Preview</a>
-    <a class="version" href="../../../3/storage/faq/data-management.html">V3</a>
-    <a class="version" href="../../../2/storage/faq/data-management.html">V2</a>
-    <a class="version" href="../../../1/storage/faq/data-management.html">V1</a>
+    <a class="version is-current" href="best-practices.html">V4</a>
+    <a class="version is-missing" href="../../3/intro/welcome.html">V3</a>
+    <a class="version is-missing" href="../../2/intro/welcome.html">V2</a>
+    <a class="version is-missing" href="../../1/intro/welcome.html">V1</a>
   </div>
 </div>
-<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/4.1.0-preview-docs/docs/modules/storage/pages/faq/data-management.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eclipse-store/store/edit/main/docs/modules/storage/pages/configuration/best-practices.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Data Management</h1>
-<div class="sect1">
-<h2 id="_where_is_the_data_of_my_database_located"><a class="anchor" href="#_where_is_the_data_of_my_database_located"></a>Where is the data of my database located?</h2>
+<h1 class="page">Best Practices: Dev / Test / Staging / Prod</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>EclipseStore connects your application&#8217;s entity graph residing in memory to a physical form of data (i.e.
-persistent data) to/from which entity data is stored/loaded as required.
-By default, data is stored on the local file system in the directory configured via <code>setStorageDirectory()</code> or the <code>storage-directory</code> configuration property.
-See <a href="../configuration/storage-files-and-directories.html" class="xref page">Storage Files and Directories</a> for details on the directory structure and file layout.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_what_if_my_database_is_really_big"><a class="anchor" href="#_what_if_my_database_is_really_big"></a>What if my database is really big?</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>EclipseStore uses the common concept of <a href="../loading-data/lazy-loading/index.html" class="xref page">Lazy Loading</a>, allowing you to define which parts of your data (entity sub-graphs) are loaded only when required instead of eagerly at startup.
-A few well-placed lazy references in your entity model make your application load only a tiny bit of "head" entities at startup time and load everything else later on demand.
-This allows the handling of arbitrarily big databases with relatively small memory requirements.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_does_storage_size_grow_over_time"><a class="anchor" href="#_how_does_storage_size_grow_over_time"></a>How does storage size grow over time?</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>When objects are updated or deleted, the old data is not immediately removed from the storage files.
-Instead, new data is appended and the deleted data becomes "garbage."
-The <a href="../housekeeping.html" class="xref page">housekeeping</a> process runs in the background to reclaim space from deleted or updated objects.</p>
+<p>EclipseStore ships with conservative, frictionless defaults so that getting started is a one-liner.
+A number of features are intentionally <strong>off by default</strong> — turning them on globally would be a breaking change for existing applications, and most of them carry a small operational cost (extra disk space, extra setup, slower startup) that is only worth paying once you leave a developer&#8217;s machine.</p>
 </div>
 <div class="paragraph">
-<p>You can monitor storage growth through the <a href="../../misc/monitoring/index.html" class="xref page">monitoring</a> JMX beans, which report the amount of persisted data.</p>
+<p>This page lists those features and gives a recommendation per environment.
+Each section links to the canonical configuration page that documents <strong>how</strong> to enable the feature; this page only documents <strong>whether</strong> and <strong>why</strong> you should.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_can_i_reduce_storage_size"><a class="anchor" href="#_how_can_i_reduce_storage_size"></a>How can I reduce storage size?</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Ensure <a href="../configuration/housekeeping.html" class="xref page">housekeeping</a> is configured with sufficient time budget to keep up with updates</p>
-</li>
-<li>
-<p>Store only the data you need — avoid storing derived or cached data</p>
-</li>
-<li>
-<p>Use <a href="../loading-data/lazy-loading/index.html" class="xref page">Lazy references</a> to manage what is kept in memory</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_do_i_handle_concurrent_access"><a class="anchor" href="#_how_do_i_handle_concurrent_access"></a>How do I handle concurrent access?</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>EclipseStore is designed for single-process access.
-The storage manager itself handles the internal persistence operations (reading and writing storage files) in a thread-safe manner.</p>
-</div>
-<div class="paragraph">
-<p>However, <strong>your application code is responsible for synchronizing access to the shared object graph</strong>.
-Since EclipseStore stores plain Java objects that live in memory, the same concurrency rules apply as for any shared mutable data in Java.
-Without proper synchronization, concurrent reads and writes to the same objects can cause race conditions and inconsistent state — just like with any in-memory data structure.</p>
-</div>
-<div class="paragraph">
-<p>In particular, modifying the object graph and calling <code>store()</code> <strong>must be done under the same lock</strong>.
-EclipseStore cannot enforce this on the application level.
-If the modification and the store call are not in the same synchronized scope, other threads may read intermediate state or the persisted data may diverge from what is in memory.
-See <a href="../../misc/locking/index.html" class="xref page">Locking</a> for details.</p>
-</div>
-<div class="paragraph">
-<p>Use <a href="../../misc/locking/index.html" class="xref page">locking</a> or other synchronization strategies to protect your data during concurrent access.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Recommendations are guidelines, not rules.
+The right setting depends on your workload, your tolerance for downtime, and your operational constraints.
+When in doubt, prefer the safer setting in production and the more convenient one in development.
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -842,18 +798,14 @@ See <a href="../../misc/locking/index.html" class="xref page">Locking</a> for de
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Do not open the same storage from multiple processes simultaneously — this will lead to data corruption.</p>
-</li>
-<li>
-<p>The <a href="../configuration/lock-file.html" class="xref page">lock file</a> mechanism helps prevent accidental concurrent access.</p>
-</li>
-<li>
-<p>For multi-process or distributed access, consider using EclipseStore behind a service API layer.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Keep the <strong>goal</strong> of each test type in mind when picking settings.
+A unit test exercising business logic gets nothing from a real lock file, continuous backup, or production channel count — those are noise that slow the test down and obscure failures.
+A staging run validating a release, by contrast, exists <strong>precisely</strong> to exercise those operational features end-to-end; turning them off there defeats the point of staging.</p>
+</div>
+<div class="paragraph">
+<p>The <code>Test</code> column covers tests whose target is application logic; the <code>Staging</code> column covers tests whose target is the production deployment itself.
+If a single test suite mixes both goals, split it — or pick the column whose target dominates and accept that the other goal is being checked elsewhere.</p>
 </div>
 </td>
 </tr>
@@ -862,39 +814,471 @@ See <a href="../../misc/locking/index.html" class="xref page">Locking</a> for de
 </div>
 </div>
 <div class="sect1">
-<h2 id="_can_i_recover_from_data_corruption"><a class="anchor" href="#_can_i_recover_from_data_corruption"></a>Can I recover from data corruption?</h2>
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>If storage files become corrupted (e.g., due to disk failure or a crash during write):</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Feature</th>
+<th class="tableblock halign-left valign-top">Dev</th>
+<th class="tableblock halign-left valign-top">Test</th>
+<th class="tableblock halign-left valign-top">Staging</th>
+<th class="tableblock halign-left valign-top">Prod</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#lock-file">Lock file</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">on, if multiple processes may share the storage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">on, if multiple processes may share the storage</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#deletion-directory">Deletion directory</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>on</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>on</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#truncation-directory">Truncation directory</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#continuous-backup">Continuous backup</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>on</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>on</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#full-backup">Full backup</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ad-hoc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ad-hoc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scheduled (e.g. nightly)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scheduled (e.g. nightly)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#adaptive-housekeeping">Adaptive housekeeping</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">on for write-heavy workloads</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">on for write-heavy workloads</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#channel-count">Channel count</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tuned to match production</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tuned up-front to CPU/IO</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#read-only-mode">Read-only mode</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n/a</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">on for read replicas / snapshot inspection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">on for read replicas / snapshot inspection</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#jmx-monitoring">JMX monitoring</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">auth/SSL off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">auth/SSL off</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>auth and SSL on</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>auth and SSL on</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#rest-interface">REST interface</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off by default, otherwise behind auth and network isolation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">off by default, otherwise behind auth and network isolation</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Check if a <a href="../configuration/backup/continuous-backup.html" class="xref page">continuous backup</a> or <a href="../configuration/backup/full-backup.html" class="xref page">full backup</a> is available and restore from it</p>
-</li>
-<li>
-<p>If no backup is available, try starting the storage with the <code>StorageEntityCollector.Creator.Unchecked()</code> option (see <a href="../addendum/troubleshooting.html" class="xref page">Troubleshooting</a>)</p>
-</li>
-<li>
-<p>Contact the EclipseStore community for assistance with complex recovery scenarios</p>
-</li>
-</ol>
+</div>
+<div class="sect1">
+<h2 id="_per_feature_recommendations"><a class="anchor" href="#_per_feature_recommendations"></a>Per-Feature Recommendations</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="lock-file"><a class="anchor" href="#lock-file"></a>Lock file</h3>
+<div class="paragraph">
+<p><strong>Default:</strong> off. <strong>See:</strong> <a href="lock-file.html" class="xref page">Lock File</a>.</p>
+</div>
+<div class="paragraph">
+<p>EclipseStore&#8217;s proprietary lock file prevents two EclipseStore processes from operating on the same storage concurrently, which would corrupt the data files.
+The OS-level file lock is sufficient for the common case of a single application owning the storage; the proprietary lock file is only needed when more than one EclipseStore application may try to access the same files.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off. Quick restarts from an IDE produce stale-lock waits with no benefit when only one process accesses the storage.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off. Same as dev. Enable only in tests that deliberately exercise multi-process access.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Match prod. If prod runs with the lock file on, staging must too — otherwise staging is not exercising the same startup and restart paths as prod.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">On if more than one JVM may share the storage (for example blue/green deployments, an accidental double-start during a rolling restart, or a sidecar process). Off is safe if a single application owns the storage exclusively.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="deletion-directory"><a class="anchor" href="#deletion-directory"></a>Deletion directory</h3>
+<div class="paragraph">
+<p><strong>Default:</strong> off. <strong>See:</strong> <a href="storage-files-and-directories.html" class="xref page">Storage Files and Directories</a>.</p>
+</div>
+<div class="paragraph">
+<p>When configured, the housekeeping process moves data files into the deletion directory instead of erasing them.
+Recovering an object that was incorrectly garbage-collected (for example because a root reference was unintentionally dropped before a <code>store()</code>) is impossible after a normal delete, but trivial as long as the file still exists in the deletion directory.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off. Disk usage and operational complexity outweigh the benefit on a developer machine where the storage can be recreated.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off. Recreate fixtures rather than recover them.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>On.</strong> Mirror prod so the cleanup job, disk allocation, and any recovery procedures are exercised before they matter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>On.</strong> Cheap insurance against operator error and against bugs in storing logic. Pair with a periodic cleanup job (or a generous disk allocation).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="truncation-directory"><a class="anchor" href="#truncation-directory"></a>Truncation directory</h3>
+<div class="paragraph">
+<p><strong>Default:</strong> off. <strong>See:</strong> <a href="storage-files-and-directories.html" class="xref page">Storage Files and Directories</a>.</p>
+</div>
+<div class="paragraph">
+<p>Files that get truncated during housekeeping (for example when a file&#8217;s used-ratio drops below the configured threshold and it is rewritten in compacted form) are copied to this directory before truncation.
+Useful for forensics if you suspect housekeeping is removing live data, but rarely needed in healthy operation.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off, unless the test under investigation specifically exercises file truncation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Same default as prod — leave off unless reproducing a housekeeping-related incident.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Enable temporarily during incident investigation; leave off by default to control disk usage.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="continuous-backup"><a class="anchor" href="#continuous-backup"></a>Continuous backup</h3>
+<div class="paragraph">
+<p><strong>Default:</strong> off. <strong>See:</strong> <a href="backup/continuous-backup.html" class="xref page">Continuous Backup</a>.</p>
+</div>
+<div class="paragraph">
+<p>When enabled, every change written to the primary storage is mirrored to a backup directory in real time.
+The backup is byte-identical to the primary and can be used directly as a storage if the primary is lost.
+Overhead is modest because writes go to two targets in parallel rather than being copied after the fact.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off. The primary storage is disposable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off, unless the test specifically exercises backup/restore behaviour.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>On.</strong> The backup pipeline itself is part of what staging validates — running staging without it leaves a hole in the dress rehearsal.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>On.</strong> The single most effective protection against disk failure or accidental deletion of the primary storage. Place the backup on a separate physical disk, host, or <a href="../storage-targets/index.html" class="xref page">storage target</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="full-backup"><a class="anchor" href="#full-backup"></a>Full backup</h3>
+<div class="paragraph">
+<p><strong>Default:</strong> not applicable (manual operation). <strong>See:</strong> <a href="backup/full-backup.html" class="xref page">Full Backup</a>.</p>
+</div>
+<div class="paragraph">
+<p>A full backup is a one-shot snapshot triggered via <code>EmbeddedStorageManager.issueFullBackup(&#8230;&#8203;)</code>.
+It is a <strong>blocking</strong> operation: store operations are paused for the duration, which can be significant for large storages.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ad-hoc. Use to capture interesting fixtures or before destructive experiments.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ad-hoc. Useful for seeding integration-test environments from a known state.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheduled, on the same cadence as prod. The blocking pause is itself a load-test signal — if it disrupts staging it will disrupt prod.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schedule during off-peak hours (for example a nightly cron) as a periodic safety net on top of <a href="#continuous-backup">continuous backup</a>. Also recommended before major migrations or schema changes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="adaptive-housekeeping"><a class="anchor" href="#adaptive-housekeeping"></a>Adaptive housekeeping</h3>
+<div class="paragraph">
+<p><strong>Default:</strong> off (fixed time budget of 10 ms per 1-second interval). <strong>See:</strong> <a href="housekeeping.html" class="xref page">Housekeeping</a>.</p>
+</div>
+<div class="paragraph">
+<p>Adaptive housekeeping increases the time budget when the housekeeping process cannot keep up with incoming writes.
+Without it, write-heavy workloads can leave files uncollected and cause disk usage to grow well past what the data warrants.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off. The fixed default keeps housekeeping unobtrusive on a developer machine.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off. Predictable, repeatable behaviour is more valuable in tests than throughput.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Match prod. If prod runs adaptive housekeeping, staging must too — otherwise staging&#8217;s disk usage and pause behaviour diverge from production under load.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">On for write-heavy workloads. The fixed default is sufficient for read-heavy or low-write applications; switch to adaptive when you observe disk usage growing faster than the underlying data.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="channel-count"><a class="anchor" href="#channel-count"></a>Channel count</h3>
+<div class="paragraph">
+<p><strong>Default:</strong> 1. <strong>See:</strong> <a href="using-channels.html" class="xref page">Using Channels</a>.</p>
+</div>
+<div class="paragraph">
+<p>Channels are the IO threads (and corresponding storage subdirectories) that EclipseStore uses in parallel.
+The channel count must be a power of two and is fixed for the lifetime of a storage — changing it later requires migration.
+Pick the right number up front.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. Simplest setup, easiest to inspect on disk.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1, unless the test specifically exercises multi-channel parallelism.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the same channel count you intend for prod. Channel count cannot be changed without migration, so staging is where you confirm the choice on representative hardware and workload.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tune to your workload and hardware. More channels mean higher write parallelism but more files and more memory; a single channel is often fine for read-heavy or moderate-write applications.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="read-only-mode"><a class="anchor" href="#read-only-mode"></a>Read-only mode</h3>
+<div class="paragraph">
+<p><strong>Default:</strong> off. <strong>See:</strong> <a href="readonly.html" class="xref page">Read-only Manager</a>.</p>
+</div>
+<div class="paragraph">
+<p>A read-only storage manager rejects all writes and disables housekeeping, which lets it coexist with another writing manager — the only supported way to have two managers on the same storage.
+Useful for read replicas, ad-hoc inspection of a backup, or analytics workloads that should not mutate data.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not applicable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Useful for tests that load a fixture and assert against it without ever mutating.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">On for replica or snapshot-inspection deployments — the same scenarios as prod, exercised against staging data so the read-only manager&#8217;s lifecycle is validated before it runs against production data.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">On for read-replica or snapshot-inspection deployments. Keep the read-only manager short-lived: it does not see writes from the primary manager and will eventually be invalidated by housekeeping there.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="jmx-monitoring"><a class="anchor" href="#jmx-monitoring"></a>JMX monitoring</h3>
+<div class="paragraph">
+<p><strong>Default:</strong> JMX beans are always exposed; remote JMX is configured at the JVM level and is off by default. <strong>See:</strong> <a href="../../misc/monitoring/index.html" class="xref page">Monitoring</a>.</p>
+</div>
+<div class="paragraph">
+<p>EclipseStore publishes JMX beans for storage growth, entity cache, lazy references, object registry, and per-channel metrics.
+The beans themselves are free to expose; the operational risk is in how the JVM exposes the JMX port.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Auth and SSL off (typical local-only JMX setup) is fine.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Auth and SSL off is fine in isolated test infrastructure.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Auth and SSL on</strong>, configured exactly like prod. Staging is reachable from more than just a developer&#8217;s laptop, and the JMX hardening recipe needs to be exercised end-to-end before it&#8217;s relied on in prod.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Authentication and SSL must be on.</strong> Restrict the JMX port to a monitoring network or block it at the firewall. An unauthenticated JMX port is remote code execution.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="rest-interface"><a class="anchor" href="#rest-interface"></a>REST interface</h3>
+<div class="paragraph">
+<p><strong>Default:</strong> off (<code>org.eclipse.store.rest.enabled=false</code> in the Spring Boot integration). <strong>See:</strong> <a href="../rest-interface/setup.html" class="xref page">REST Interface Setup</a>.</p>
+</div>
+<div class="paragraph">
+<p>The REST interface exposes the object graph for inspection and is invaluable during development and debugging.
+It is read-only at the protocol level, but the data it returns is your application&#8217;s data, so the same access controls that govern the application as a whole must govern the REST endpoint.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">On. Useful for inspecting the live object graph from a browser or the client GUI.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Convenient for diagnosing test failures.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off by default, or behind the same auth and network isolation as prod. The point of staging is to confirm those controls work — leaving the REST interface wide open in staging defeats it.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Off by default. If you need it for operations, place it behind authentication (Spring Security or equivalent) and restrict it to an internal network. The bundled Client GUI is a development tool and should not be exposed publicly.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_can_i_export_my_data"><a class="anchor" href="#_can_i_export_my_data"></a>Can I export my data?</h2>
+<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Yes. EclipseStore provides binary <a href="../import-export.html" class="xref page">Import / Export</a> to transfer storage data between instances.
-The exported binary data can also be converted to and from CSV for inspection or editing with external tools.
-See <a href="../import-export.html" class="xref page">Import / Export</a> for details.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="index.html" class="xref page">Configuration overview</a></p>
+</li>
+<li>
+<p><a href="properties.html" class="xref page">Configuration properties reference</a></p>
+</li>
+<li>
+<p><a href="../storage-targets/index.html" class="xref page">Storage Targets</a></p>
+</li>
+<li>
+<p><a href="../../misc/monitoring/index.html" class="xref page">Monitoring</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="data-model.html">Data Model</a></span>
-  <span class="next"><a href="file-storage.html">File Storage</a></span>
+  <span class="prev"><a href="lock-file.html">Lock File</a></span>
+  <span class="next"><a href="../storage-targets/index.html">Storage Targets</a></span>
 </nav>
 </article>
   </div>
@@ -903,10 +1287,10 @@ See <a href="../import-export.html" class="xref page">Import / Export</a> for de
 <footer class="footer">
 © 2023-2026 MicroStream Software. All rights reserved.
 </footer>
-<script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
-<script async src="../../../../_/js/vendor/highlight.js"></script>
-<script src="../../../../_/js/vendor/lunr.js"></script>
-<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
-<script async src="../../../../search-index.js"></script>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
   </body>
 </html>

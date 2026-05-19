@@ -203,6 +203,9 @@
     <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../gigamap/constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../gigamap/crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -747,7 +753,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="index.html">V4</a>
-    <a class="version" href="../../4.1.0-beta/storage/storing-data/index.html">Preview</a>
     <a class="version" href="../../3/storage/storing-data/index.html">V3</a>
     <a class="version" href="../../2/storage/storing-data/index.html">V2</a>
     <a class="version" href="../../1/storage/storing-data/index.html">V1</a>
@@ -770,7 +775,8 @@ This includes the object&#8217;s value fields and references to other objects.
 Storing an object will also store all instances referenced by this objects that have not been stored before.
 While storing your data most of the work EclipseStore performs for you.
 You only need to call the store method on the correct object.
-The rule is: "The Object that has been modified has to be stored!".</p>
+The rule is: "The Object that has been modified has to be stored!".
+The reason for this rule is that EclipseStore traverses the object graph <strong>lazily</strong> by default — already-persisted objects are skipped during the walk. See <a href="lazy-eager-full.html" class="xref page">Lazy and Eager Storing</a> for the details and when to override this behavior.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -785,6 +791,18 @@ EclipseStore cannot enforce this on the application level — it is <strong>your
 Without this guarantee, other threads may observe inconsistent in-memory state or the stored data may not reflect the intended change.
 See <a href="../../misc/locking/index.html" class="xref page">Locking</a> for details.</p>
 </div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+See <a href="../../intro/concurrent-access.html" class="xref page">Concurrent Access</a> for the full conceptual treatment.
 </td>
 </tr>
 </table>

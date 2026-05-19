@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>System Requirements :: EclipseStore Reference Manual</title>
     <link rel="canonical" href="https://docs.eclipsestore.io/manual/intro/system-requirements.html">
-    <link rel="prev" href="architecture.html">
+    <link rel="prev" href="concurrent-access.html">
     <link rel="next" href="changelog.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -202,6 +202,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="architecture.html">Architecture Overview</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="concurrent-access.html">Concurrent Access</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="system-requirements.html">System Requirements</a>
   </li>
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../gigamap/constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../gigamap/crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -746,7 +752,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="system-requirements.html">V4</a>
-    <a class="version" href="../4.1.0-beta/intro/system-requirements.html">Preview</a>
     <a class="version" href="../3/intro/system-requirements.html">V3</a>
     <a class="version" href="../2/intro/system-requirements.html">V2</a>
     <a class="version" href="../1/intro/system-requirements.html">V1</a>
@@ -862,7 +867,7 @@ a logging framework of your choice.</p>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="architecture.html">Architecture Overview</a></span>
+  <span class="prev"><a href="concurrent-access.html">Concurrent Access</a></span>
   <span class="next"><a href="changelog.html">Changelog</a></span>
 </nav>
 </article>

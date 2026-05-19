@@ -203,6 +203,9 @@
     <a class="nav-link" href="../../../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../../storage/configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../storage/configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="../../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -748,7 +754,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="index.html">V4</a>
-    <a class="version" href="../../../4.1.0-beta/gigamap/indexing/jvector/index.html">Preview</a>
     <a class="version is-missing" href="../../../3/intro/welcome.html">V3</a>
     <a class="version is-missing" href="../../../2/intro/welcome.html">V2</a>
     <a class="version is-missing" href="../../../1/intro/welcome.html">V1</a>
@@ -1012,7 +1017,7 @@ For optimal performance, run on <strong>Java 21 LTS or later</strong> to benefit
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.eclipse.store&lt;/groupId&gt;
     &lt;artifactId&gt;gigamap-jvector&lt;/artifactId&gt;
-    &lt;version&gt;4.0.1&lt;/version&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
@@ -1091,6 +1096,21 @@ for (ScoredSearchResult.Entry&lt;Document&gt; entry : result)
     .toList();</code></pre>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_tuning_search_effort_per_query"><a class="anchor" href="#_tuning_search_effort_per_query"></a>Tuning search effort per query</h3>
+<div class="paragraph">
+<p>Every call uses a minimum beam width (HNSW <em>efSearch</em>) configured via <code>minSearchBeamWidth</code> (default 100). The effective beam width is <code>max(k, minSearchBeamWidth)</code> and keeps the top-k stable regardless of the requested <code>k</code>. A per-query overload lets you override this floor for a single call — useful to widen exploration for higher recall, or narrow it for lower latency when reproducibility across different <code>k</code> values is not required.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Widen exploration for this query (higher recall, higher latency)
+VectorSearchResult&lt;Document&gt; highRecall = index.search(queryVector, 10, 500);
+
+// Narrow exploration for this query (lower latency, may differ from higher-k results)
+VectorSearchResult&lt;Document&gt; fast = index.search(queryVector, 10, 10);</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1147,6 +1167,74 @@ for (ScoredSearchResult.Entry&lt;Document&gt; entry : result)
 
     storage.storeRoot();
 }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="computed-vectorizers-and-lazy-initialization"><a class="anchor" href="#computed-vectorizers-and-lazy-initialization"></a>Computed Vectorizers and Lazy Initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A vectorizer instance is part of the GigaMap&#8217;s persistent object graph: when storage is reopened, the vectorizer is restored alongside the index data and reused — its fields are loaded back exactly as they were when the GigaMap was last stored.</p>
+</div>
+<div class="paragraph">
+<p>For computed vectorizers — those that derive embeddings on the fly, e.g. by calling an embedding model over HTTP — this means any heavy field on the vectorizer (HTTP clients, embedding-model handles, tokenizers) would otherwise be serialized along with the cheap configuration. Mark heavy fields <code>transient</code> and create them on first use; persist only the cheap configuration that identifies which model or endpoint to talk to.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class MyVectorizer extends Vectorizer&lt;Entity&gt;
+{
+    private final String baseUrl ;
+    private final String modelName;
+
+    private transient EmbeddingModel embeddingModel;
+
+    public MyVectorizer(final String baseUrl, final String modelName)
+    {
+        this.baseUrl   = baseUrl  ;
+        this.modelName = modelName;
+    }
+
+    private EmbeddingModel embeddingModel()
+    {
+        if(this.embeddingModel == null)
+        {
+            this.embeddingModel = OllamaEmbeddingModel.builder()
+                .baseUrl(this.baseUrl)
+                .modelName(this.modelName)
+                .build();
+        }
+        return this.embeddingModel;
+    }
+
+    @Override
+    public float[] vectorize(final Entity entity)
+    {
+        return this.embeddingModel().embed(toText(entity))
+            .content().vector();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the GigaMap is loaded from existing storage, the vectorizer is restored from the persistent graph with its <code>baseUrl</code> and <code>modelName</code> intact. The transient <code>embeddingModel</code> field is <code>null</code> after deserialization and is recreated on the first <code>vectorize</code> call.</p>
+</div>
+<div class="sect2">
+<h3 id="_looking_up_a_vector_index_after_load"><a class="anchor" href="#_looking_up_a_vector_index_after_load"></a>Looking up a vector index after load</h3>
+<div class="paragraph">
+<p>The first argument to <code>vectorIndices.add(name, configuration, vectorizer)</code> is the index&#8217;s handle. GigaMap stores the index under that name and uses it as the on-disk filename prefix (<code>{name}.graph</code>, <code>{name}.meta</code>) when on-disk storage is enabled, so pick a stable string that is also a valid filename. Avoid path separators and keep it short.</p>
+</div>
+<div class="paragraph">
+<p>After the GigaMap is loaded from existing storage, the index is owned and managed by GigaMap — you do not re-add it. Retrieve a reference by name:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">VectorIndices&lt;Document&gt; vectorIndices = gigaMap.index().get(VectorIndices.Category());
+VectorIndex&lt;Document&gt; index = vectorIndices.get("embeddings");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>vectorIndices.get(name)</code> returns <code>null</code> if no index with that name is registered. If you want a single call site that creates the index on first run and reuses it on subsequent loads, use <code>ensure(name, configuration, vectorizer)</code> instead of <code>add(&#8230;&#8203;)</code>.</p>
 </div>
 </div>
 </div>

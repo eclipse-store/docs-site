@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CRUD :: EclipseStore Reference Manual</title>
     <link rel="canonical" href="https://docs.eclipsestore.io/manual/gigamap/crud.html">
-    <link rel="prev" href="queries/executing.html">
+    <link rel="prev" href="constraints.html">
     <link rel="next" href="persistence.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -203,6 +203,9 @@
     <a class="nav-link" href="../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -569,6 +575,9 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="constraints.html">Constraints</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="crud.html">CRUD</a>
   </li>
@@ -715,9 +724,6 @@
           <a href="../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -747,7 +753,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="crud.html">V4</a>
-    <a class="version" href="../4.1.0-beta/gigamap/crud.html">Preview</a>
     <a class="version" href="../3/gigamap/crud.html">V3</a>
     <a class="version is-missing" href="../2/intro/welcome.html">V2</a>
     <a class="version is-missing" href="../1/intro/welcome.html">V1</a>
@@ -798,6 +803,18 @@ If you want to use <em>value equality</em>, just use a different <code>Equalator
 <div class="sect1">
 <h2 id="_locking"><a class="anchor" href="#_locking"></a>Locking</h2>
 <div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+See <a href="../intro/concurrent-access.html" class="xref page">Concurrent Access</a> for the full conceptual treatment.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>The GigaMap employs internal read-write locking, making it thread-safe for its own operations (<code>add</code>, <code>remove</code>, <code>update</code>, <code>get</code>, etc.).</p>
 </div>
@@ -890,10 +907,22 @@ gigaMap.update(person, p -&gt; {
 <div class="paragraph">
 <p>Entities modified through <code>update</code> (or <code>apply</code>) are automatically persisted when calling <code>store()</code>. See <a href="persistence.html" class="xref page">Persistence</a> for details.</p>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Because <code>update</code> / <code>apply</code> mutate the entity in place, a constraint violation triggered by the new state cannot be rolled back. The GigaMap therefore <strong>removes</strong> the offending entity from the map and rethrows the <code>ConstraintViolationException</code>. See <a href="constraints.html#_constraint_violations" class="xref page">Constraints — Constraint Violations</a> for the full rollback semantics across CRUD operations.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="queries/executing.html">Executing Queries</a></span>
+  <span class="prev"><a href="constraints.html">Constraints</a></span>
   <span class="next"><a href="persistence.html">Persistence</a></span>
 </nav>
 </article>

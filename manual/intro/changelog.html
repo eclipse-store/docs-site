@@ -203,6 +203,9 @@
     <a class="nav-link" href="architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../storage/configuration/lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../storage/configuration/best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../gigamap/constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../gigamap/crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -746,7 +752,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="changelog.html">V4</a>
-    <a class="version" href="../4.1.0-beta/intro/changelog.html">Preview</a>
     <a class="version" href="../3/intro/changelog.html">V3</a>
     <a class="version" href="../2/intro/changelog.html">V2</a>
     <a class="version" href="../1/intro/changelog.html">V1</a>
@@ -761,10 +766,128 @@
 <article class="doc">
 <h1 class="page">Changelog</h1>
 <div class="sect1">
+<h2 id="_4_1_0"><a class="anchor" href="#_4_1_0"></a>4.1.0</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_features"><a class="anchor" href="#_features"></a>Features</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../storage/storing-data/batch-storer.html" class="xref page">Batch Storer</a> for batched persistence <a href="https://github.com/eclipse-serializer/serializer/pull/254">[254</a>] <a href="https://github.com/eclipse-store/store/pull/638">[638</a>]</p>
+</li>
+<li>
+<p>Storage object recovery <a href="https://github.com/eclipse-store/store/pull/634">[634</a>]</p>
+</li>
+<li>
+<p>Enhanced root initialization and retrieval in StorageManager <a href="https://github.com/eclipse-store/store/pull/631">[631</a>] <a href="https://github.com/eclipse-store/store/pull/632">[632</a>]</p>
+</li>
+<li>
+<p>GigaMap</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../gigamap/queries/defining.html#_sub_queries" class="xref page">Sub-queries</a> across all index types <a href="https://github.com/eclipse-store/store/pull/637">[637</a>]</p>
+</li>
+<li>
+<p>Harden JVector on-disk persistence and add internal architecture doc <a href="https://github.com/eclipse-store/store/pull/657">[657</a>]</p>
+</li>
+<li>
+<p>Make HNSW search beam width configurable <a href="https://github.com/eclipse-store/store/pull/644">[644</a>]</p>
+</li>
+<li>
+<p>Replace <code>finalize()</code> with <code>java.lang.ref.Cleaner</code> <a href="https://github.com/eclipse-store/store/pull/673">[673</a>]</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bugfixes"><a class="anchor" href="#_bugfixes"></a>Bugfixes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Fix element count calculation issue <a href="https://github.com/eclipse-serializer/serializer/pull/252">[252</a>]</p>
+</li>
+<li>
+<p>Fix potential deadlocks in <code>store</code> / <code>storeAll</code> lock ordering <a href="https://github.com/eclipse-store/store/issues/405">[405</a>] <a href="https://github.com/eclipse-store/store/issues/414">[414</a>] <a href="https://github.com/eclipse-serializer/serializer/pull/277">[277</a>] <a href="https://github.com/eclipse-store/store/pull/678">[678</a>]</p>
+</li>
+<li>
+<p>Fix flaky deadlock during shutdown in <code>StorageBackupItemQueue</code> <a href="https://github.com/eclipse-store/store/issues/397">[397</a>] <a href="https://github.com/eclipse-store/store/pull/671">[671</a>]</p>
+</li>
+<li>
+<p>Seed live application OIDs into GC mark cycle to prevent zombie OIDs <a href="https://github.com/eclipse-store/store/pull/669">[669</a>]</p>
+</li>
+<li>
+<p>Fix type dictionary provider listener wiring <a href="https://github.com/eclipse-serializer/serializer/pull/264">[264</a>]</p>
+</li>
+<li>
+<p>Fix <code>isUnchangedStructure</code> always returning false <a href="https://github.com/eclipse-serializer/serializer/pull/262">[262</a>]</p>
+</li>
+<li>
+<p>Fix DynamoDB query and scan pagination to prevent data truncation <a href="https://github.com/eclipse-store/store/issues/400">[400</a>] <a href="https://github.com/eclipse-store/store/pull/680">[680</a>]</p>
+</li>
+<li>
+<p>GigaMap fixes</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Binary handler corrections (iterators + BitmapEntry metadata) <a href="https://github.com/eclipse-store/store/pull/679">[679</a>]</p>
+</li>
+<li>
+<p>Fix unique-constraint check missing duplicates after entity ejection <a href="https://github.com/eclipse-store/store/pull/664">[664</a>]</p>
+</li>
+<li>
+<p>Fix GigaMap builder for duplicate indexer usage <a href="https://github.com/eclipse-store/store/pull/660">[660</a>]</p>
+</li>
+<li>
+<p>Fix <code>Condition.and()</code> silently dropping the second range bound <a href="https://github.com/eclipse-store/store/issues/653">[653</a>] <a href="https://github.com/eclipse-store/store/pull/655">[655</a>]</p>
+</li>
+<li>
+<p>Prevent leaking non-matching IDs in composite conditions <a href="https://github.com/eclipse-store/store/pull/642">[642</a>]</p>
+</li>
+<li>
+<p>Fix composite key updates and index exception handling <a href="https://github.com/eclipse-store/store/pull/635">[635</a>]</p>
+</li>
+<li>
+<p>Fix race condition in LuceneIndex GraphDirectory during store <a href="https://github.com/eclipse-store/store/pull/628">[628</a>]</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_other_changes"><a class="anchor" href="#_other_changes"></a>Other changes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Implemented cleanUp in ConstantSizedBufferProvider <a href="https://github.com/eclipse-store/store/pull/636">[636</a>]</p>
+</li>
+<li>
+<p>Add OffHeapLongHashSet and utility methods <a href="https://github.com/eclipse-serializer/serializer/pull/255">[255</a>]</p>
+</li>
+<li>
+<p>Improve clear method in LazyHashMap for better segment unloading <a href="https://github.com/eclipse-serializer/serializer/pull/257">[257</a>]</p>
+</li>
+<li>
+<p>Add demo projects <a href="https://github.com/eclipse-store/store/pull/630">[630</a>]</p>
+</li>
+<li>
+<p>JCache: support <code>Cache.unwrap</code> to JCache management MXBeans <a href="https://github.com/eclipse-store/store/pull/672">[672</a>]</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_4_0_1"><a class="anchor" href="#_4_0_1"></a>4.0.1</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_bugfixes"><a class="anchor" href="#_bugfixes"></a>Bugfixes</h3>
+<h3 id="_bugfixes_2"><a class="anchor" href="#_bugfixes_2"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -782,7 +905,7 @@
 <h2 id="_4_0_0"><a class="anchor" href="#_4_0_0"></a>4.0.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features"><a class="anchor" href="#_features"></a>Features</h3>
+<h3 id="_features_2"><a class="anchor" href="#_features_2"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -820,7 +943,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_2"><a class="anchor" href="#_bugfixes_2"></a>Bugfixes</h3>
+<h3 id="_bugfixes_3"><a class="anchor" href="#_bugfixes_3"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -836,7 +959,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_other_changes"><a class="anchor" href="#_other_changes"></a>Other changes</h3>
+<h3 id="_other_changes_2"><a class="anchor" href="#_other_changes_2"></a>Other changes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -891,7 +1014,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_3_1_0"><a class="anchor" href="#_3_1_0"></a>3.1.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_2"><a class="anchor" href="#_features_2"></a>Features</h3>
+<h3 id="_features_3"><a class="anchor" href="#_features_3"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -910,7 +1033,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_3"><a class="anchor" href="#_bugfixes_3"></a>Bugfixes</h3>
+<h3 id="_bugfixes_4"><a class="anchor" href="#_bugfixes_4"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -926,7 +1049,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_other_changes_2"><a class="anchor" href="#_other_changes_2"></a>Other changes</h3>
+<h3 id="_other_changes_3"><a class="anchor" href="#_other_changes_3"></a>Other changes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -944,7 +1067,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_3_0_1"><a class="anchor" href="#_3_0_1"></a>3.0.1</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_bugfixes_4"><a class="anchor" href="#_bugfixes_4"></a>Bugfixes</h3>
+<h3 id="_bugfixes_5"><a class="anchor" href="#_bugfixes_5"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -997,7 +1120,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_3_0_0"><a class="anchor" href="#_3_0_0"></a>3.0.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_3"><a class="anchor" href="#_features_3"></a>Features</h3>
+<h3 id="_features_4"><a class="anchor" href="#_features_4"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1016,7 +1139,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_5"><a class="anchor" href="#_bugfixes_5"></a>Bugfixes</h3>
+<h3 id="_bugfixes_6"><a class="anchor" href="#_bugfixes_6"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1077,7 +1200,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_2_1_2"><a class="anchor" href="#_2_1_2"></a>2.1.2</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_bugfixes_6"><a class="anchor" href="#_bugfixes_6"></a>Bugfixes</h3>
+<h3 id="_bugfixes_7"><a class="anchor" href="#_bugfixes_7"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1101,7 +1224,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_2_1_1"><a class="anchor" href="#_2_1_1"></a>2.1.1</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_bugfixes_7"><a class="anchor" href="#_bugfixes_7"></a>Bugfixes</h3>
+<h3 id="_bugfixes_8"><a class="anchor" href="#_bugfixes_8"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1122,7 +1245,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_2_1_0"><a class="anchor" href="#_2_1_0"></a>2.1.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_4"><a class="anchor" href="#_features_4"></a>Features</h3>
+<h3 id="_features_5"><a class="anchor" href="#_features_5"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1138,7 +1261,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_8"><a class="anchor" href="#_bugfixes_8"></a>Bugfixes</h3>
+<h3 id="_bugfixes_9"><a class="anchor" href="#_bugfixes_9"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1153,7 +1276,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_2_0_0"><a class="anchor" href="#_2_0_0"></a>2.0.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_5"><a class="anchor" href="#_features_5"></a>Features</h3>
+<h3 id="_features_6"><a class="anchor" href="#_features_6"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1172,7 +1295,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_9"><a class="anchor" href="#_bugfixes_9"></a>Bugfixes</h3>
+<h3 id="_bugfixes_10"><a class="anchor" href="#_bugfixes_10"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1205,7 +1328,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_1_4_0"><a class="anchor" href="#_1_4_0"></a>1.4.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_6"><a class="anchor" href="#_features_6"></a>Features</h3>
+<h3 id="_features_7"><a class="anchor" href="#_features_7"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1221,7 +1344,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_10"><a class="anchor" href="#_bugfixes_10"></a>Bugfixes</h3>
+<h3 id="_bugfixes_11"><a class="anchor" href="#_bugfixes_11"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1239,7 +1362,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_1_3_2"><a class="anchor" href="#_1_3_2"></a>1.3.2</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_7"><a class="anchor" href="#_features_7"></a>Features</h3>
+<h3 id="_features_8"><a class="anchor" href="#_features_8"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1252,7 +1375,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_11"><a class="anchor" href="#_bugfixes_11"></a>Bugfixes</h3>
+<h3 id="_bugfixes_12"><a class="anchor" href="#_bugfixes_12"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1270,7 +1393,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_1_3_1"><a class="anchor" href="#_1_3_1"></a>1.3.1</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_8"><a class="anchor" href="#_features_8"></a>Features</h3>
+<h3 id="_features_9"><a class="anchor" href="#_features_9"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1283,7 +1406,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_12"><a class="anchor" href="#_bugfixes_12"></a>Bugfixes</h3>
+<h3 id="_bugfixes_13"><a class="anchor" href="#_bugfixes_13"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1309,7 +1432,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_1_2_0"><a class="anchor" href="#_1_2_0"></a>1.2.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_9"><a class="anchor" href="#_features_9"></a>Features</h3>
+<h3 id="_features_10"><a class="anchor" href="#_features_10"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1319,7 +1442,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_13"><a class="anchor" href="#_bugfixes_13"></a>Bugfixes</h3>
+<h3 id="_bugfixes_14"><a class="anchor" href="#_bugfixes_14"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1334,7 +1457,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 <h2 id="_1_1_0"><a class="anchor" href="#_1_1_0"></a>1.1.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_features_10"><a class="anchor" href="#_features_10"></a>Features</h3>
+<h3 id="_features_11"><a class="anchor" href="#_features_11"></a>Features</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1365,7 +1488,7 @@ These storages need to be recreated with the final 4.0.0 release.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bugfixes_14"><a class="anchor" href="#_bugfixes_14"></a>Bugfixes</h3>
+<h3 id="_bugfixes_15"><a class="anchor" href="#_bugfixes_15"></a>Bugfixes</h3>
 <div class="ulist">
 <ul>
 <li>

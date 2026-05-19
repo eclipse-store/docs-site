@@ -6,7 +6,7 @@
     <title>Lock File :: EclipseStore Reference Manual</title>
     <link rel="canonical" href="https://docs.eclipsestore.io/manual/storage/configuration/lock-file.html">
     <link rel="prev" href="backup/full-backup.html">
-    <link rel="next" href="../storage-targets/index.html">
+    <link rel="next" href="best-practices.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../_/css/site.css">
   <link rel="icon" type="image/png" sizes="32x32" href="https://eclipsestore.io/fileadmin/user_upload_eclipsestore/logo/favicon/favicon-32x32.png">
@@ -203,6 +203,9 @@
     <a class="nav-link" href="../../intro/architecture.html">Architecture Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../intro/concurrent-access.html">Concurrent Access</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../intro/system-requirements.html">System Requirements</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -254,6 +257,9 @@
   </li>
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="lock-file.html">Lock File</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="best-practices.html">Best Practices: Dev / Test / Prod</a>
   </li>
 </ul>
   </li>
@@ -570,6 +576,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../gigamap/constraints.html">Constraints</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../gigamap/crud.html">CRUD</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -715,9 +724,6 @@
           <a href="../../intro/welcome.html">V4</a>
         </li>
         <li class="version">
-          <a href="../../4.1.0-beta/intro/welcome.html">Preview</a>
-        </li>
-        <li class="version">
           <a href="../../3/intro/welcome.html">V3</a>
         </li>
         <li class="version">
@@ -748,7 +754,6 @@
   <button class="version-menu-toggle" title="Show other versions of page">V4</button>
   <div class="version-menu">
     <a class="version is-current" href="lock-file.html">V4</a>
-    <a class="version" href="../../4.1.0-beta/storage/configuration/lock-file.html">Preview</a>
     <a class="version" href="../../3/storage/configuration/lock-file.html">V3</a>
     <a class="version" href="../../2/storage/configuration/lock-file.html">V2</a>
     <a class="version" href="../../1/storage/configuration/lock-file.html">V1</a>
@@ -762,6 +767,18 @@
 </aside>
 <article class="doc">
 <h1 class="page">Lock File</h1>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+See <a href="best-practices.html" class="xref page">Best Practices: Dev / Test / Prod</a> for environment-specific recommendations.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>By default, EclipseStore uses the operation system&#8217;s standard file locking mechanism to prevent simultaneous access to the storage files.
 In the rare case that this is not sufficient to control the file access EclipseStore provides a proprietary file lock implementation to ensure exclusive access to the storage files from different applications using EclipseStore.</p>
@@ -822,7 +839,7 @@ In the rare case that this is not sufficient to control the file access EclipseS
 </div>
 <nav class="pagination">
   <span class="prev"><a href="backup/full-backup.html">Full Backup</a></span>
-  <span class="next"><a href="../storage-targets/index.html">Storage Targets</a></span>
+  <span class="next"><a href="best-practices.html">Best Practices: Dev / Test / Prod</a></span>
 </nav>
 </article>
   </div>
