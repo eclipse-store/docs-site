@@ -1,6 +1,7 @@
 site:
   title: EclipseStore Reference Manual
   url: https://docs.eclipsestore.io/
+  start_page: manual:intro:welcome.adoc
   robots: allow
 content:
   sources:
@@ -20,17 +21,16 @@ asciidoc:
   attributes:
     page-pagination: ''
     source-language: asciidoc@
-    page-copyright-year: '2026'
-ui: 
+    # Soft-set so CI can override it with the current year via --attribute.
+    page-copyright-year: '2026@'
+ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
-    snapshot: true
+    url: ./ui/ui-bundle.zip
   supplemental_files: ./supplemental-ui
 output:
-  dir: ./site
+  # Served by GitHub Pages from main:/docs. Generated - never edit by hand.
+  dir: ./docs
+  clean: true
 antora:
   extensions:
   - require: '@antora/lunr-extension'
-
-
- 
