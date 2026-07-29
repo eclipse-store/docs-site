@@ -1,6 +1,16 @@
 {
+  "name": "eclipsestore-docs-site",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "antora --fetch antora-playbook.yml",
+    "build:local": "antora --fetch antora-playbook-local.yml",
+    "serve": "npx --yes http-server docs -c-1 -p 8080"
+  },
   "dependencies": {
-    "@antora/lunr-extension": "^1.0.0-alpha.8"
+    "@antora/lunr-extension": "1.0.0-alpha.13"
   },
   "devDependencies": {
     "@antora/cli": "3.1.4",
