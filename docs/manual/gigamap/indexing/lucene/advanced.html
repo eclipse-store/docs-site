@@ -898,8 +898,12 @@ builder.add(new Term("content", "machine"));
 builder.add(new Term("content", "learning"));
 Query phraseQuery = builder.build();
 
-// With slop (allows words in between)
-builder.setSlop(2);  // Allow up to 2 words between terms</code></pre>
+// With slop (allows words in between); set it before build()
+Query slopQuery = new PhraseQuery.Builder()
+    .add(new Term("content", "machine"))
+    .add(new Term("content", "learning"))
+    .setSlop(2)  // Allow up to 2 words between terms
+    .build();</code></pre>
 </div>
 </div>
 </div>
@@ -909,30 +913,36 @@ builder.setSlop(2);  // Allow up to 2 words between terms</code></pre>
 <h2 id="_relevance_scoring"><a class="anchor" href="#_relevance_scoring"></a>Relevance Scoring</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Access relevance scores to rank or filter results.</p>
+<p><code>search(&#8230;&#8203;)</code> returns a <code>LuceneSearchResult</code> whose entries carry the relevance score. The entries are already ordered by decreasing relevance, so no manual sorting is required.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Collect results with scores
-List&lt;ScoredResult&lt;Product&gt;&gt; scoredResults = new ArrayList&lt;&gt;();
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">LuceneSearchResult&lt;Product&gt; hits = luceneIndex.search("name:wireless", 100);
 
-luceneIndex.query("name:wireless", (entityId, product, score) -&gt; {
-    scoredResults.add(new ScoredResult&lt;&gt;(product, score));
-});
-
-// Sort by score descending
-scoredResults.sort((a, b) -&gt; Float.compare(b.score(), a.score()));
+// Iterate in relevance order
+for(ScoredSearchResult.Entry&lt;Product&gt; entry : hits)
+{
+    System.out.println(entry.entity().getName() + " (" + entry.score() + ")");
+}
 
 // Filter by minimum score
-List&lt;Product&gt; highConfidence = scoredResults.stream()
-    .filter(r -&gt; r.score() &gt; 1.0f)
-    .map(ScoredResult::product)
+List&lt;Product&gt; highConfidence = hits.stream()
+    .filter(entry -&gt; entry.score() &gt; 1.0f)
+    .map(ScoredSearchResult.Entry::entity)
     .toList();</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Besides <code>entity()</code> and <code>score()</code>, every entry exposes the GigaMap entity id via <code>entityId()</code>.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, the callback-based <code>query(&#8230;&#8203;)</code> overloads hand each hit to a <code>SearchResultAcceptor</code> without materializing a result object.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public record ScoredResult&lt;E&gt;(E product, float score) {}</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">luceneIndex.query("name:wireless", (entityId, product, score) -&gt;
+    System.out.println(product.getName() + " (" + score + ")")
+);</code></pre>
 </div>
 </div>
 </div>
@@ -1016,11 +1026,12 @@ For very large result sets, consider using Lucene&#8217;s <code>SearchAfter</cod
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Create context with auto-commit disabled
-LuceneContext&lt;Product&gt; context = LuceneContext.builder()
-    .directoryCreator(DirectoryCreator.MMap(indexPath))
-    .documentPopulator(new ProductDocumentPopulator())
-    .autoCommit(false)
-    .build();
+LuceneContext&lt;Product&gt; context = LuceneContext.New(
+    DirectoryCreator.MMap(indexPath),
+    AnalyzerCreator.Standard()      ,
+    new ProductDocumentPopulator()  ,
+    false                             // autoCommit
+);
 
 GigaMap&lt;Product&gt; products = GigaMap.New();
 LuceneIndex&lt;Product&gt; luceneIndex = products.index().register(LuceneIndex.Category(context));
@@ -1051,7 +1062,19 @@ luceneIndex.commit();</code></pre>
 <h2 id="_custom_analyzers"><a class="anchor" href="#_custom_analyzers"></a>Custom Analyzers</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Create custom analyzers for specialized text processing.</p>
+<p>Create custom analyzers for specialized text processing by subclassing <code>AnalyzerCreator</code> and overriding <code>createAnalyzer()</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>StandardAnalyzer</code> ships with <code>lucene-core</code>. The analyzers shown below live in <code>org.apache.lucene.analysis.core</code> and <code>org.apache.lucene.analysis.miscellaneous</code> and require the additional <code>lucene-analysis-common</code> dependency.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_keyword_analyzer"><a class="anchor" href="#_keyword_analyzer"></a>Keyword Analyzer</h3>
@@ -1065,7 +1088,7 @@ luceneIndex.commit();</code></pre>
 public class KeywordAnalyzerCreator extends AnalyzerCreator
 {
     @Override
-    public Analyzer create()
+    public Analyzer createAnalyzer()
     {
         return new KeywordAnalyzer();
     }
@@ -1085,7 +1108,7 @@ public class KeywordAnalyzerCreator extends AnalyzerCreator
 public class WhitespaceAnalyzerCreator extends AnalyzerCreator
 {
     @Override
-    public Analyzer create()
+    public Analyzer createAnalyzer()
     {
         return new WhitespaceAnalyzer();
     }
@@ -1105,7 +1128,7 @@ public class WhitespaceAnalyzerCreator extends AnalyzerCreator
 public class CustomAnalyzerCreator extends AnalyzerCreator
 {
     @Override
-    public Analyzer create()
+    public Analyzer createAnalyzer()
     {
         Map&lt;String, Analyzer&gt; fieldAnalyzers = new HashMap&lt;&gt;();
         fieldAnalyzers.put("sku", new KeywordAnalyzer());
@@ -1177,19 +1200,17 @@ Highlighting requires the <code>lucene-highlighter</code> dependency.
 </div>
 </div>
 <div class="paragraph">
-<p>For simpler faceting, combine with GigaMap&#8217;s bitmap indices:</p>
+<p>For simpler faceting, intersect the search result with a GigaMap query. Since <code>search(&#8230;&#8203;)</code> returns a <code>LuceneSearchResult</code>, which is a <a href="../../queries/defining.html#_sub_queries" class="xref page"><code>GigaMap.SubQuery</code></a>, no intermediate id set is needed.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Get Lucene search results
-List&lt;Product&gt; searchResults = luceneIndex.query("name:wireless");
-Set&lt;Long&gt; resultIds = searchResults.stream()
-    .map(Product::getId)
-    .collect(Collectors.toSet());
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Full-text hits, limited to the current map size
+LuceneSearchResult&lt;Product&gt; hits = luceneIndex.search("name:wireless");
 
-// Count by category using bitmap
-Map&lt;String, Long&gt; categoryCounts = products.query(Query.all())
-    .filter(p -&gt; resultIds.contains(p.getId()))
+// Count the matching entities by category
+Map&lt;String, Long&gt; categoryCounts = products.query()
+    .and(hits)
+    .stream()
     .collect(Collectors.groupingBy(Product::getCategory, Collectors.counting()));</code></pre>
 </div>
 </div>
